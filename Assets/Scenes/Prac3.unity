@@ -823,6 +823,7 @@ GameObject:
   - component: {fileID: 2049352077}
   - component: {fileID: 2049352076}
   - component: {fileID: 2049352079}
+  - component: {fileID: 2049352080}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -890,13 +891,25 @@ MonoBehaviour:
   speed: 12
   gravity: -9.8
   groundCheck: {fileID: 1442335097}
-  camera: {fileID: 1531576627}
-  renderer: {fileID: 920961806}
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
     m_Bits: 64
   jumpHeight: 2
+--- !u!114 &2049352080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049352075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 461945ce1da1d0d46a5705e178c28a89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 1531576627}
+  renderer: {fileID: 920961806}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
