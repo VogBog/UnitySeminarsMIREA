@@ -54,6 +54,6 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(moleLiveTime);
 
-        Debug.Log("КОНЕЦ! Вы прибили " + score + " кротов");
+        Debug.Log("РљРѕРЅРµС†! Р’С‹ РїСЂРёР±РёР»Рё " + score + " РєСЂРѕС‚РѕРІ");
     }
 }
