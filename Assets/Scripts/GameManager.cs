@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Mole molePrefab;
+    [SerializeField] private RedMole molePrefab;
+    [SerializeField] private GreenMole greenMolePrefab;
+    [SerializeField] private int greenMoleSpawnChance;
     [SerializeField] private float createMoleTime;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private float moleLiveTime;
@@ -11,9 +13,14 @@ public class GameManager : MonoBehaviour
 
     private int score = 0;
 
-    public void HitMole()
+    public void AddScore()
     {
         score++;
+    }
+
+    public void SubScore()
+    {
+        score--;
     }
 
     private void Start()
@@ -30,7 +37,13 @@ public class GameManager : MonoBehaviour
             var randIndex = Random.Range(0, spawnPoints.Length);
             var pos = spawnPoints[randIndex].position;
 
-            var mole = Instantiate(molePrefab);
+            Mole prefab = molePrefab;
+            if(Random.Range(0, 100) < greenMoleSpawnChance)
+            {
+                prefab = greenMolePrefab;
+            }
+
+            var mole = Instantiate(prefab);
             mole.transform.position = pos;
 
             mole.gameManager = this;

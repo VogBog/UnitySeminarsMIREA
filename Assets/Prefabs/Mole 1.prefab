@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8661010134893971115}
   - component: {fileID: 1750266193057956697}
   - component: {fileID: 2590827938618322435}
-  - component: {fileID: 6898387854078760228}
+  - component: {fileID: 4427143376394068473}
   m_Layer: 0
-  m_Name: Mole
+  m_Name: Mole 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cb38967d55c6b234a828ad17ae6bb680, type: 2}
+  - {fileID: 2100000, guid: 4084fcacc05fde743a932bfbe2fb8f3c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,7 +109,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6898387854078760228
+--- !u!114 &4427143376394068473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 213780002319270627}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 951f4201ff3400c4c992dd4cd704ac1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 20538792d1f6e6040af84cf116c4ceef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}

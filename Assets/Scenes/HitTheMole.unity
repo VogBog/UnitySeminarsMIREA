@@ -272,7 +272,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff8e33ad18b2fd499e59f24fa167ef6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  molePrefab: {fileID: 4759717900108364709, guid: 100c44146a92108418e4a607c3248e1a, type: 3}
+  molePrefab: {fileID: 6898387854078760228, guid: 100c44146a92108418e4a607c3248e1a, type: 3}
+  greenMolePrefab: {fileID: 4427143376394068473, guid: c7c048208cf005f48b4db4973b7e45f9, type: 3}
+  greenMoleSpawnChance: 25
   createMoleTime: 3
   spawnPoints:
   - {fileID: 247916938}

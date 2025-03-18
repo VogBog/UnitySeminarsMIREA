@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Mole : MonoBehaviour
+public abstract class Mole : MonoBehaviour
 {
     public GameManager gameManager;
 
@@ -9,10 +9,12 @@ public class Mole : MonoBehaviour
 
     private void OnMouseDown()
     {
-        gameManager.HitMole();
+        OnHit();
         StopCoroutine(timer);
         Destroy(gameObject);
     }
+
+    protected abstract void OnHit();
 
     public void StartTimer(float time)
     {
