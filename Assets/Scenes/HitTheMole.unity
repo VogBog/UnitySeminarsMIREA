@@ -286,8 +286,8 @@ MonoBehaviour:
   - {fileID: 40852308}
   - {fileID: 872746411}
   - {fileID: 65302120}
-  moleLiveTime: 0.7
-  rounds: 16
+  moleLiveTime: 1
+  rounds: 8
 --- !u!4 &503633685
 Transform:
   m_ObjectHideFlags: 0
