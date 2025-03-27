@@ -2,11 +2,13 @@ using UnityEngine;
 
 public abstract class Button : MonoBehaviour
 {
+    [SerializeField] private bool _isSwitch;
+
     private bool isActivated = false;
 
     public void Activate()
     {
-        if (isActivated)
+        if (isActivated && !_isSwitch)
         {
             return;
         }

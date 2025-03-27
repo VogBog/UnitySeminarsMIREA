@@ -9,6 +9,7 @@ public class MovablePlatform : MonoBehaviour
 
     private Vector3 nextPos;
     private int pointIndex = 0;
+    private PlayerMovement _player;
 
     private void Start()
     {
@@ -27,8 +28,30 @@ public class MovablePlatform : MonoBehaviour
             else
             {
                 Vector3 direction = (nextPos - transform.position).normalized;
-                transform.position += direction * speed * Time.deltaTime;
+                Vector3 moveVec = direction * speed * Time.deltaTime;
+                transform.position += moveVec;
+
+                if(_player != null)
+                {
+                    _player.characterController.Move(moveVec);
+                }
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            _player = other.GetComponent<PlayerMovement>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            _player = null;
         }
     }
 }
