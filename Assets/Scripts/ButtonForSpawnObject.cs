@@ -6,6 +6,6 @@ public class ButtonForSpawnObject : Button
 
     protected override void OnActivate()
     {
-        target.gameObject.SetActive(!target.gameObject.activeSelf);
+        target.SetActive(!target.activeSelf);
     }
 }

@@ -7,6 +7,5 @@ public class ButtonForPlatform : Button
     protected override void OnActivate()
     {
         platform.isActive = !platform.isActive;
-        Debug.Log($"Set platform active to {platform.isActive}");
     }
 }

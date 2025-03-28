@@ -9,7 +9,7 @@ public class MovablePlatform : MonoBehaviour
 
     private Vector3 nextPos;
     private int pointIndex = 0;
-    private PlayerMovement _player;
+    private PlayerMovement player;
 
     private void Start()
     {
@@ -31,9 +31,9 @@ public class MovablePlatform : MonoBehaviour
                 Vector3 moveVec = direction * speed * Time.deltaTime;
                 transform.position += moveVec;
 
-                if(_player != null)
+                if(player != null)
                 {
-                    _player.characterController.Move(moveVec);
+                    player.characterController.Move(moveVec);
                 }
             }
         }
@@ -43,7 +43,7 @@ public class MovablePlatform : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            _player = other.GetComponent<PlayerMovement>();
+            player = other.GetComponent<PlayerMovement>();
         }
     }
 
@@ -51,7 +51,7 @@ public class MovablePlatform : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            _player = null;
+            player = null;
         }
     }
 }
