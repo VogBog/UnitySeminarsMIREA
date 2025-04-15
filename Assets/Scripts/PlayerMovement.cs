@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float jumpHeight;
 
-    Vector3 velocity;
+    public Vector3 velocity;
     bool isGrounded;
 
     private void Update()
