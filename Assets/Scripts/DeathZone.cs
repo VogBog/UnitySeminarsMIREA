@@ -5,6 +5,7 @@ public class DeathZone : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if(other.gameObject.CompareTag("Player"))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
