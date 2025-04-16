@@ -610,7 +610,7 @@ Transform:
   m_GameObject: {fileID: 666553440}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.86, y: 0, z: 0.19}
+  m_LocalPosition: {x: 16.9, y: 0, z: 0.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -975,6 +975,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1293786655}
   - component: {fileID: 1293786654}
+  - component: {fileID: 1293786657}
+  - component: {fileID: 1293786656}
   m_Layer: 0
   m_Name: Volume
   m_TagString: Untagged
@@ -995,7 +997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SerializedVersion: 0
-  m_Size: {x: 4, y: 3, z: 4}
+  m_Size: {x: 8, y: 3, z: 8}
   m_Center: {x: 0, y: 0, z: 0}
   m_Area: 3
   m_AffectedAgents: ffffffff
@@ -1008,12 +1010,45 @@ Transform:
   m_GameObject: {fileID: 1293786653}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6.61, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1971702380}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1293786656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1293786653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4458a605e6dcb44092cf97d5555f5d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1293786657
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1293786653}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8, y: 3, z: 8}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1308591409
 GameObject:
   m_ObjectHideFlags: 0
@@ -1724,6 +1759,7 @@ GameObject:
   - component: {fileID: 1702523434}
   - component: {fileID: 1702523433}
   - component: {fileID: 1702523432}
+  - component: {fileID: 1702523438}
   m_Layer: 0
   m_Name: FollowPlayerAI
   m_TagString: Untagged
@@ -1758,7 +1794,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1857,6 +1893,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1702523438
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702523431}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1750869777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1899,6 +1962,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   jumpHeight: 1.5
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!143 &1750869779
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2095,7 +2159,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 8c6c48ba8c1e02f4883702da8ef7b7cb, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: b28a9f9979800964399dc39a6f905b78, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1971702380
 Transform:
