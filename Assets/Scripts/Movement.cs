@@ -3,6 +3,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public CharacterController characterController;
+    public Animator Animator;
 
     public float speed = 12f;
     public float gravity = -9.8f;
@@ -19,6 +20,8 @@ public class Movement : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+        
+        Animator.SetBool("IsWalking", x != 0 || z != 0);
 
         Vector3 move = transform.right * x + transform.forward * z;
         characterController.Move(move * speed * Time.deltaTime);
@@ -38,6 +41,7 @@ public class Movement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(-2f * jumpHeight * gravity);
+            Animator.SetTrigger("Jump");
         }
     }
 }
