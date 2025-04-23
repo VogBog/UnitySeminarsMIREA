@@ -11,6 +11,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test 1/Game.unity
     guid: cde46cc7400a9a94c923e99ddabcbb4c
+  - enabled: 1
+    path: Assets/Scenes/Test 2/AsteroidMainMenu.unity
+    guid: 7486379b78efad54eaf75b1cb1eccf15
+  - enabled: 1
+    path: Assets/Scenes/Test 2/AsteroidGame.unity
+    guid: 1d8c3074acbb65849a796ef52f6486c1
+  - enabled: 1
+    path: Assets/Scenes/Test 3/CircleMainMenu.unity
+    guid: 21ade51395d8da64ebe85631c9fe85a6
+  - enabled: 1
+    path: Assets/Scenes/Test 3/CircleGame.unity
+    guid: bc520b2ce9d58be4a9cd942af5337b3e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

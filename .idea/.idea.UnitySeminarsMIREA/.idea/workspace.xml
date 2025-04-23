@@ -5,12 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77748ee7-5081-4a60-8226-44fe7b743330" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Var2/AsteroidObstacle.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Var2/AsteroidObstacle.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Var2/AsteroidShip.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Var2/AsteroidShip.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Var3/CircleGame.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Var3/CircleGame.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Var3/CircleMainMenu.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Var3/CircleMainMenu.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Var2/AsteroidGame.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Var2/AsteroidGame.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Asteroid.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Asteroid.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/ship.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/ship.png.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +106,7 @@
       <workItem from="1744722169377" duration="2747000" />
       <workItem from="1744736834520" duration="5933000" />
       <workItem from="1744752606408" duration="1006000" />
-      <workItem from="1745431508716" duration="2292000" />
+      <workItem from="1745431508716" duration="3545000" />
     </task>
     <servers />
   </component>

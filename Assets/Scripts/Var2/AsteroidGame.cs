@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,7 +10,12 @@ namespace Var2
         [SerializeField] private Image _menu;
         
         private bool _menuOpened = false;
-        
+
+        private void Start()
+        {
+            Time.timeScale = 1;
+        }
+
         public void QuitGame()
         {
             SceneManager.LoadScene("AsteroidMainMenu");
