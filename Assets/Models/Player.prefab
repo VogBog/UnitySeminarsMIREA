@@ -73,14 +73,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 2393198610822285250}
-  speed: 12
+  speed: 30
   gravity: -9.8
   groundCheck: {fileID: 999689579484238125}
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  jumpHeight: 5
+  jumpHeight: 10
 --- !u!1 &1884243624926089183
 GameObject:
   m_ObjectHideFlags: 0
