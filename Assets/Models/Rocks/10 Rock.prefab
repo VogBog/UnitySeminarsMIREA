@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5242604507706274124}
   - component: {fileID: 1147668290342106705}
   - component: {fileID: 9086146109471825121}
-  - component: {fileID: 7927675864094014971}
   m_Layer: 0
   m_Name: 10 Rock
   m_TagString: Untagged
@@ -87,22 +86,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!205 &7927675864094014971
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2894285525255863418}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 0, y: 0.15603113, z: 0.000000044703484}
-  m_Size: 0.31206226
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.044748455
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 9086146109471825121}
-  m_Enabled: 1
