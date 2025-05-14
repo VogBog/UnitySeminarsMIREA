@@ -47,7 +47,7 @@
 - Прака 9: на отдельной ветке
 - Прака 10: на отдельной ветке
 - Прака 11: на отдельной ветке
-- Прака 12: на отдельной ветке (ВНИМАНИЕ! Для 12 практики нужно импортировать ассет: https://assetstore.unity.com/packages/2d/textures-materials/nature/terrain-textures-pack-free-139542)
+- Прака 12: на отдельной ветке (ВНИМАНИЕ! Для 12 практики нужно импортировать ассет: https://assetstore.unity.com/packages/2d/textures-materials/nature/terrain-textures-pack-free-139542 и там потерялся файлик black.png, это просто картинка 8x8 прозрачная)
 
 ## Доп материалы
 ### Практика 3
