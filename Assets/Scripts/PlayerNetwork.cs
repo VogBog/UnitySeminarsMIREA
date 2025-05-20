@@ -1,4 +1,3 @@
-using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,6 +6,9 @@ public class PlayerNetwork : NetworkBehaviour
 {
     [SerializeField] private float _moveSpeed = 10f;
     private InputAction _moveAction;
+
+    private Chat _chat;
+    private bool _canMove = true;
 
     private void OnEnable()
     {
@@ -19,16 +21,32 @@ public class PlayerNetwork : NetworkBehaviour
 
         _moveAction.Enable();
     }
-    
+
+    private void Start()
+    {
+        _chat = FindFirstObjectByType<Chat>();
+        _chat?.SetOwnerName($"Guest{Random.Range(1000, 10000)}");
+    }
+
     private void OnDisable()
     {
         _moveAction.Disable();
+        _chat?.SetUIActive(false);
     }
 
     private void Update()
     {
         if (!IsOwner) return;
-        Move();
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            _canMove = !_chat.ChangeUIActive();
+        }
+
+        if (_canMove)
+        {
+            Move();   
+        }
     }
 
     private void Move()
