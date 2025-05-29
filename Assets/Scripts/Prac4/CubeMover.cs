@@ -11,8 +11,8 @@ namespace Practice4
             float x = Input.GetAxis("Horizontal");
             float y = Input.GetAxis("Vertical");
 
-            transform.Rotate(transform.up * x * rotationSpeed * Time.deltaTime);
-            transform.position += transform.forward * y * moveSpeed * Time.deltaTime;
+            transform.Rotate(rotationSpeed * Time.deltaTime * transform.up);
+            transform.position += y * moveSpeed * Time.deltaTime * transform.forward;
         }
     }
 }
