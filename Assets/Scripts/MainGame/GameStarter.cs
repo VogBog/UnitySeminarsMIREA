@@ -20,7 +20,6 @@ namespace MainGame
             if (players == null || players.Length == 0)
             {
                 Debug.LogError("Something went wrong. Cannot get players array. Try open this scene from Main Menu.");
-                Application.Quit();
                 return;
             }
             
