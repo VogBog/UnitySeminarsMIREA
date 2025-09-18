@@ -7,6 +7,8 @@ namespace InputSystems
     public class PlayerInput : IDisposable
     {
         private readonly IPlayerActions _actions;
+        
+        public Vector2 MoveAxis => _actions.Move.ReadValue<Vector2>();
 
         public event Action<PlayerInput, Vector2> StartMoving;
         public event Action<PlayerInput> EndMoving, Interacted;
@@ -56,6 +58,12 @@ namespace InputSystems
             _actions.Move.started -= OnMoveStarting;
             _actions.Move.canceled -= OnMoveEnded;
             _actions.Interact.performed -= OnInteractionPerformed;
+            
+            StartMoving = null;
+            EndMoving = null;
+            Interacted = null;
+            SomethingPressed = null;
+            
             _actions.Disable();
         }
     }

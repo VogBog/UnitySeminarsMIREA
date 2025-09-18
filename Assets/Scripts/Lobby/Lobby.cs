@@ -47,8 +47,8 @@ namespace Lobby
         {
             foreach (var input in _activePlayers.Keys)
                 input.Interacted -= ChangeElemental;
-            
-            foreach(var input in _inputs)
+
+            foreach (var input in _inputs)
                 input.Dispose();
             
             _inputs = null;
