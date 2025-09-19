@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc09b5cd9de4ff392a73c9f600f96ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 061bbed6a8964c3c8eda0219dac92edf, type: 3}
   m_Name: Thunder
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Thunder
-  <Color>k__BackingField: {r: 0.764151, g: 0.7500703, b: 0.16220188, a: 1}
-  <AbilityData>k__BackingField: {fileID: 11400000, guid: 45a5c6825fa0df74eb9cf5103270c3a0, type: 2}
+  <HeavyAbilityTime>k__BackingField: 0
+  <HeavyAbilityCooldown>k__BackingField: 0
+  <QuickAbilityCooldown>k__BackingField: 0

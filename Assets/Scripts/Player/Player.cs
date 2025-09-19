@@ -10,6 +10,7 @@ namespace Player
         [field: SerializeField] public Camera Camera { get; private set; }
         [field: SerializeField] public Movement Movement { get; private set; }
         [field: SerializeField] public PlayerModel Model { get; private set; }
+        [field: SerializeField] public PlayerAbilityUsage AbilityUsage { get; private set; }
         
         public PlayerInput Input { get; private set; }
         
@@ -20,6 +21,7 @@ namespace Player
             Input = new PlayerInput(data.Index);
             Movement.Initialize(this);
             Model.Initialize(this);
+            AbilityUsage.Initialize(this, data.Data);
             
             SetMaterial(Model.Renderer, data.Data.Color);
         }

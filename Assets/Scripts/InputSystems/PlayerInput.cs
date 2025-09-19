@@ -11,7 +11,7 @@ namespace InputSystems
         public Vector2 MoveAxis => _actions.Move.ReadValue<Vector2>();
 
         public event Action<PlayerInput, Vector2> StartMoving;
-        public event Action<PlayerInput> EndMoving, Interacted;
+        public event Action<PlayerInput> EndMoving, Interacted, EndInteraction;
 
         public event Action<PlayerInput> SomethingPressed;
 
@@ -30,6 +30,7 @@ namespace InputSystems
             playerActions.Move.started += OnMoveStarting;
             playerActions.Move.canceled += OnMoveEnded;
             playerActions.Interact.started += OnInteractionPerformed;
+            playerActions.Interact.canceled += OnInteractionEnd;
             playerActions.Enable();
 
             return playerActions;
@@ -43,7 +44,6 @@ namespace InputSystems
 
         private void OnMoveEnded(InputAction.CallbackContext ctx)
         {
-            SomethingPressed?.Invoke(this);
             EndMoving?.Invoke(this);
         }
 
@@ -51,6 +51,11 @@ namespace InputSystems
         {
             SomethingPressed?.Invoke(this);
             Interacted?.Invoke(this);
+        }
+
+        private void OnInteractionEnd(InputAction.CallbackContext ctx)
+        {
+            EndInteraction?.Invoke(this);
         }
 
         public void Dispose()

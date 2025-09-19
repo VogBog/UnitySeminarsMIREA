@@ -18,5 +18,12 @@ namespace Pool
             InstantiatedCallback = onInstantiating;
             SpawnedCallback = onSpawn;
         }
+
+        public PooledPrefab(Component prefab)
+        {
+            Prefab = prefab;
+            InstantiatedCallback = null;
+            SpawnedCallback = null;
+        }
     }
 }

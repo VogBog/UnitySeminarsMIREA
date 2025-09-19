@@ -1,3 +1,4 @@
+using Player.Abilities;
 using UnityEngine;
 
 namespace Data
@@ -7,5 +8,6 @@ namespace Data
     {
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public Color Color { get; private set; }
+        [field: SerializeField] public PlayerAbilityScriptableData AbilityData { get; private set; }
     }
 }

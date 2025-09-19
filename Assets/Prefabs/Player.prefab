@@ -81,6 +81,37 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2513018420781120095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8068330967233996931}
+  m_Layer: 0
+  m_Name: ProjectilesOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8068330967233996931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2513018420781120095}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.16400003}
+  m_LocalScale: {x: 2, y: 50, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1881322294935247344}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2907900891637127110
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +390,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 1.082}
   m_LocalScale: {x: 0.5, y: 0.02, z: 0.5}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 8068330967233996931}
   m_Father: {fileID: 8801211737757357796}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2220139373371245497
@@ -468,3 +500,5 @@ MonoBehaviour:
   <Model>k__BackingField:
     <Model>k__BackingField: {fileID: 8801211737757357796}
     _characterControllerTransform: {fileID: 6264251380514319366}
+  <AbilityUsage>k__BackingField:
+    _projectileOrigin: {fileID: 8068330967233996931}

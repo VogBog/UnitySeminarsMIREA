@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fe81c2a41a44b21a914099df13b262f, type: 3}
+  m_Name: Fire
+  m_EditorClassIdentifier: 
+  <HeavyAbilityTime>k__BackingField: 5
+  <HeavyAbilityCooldown>k__BackingField: 15
+  <QuickAbilityCooldown>k__BackingField: 1
+  <QuickDamage>k__BackingField: 35
+  <QuickDistance>k__BackingField: 8
+  <QuickSpeed>k__BackingField: 8
+  <HeavyDamage>k__BackingField: 70
+  <HeavyDistance>k__BackingField: 5
+  <HeavySpeed>k__BackingField: 8
+  <HeavyRadius>k__BackingField: 8
+  <ProjectilePrefab>k__BackingField: {fileID: 9048790160818407935, guid: f802e93ada01e13498bc01fd7742c188, type: 3}

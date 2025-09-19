@@ -85,6 +85,8 @@ namespace Pool
             
             list.RemoveAt(index);
             _pool[type].Push(component);
+            
+            component.gameObject.SetActive(false);
         }
     }
 }
