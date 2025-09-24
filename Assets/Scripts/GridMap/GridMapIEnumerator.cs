@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,24 +23,44 @@ namespace GridMap
             _y = rect.yMin;
             Current = default;
         }
-        
+
         public bool MoveNext()
         {
-            if (_x < _rect.xMax)
+            while (true)
             {
-                Current = (++_x, _y, _map[_x, _y]);
-                return true;
+                if (_x < _rect.xMax)
+                {
+                    if (_x >= _map.GetLength(0) - 1)
+                    {
+                        _x++;
+                        continue;
+                    }
+                    
+                    if (_x < 0) _x = -1;
+
+                    Current = (++_x, _y, _map[_x, _y]);
+
+                    return true;
+                }
+
+                _x = _rect.xMin;
+
+                if (_y < _rect.yMax)
+                {
+                    if (_y >= _map.GetLength(1) - 1)
+                    {
+                        _y++;
+                        continue;
+                    }
+                    
+                    if (_y < 0) _y = -1;
+
+                    Current = (_x, ++_y, _map[_x, _y]);
+                    return true;
+                }
+
+                return false;
             }
-
-            _x = _rect.xMin;
-
-            if (_y < _rect.yMax)
-            {
-                Current = (_x, ++_y, _map[_x, _y]);
-                return true;
-            }
-
-            return false;
         }
 
         public void Reset()

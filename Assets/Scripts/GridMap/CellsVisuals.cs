@@ -53,13 +53,19 @@ namespace GridMap
                 if(type == null)
                     continue;
 
-                stack.Push((_pool.Spawn(new Vector3(x, 0, y), Quaternion.identity, type), type));
+                var obj = _pool.Spawn(new Vector3(x, 0, y), Quaternion.identity, type);
+                float scale = 1f / _gridMap.CellsPerUnit;
+                obj.transform.localScale = new Vector3(scale, 1f, scale);
+                
+                stack.Push((obj, type));
             }
         }
 
         private void OnChunkChanged(Vector2Int chunk)
         {
-            _jobs.Enqueue(chunk);
+            if(!_jobs.TryPeek(out var last) || chunk != last)
+                _jobs.Enqueue(chunk);
+            
             if (!_jobsProcessing)
             {
                 _jobsProcessing = true;

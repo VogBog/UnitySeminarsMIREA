@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 061bbed6a8964c3c8eda0219dac92edf, type: 3}
   m_Name: Thunder
   m_EditorClassIdentifier: 
-  <HeavyAbilityTime>k__BackingField: 0
-  <HeavyAbilityCooldown>k__BackingField: 0
-  <QuickAbilityCooldown>k__BackingField: 0
+  <HeavyAbilityTime>k__BackingField: 1
+  <HeavyAbilityCooldown>k__BackingField: 1
+  <QuickAbilityCooldown>k__BackingField: 1
+  <QuickFirstDistance>k__BackingField: 4
+  <QuickSecondDistance>k__BackingField: 8
+  <QuickDamage>k__BackingField: 1
+  <HeavyDistance>k__BackingField: 12
+  <HeavyWidth>k__BackingField: 1
+  <HeavyDamage>k__BackingField: 2
+  <Projectile>k__BackingField: {fileID: 5245104218865510335, guid: 2a3b64357a0ef644f9ac83abef28db03, type: 3}

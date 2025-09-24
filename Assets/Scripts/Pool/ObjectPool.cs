@@ -25,7 +25,7 @@ namespace Pool
 
             for (int i = 0; i < count; i++)
             {
-                var instance = Instantiate(prefab.Prefab);
+                var instance = Instantiate(prefab.Prefab, transform);
                 instance.gameObject.SetActive(false);
                 prefab.InstantiatedCallback?.Invoke(this, instance);
                 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Tests;
 using UnityEngine;
 
 namespace GridMap
@@ -118,6 +119,11 @@ namespace GridMap
             {
                 for (int y = minY; y < maxY; y++)
                 {
+                    if (x < 0 || y < 0 || x >= _map.GetLength(0) || y >= _map.GetLength(1))
+                    {
+                        continue;
+                    }
+                    
                     _map[x, y] = rect.Value;
                     var chunk = new Vector2Int(x / _chunkSize, y / _chunkSize);
                     
@@ -230,7 +236,7 @@ namespace GridMap
         {
             var list = new List<SetCellsRect>();
             
-            for (float y = posY + radius; y >= posY - radius; y -= _cellsPerUnit)
+            for (float y = posY + radius; y >= posY - radius; y -= 1f / _cellsPerUnit)
             {
                 float dy = y - posY;
                 float dx = Mathf.Sqrt(radius * radius - dy * dy);
@@ -245,6 +251,121 @@ namespace GridMap
             }
 
             return list;
+        }
+
+        public List<SetCellsRect> FromWorldRectToIndexesRect(float posX, float posY, float width, float height,
+            Vector3 direction, byte value)
+        {
+            EasyFiguresDrawer.DrawCube(
+                new Vector3(posX, 1f, posY), new Vector3(height, 2f, width),
+                Quaternion.LookRotation(direction, Vector3.up), Color.green, 5f);
+            
+            if (direction.x == 0)
+            {
+                var rect = FromWorldRangeToIndexesRange(
+                    posX - height / 2f,
+                    posY - width / 2f,
+                    posX + height / 2f,
+                    posY + width / 2f,
+                    value);
+                return new() { rect };
+            }
+
+            if (direction.z == 0)
+            {
+                var rect = FromWorldRangeToIndexesRange(
+                    posX - width / 2f,
+                    posY - height / 2f,
+                    posX + width / 2f,
+                    posY + height / 2f,
+                    value);
+                return new() { rect };
+            }
+
+            Vector2 dir2D = new Vector2(direction.x, direction.z);
+            Vector2 per2D = Vector2.Perpendicular(dir2D);
+            Vector2 center2D = new Vector2(posX, posY);
+
+            width /= 2f;
+            height /= 2f;
+
+            Vector2 lb = center2D - dir2D * width - per2D * height;
+            Vector2 lt = center2D - dir2D * width + per2D * height;
+            Vector2 rb = center2D + dir2D * width - per2D * height;
+            Vector2 rt = center2D + dir2D * width + per2D * height;
+
+            return RasterizeRect(lb, lt, rb, rt, value);
+        }
+
+        public List<SetCellsRect> RasterizeRect(Vector2 lb, Vector2 lt, Vector2 rb, Vector2 rt, byte value)
+        {
+            var list = new List<SetCellsRect>();
+            var aabb = CalculateAABB(lb, lt, rb, rt);
+            var lines = new Vector4[]
+            {
+                new(lb.x, lb.y, lt.x, lt.y), new(lb.x, lb.y, rb.x, rb.y),
+                new(rt.x, rt.y, lt.x, lt.y), new(rt.x, rt.y, rb.x, rb.y)
+            };
+
+            var buffer = new List<float>();
+            
+            for (float x = aabb.xMin + .5f / _cellsPerUnit; x < aabb.xMax; x += 1f / _cellsPerUnit)
+            {
+                buffer.Clear();
+                
+                foreach (var line in lines)
+                {
+                    if((line.x <= x || line.z >= x) &&
+                       (line.z <= x || line.x >= x))
+                        continue;
+
+                    float t = (x - line.x) / (line.z - line.x);
+                    Debug.Log(t);
+                    float yIntersection = line.y + t * (line.w - line.y);
+                    buffer.Add(yIntersection);
+                }
+                
+                if(buffer.Count < 2)
+                    continue;
+                if(buffer.Count > 2)
+                    buffer.Sort();
+                
+                float y1 = buffer[0];
+                float y2 = buffer[^1];
+                
+                if(Mathf.Abs(y1 - y2) < .5f / _cellsPerUnit)
+                    continue;
+
+                EasyFiguresDrawer.DrawCube(
+                    new Vector3(
+                        x,
+                        1f,
+                        (y1 + y2) / 2f),
+                    new Vector3(
+                        1f / _cellsPerUnit,
+                        2f,
+                        Mathf.Abs(y1 - y2)),
+                    Quaternion.identity,
+                    Color.red,
+                    5f);
+                
+                var rect = FromWorldRangeToIndexesRange(
+                    x - .5f / _cellsPerUnit, Mathf.Min(y1, y2),
+                    x + .5f / _cellsPerUnit, Mathf.Max(y1, y2), value);
+                list.Add(rect);
+            }
+
+            return list;
+        }
+
+        public static Rect CalculateAABB(Vector2 a, Vector2 b, Vector2 c, Vector2 d)
+        {
+            float minX = Mathf.Min(a.x, b.x, c.x, d.x);
+            float minY = Mathf.Min(a.y, b.y, c.y, d.y);
+            float maxX = Mathf.Max(a.x, b.x, c.x, d.x);
+            float maxY = Mathf.Max(a.y, b.y, c.y, d.y);
+            
+            return new Rect(minX, minY, maxX - minX, maxY - minY);
         }
         
 #if UNITY_EDITOR

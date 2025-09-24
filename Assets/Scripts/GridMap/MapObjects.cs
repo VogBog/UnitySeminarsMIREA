@@ -17,10 +17,12 @@ namespace GridMap
         private void Awake()
         {
             _pool = this.FindFirstObjectByTypeOrException<ObjectPool>();
+            var map = this.FindFirstObjectByTypeOrException<GridMap>();
             
             RegisterComponentRange(
                 typeof(FireParticles), _fire,
-                GridMapValues.Fire5Seconds, GridMapValues.Fire25Seconds, 8);
+                GridMapValues.Fire5Seconds, GridMapValues.Fire25Seconds,
+                Mathf.RoundToInt(32 * map.CellsPerUnit));
         }
 
         public void RegisterComponent(Type type, Component component, byte id, int count)
