@@ -17,7 +17,7 @@ namespace Tests
             var pos = map.FromWorldPositionToIndexes(0f, 0f);
             int size = 3;
             
-            var rect = new SetCellsRect(new Rect(pos.Item1, pos.Item2, size, size), 1);
+            var rect = new SetCellsRect(new RectInt(pos.Item1, pos.Item2, size, size), 1);
             
             map.SetCellsAsync(rect);
             
@@ -25,7 +25,7 @@ namespace Tests
 
             pos = map.FromWorldPositionToIndexes(-10f, -10f);
             size = 30;
-            rect = new SetCellsRect(new Rect(pos.Item1, pos.Item2, size, size), 1);
+            rect = new SetCellsRect(new RectInt(pos.Item1, pos.Item2, size, size), 1);
             
             map.SetCellsAsync(rect);
         }

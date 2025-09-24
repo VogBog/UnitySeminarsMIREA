@@ -26,6 +26,68 @@ namespace GridMap
         private void Awake()
         {
             CreateGrid();
+            StartCoroutine(LifetimeRoutine());
+        }
+
+        private IEnumerator LifetimeRoutine()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(5f);
+
+                int maxChunkX = _map.GetLength(0) / _chunkSize;
+                int maxChunkY = _map.GetLength(1) / _chunkSize;
+
+                for (int chunkX = 0; chunkX < maxChunkX; chunkX++)
+                {
+                    for (int chunkY = 0; chunkY < maxChunkY; chunkY++)
+                    {
+                        var chunk = new Vector2Int(chunkX, chunkY);
+
+                        int minX = chunkX * _chunkSize;
+                        int minY = chunkY * _chunkSize;
+
+                        int maxX = minX + _chunkSize;
+                        int maxY = minY + _chunkSize;
+
+                        bool changed = false;
+
+                        for (int x = minX; x < maxX; x++)
+                        {
+                            for (int y = minY; y < maxY; y++)
+                            {
+                                _map[x, y] = (byte)CellEvery5SecondsRule(_map[x, y], out bool isChanged);
+                                changed |= isChanged;
+                            }
+                        }
+
+                        if (changed)
+                        {
+                            ChunkChanged?.Invoke(chunk);
+                        }
+
+                        yield return null;
+                    }
+                }
+            }
+        }
+
+        private int CellEvery5SecondsRule(byte value, out bool changed)
+        {
+            changed = false;
+            
+            if (value == 0) return 0;
+            if (value == 1)
+            {
+                changed = true;
+                return 0;
+            }
+            
+            if (value <= GridMapValues.Fire25Seconds)
+                return value - 1;
+
+            changed = true;
+            return 0;
         }
 
         public void CreateGrid()
@@ -46,10 +108,10 @@ namespace GridMap
 
         private void SetCells(SetCellsRect rect)
         {
-            int minX = (int)rect.Rect.xMin;
-            int minY = (int)rect.Rect.yMin;
-            int maxX = (int)rect.Rect.xMax;
-            int maxY = (int)rect.Rect.yMax;
+            int minX = rect.Rect.xMin;
+            int minY = rect.Rect.yMin;
+            int maxX = rect.Rect.xMax;
+            int maxY = rect.Rect.yMax;
             _cellsBuffer.Clear();
 
             for (int x = minX; x < maxX; x++)
@@ -85,13 +147,13 @@ namespace GridMap
                 return;
             }
 
-            for (float x = rect.Rect.xMin; x < rect.Rect.xMax; x += _chunkSize)
+            for (int x = rect.Rect.xMin; x <= rect.Rect.xMax; x += _chunkSize)
             {
-                for (float y = rect.Rect.yMin; y < rect.Rect.yMax; y += _chunkSize)
+                for (int y = rect.Rect.yMin; y <= rect.Rect.yMax; y += _chunkSize)
                 {
-                    float maxX = Mathf.Min(x + _chunkSize, rect.Rect.xMax);
-                    float maxY = Mathf.Min(y + _chunkSize, rect.Rect.yMax);
-                    var newRect = new Rect(x, y, maxX - x, maxY - y);
+                    int maxX = Mathf.Min(x + _chunkSize, rect.Rect.xMax);
+                    int maxY = Mathf.Min(y + _chunkSize, rect.Rect.yMax);
+                    var newRect = new RectInt(x, y, maxX - x, maxY - y);
                         
                     _jobs.Enqueue(new(newRect, rect.Value));
                 }
@@ -127,7 +189,7 @@ namespace GridMap
             _processingJobs = false;
         }
 
-        public GridMapIEnumerator GetAreaIEnumerator(Rect rect)
+        public GridMapIEnumerator GetAreaIEnumerator(RectInt rect)
             => new GridMapIEnumerator(rect, _map);
 
         public GridMapIEnumerator GetChunkIEnumerator(Vector2Int chunk)
@@ -135,7 +197,7 @@ namespace GridMap
             int minX = chunk.x * _chunkSize;
             int minY = chunk.y * _chunkSize;
 
-            var rect = new Rect(minX, minY, _chunkSize, _chunkSize);
+            var rect = new RectInt(minX, minY, _chunkSize - 1, _chunkSize - 1);
             return new GridMapIEnumerator(rect, _map);
         }
 
@@ -153,6 +215,21 @@ namespace GridMap
             int yIndex = Mathf.FloorToInt((y - _border.z) * _cellsPerUnit);
             
             return (xIndex, yIndex);
+        }
+
+        public SetCellsRect FromWorldRangeToIndexesRange(float startX, float startY, float endX, float endY, byte value)
+        {
+            var (sX, sY) = FromWorldPositionToIndexes(startX, startY);
+            var (eX, eY) = FromWorldPositionToIndexes(endX, endY);
+            var rect = new RectInt(sX, sY, eX - sX, eY - sY);
+            
+            return new SetCellsRect(rect, value);
+        }
+
+        public SetCellsRect[] FromWorldSphereToIndexesSphere(float posX, float posY, float radius, byte value)
+        {
+            var rect = FromWorldRangeToIndexesRange(posX - radius, posY - radius, posX + radius, posY + radius, value);
+            return new[] { rect };
         }
         
 #if UNITY_EDITOR

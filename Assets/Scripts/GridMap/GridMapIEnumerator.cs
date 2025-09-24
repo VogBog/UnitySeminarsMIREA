@@ -6,7 +6,7 @@ namespace GridMap
 {
     public struct GridMapIEnumerator : IEnumerator<(int, int, byte)>, IEnumerable<(int, int, byte)>
     {
-        private readonly Rect _rect;
+        private readonly RectInt _rect;
         private readonly byte[,] _map;
         private int _x;
         private int _y;
@@ -14,12 +14,12 @@ namespace GridMap
         public (int, int, byte) Current { get; private set; }
         object IEnumerator.Current => Current;
 
-        public GridMapIEnumerator(Rect rect, byte[,] map)
+        public GridMapIEnumerator(RectInt rect, byte[,] map)
         {
             _rect = rect;
             _map = map;
-            _x = (int)rect.xMin;
-            _y = (int)rect.yMin;
+            _x = rect.xMin;
+            _y = rect.yMin;
             Current = default;
         }
         
@@ -31,7 +31,7 @@ namespace GridMap
                 return true;
             }
 
-            _x = (int)_rect.xMin;
+            _x = _rect.xMin;
 
             if (_y < _rect.yMax)
             {
@@ -44,8 +44,8 @@ namespace GridMap
 
         public void Reset()
         {
-            _x = (int)_rect.xMin;
-            _y = (int)_rect.yMin;
+            _x = _rect.xMin;
+            _y = _rect.yMin;
             Current = default;
         }
 

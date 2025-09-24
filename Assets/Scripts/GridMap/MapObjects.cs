@@ -1,28 +1,41 @@
 using System;
 using System.Collections.Generic;
 using Extensions;
+using GridMap.EmptyMonoBehs;
 using Pool;
-using Tests;
 using UnityEngine;
 
 namespace GridMap
 {
     public class MapObjects : MonoBehaviour
     {
-        [SerializeField] private EmptyMonoBeh _testPrefab;
-        
+        [SerializeField] private FireParticles _fire;
+
+        private ObjectPool _pool;
         private readonly List<(byte, Component, Type)> _components = new();
 
         private void Awake()
         {
-            var pool = this.FindFirstObjectByTypeOrException<ObjectPool>();
+            _pool = this.FindFirstObjectByTypeOrException<ObjectPool>();
             
-            pool.RegisterAndInstantiatePrefab(
-                typeof(EmptyMonoBeh),
-                new (_testPrefab, null, null),
-                8);
-            
-            _components.Add((1, _testPrefab, typeof(EmptyMonoBeh)));
+            RegisterComponentRange(
+                typeof(FireParticles), _fire,
+                GridMapValues.Fire5Seconds, GridMapValues.Fire25Seconds, 8);
+        }
+
+        public void RegisterComponent(Type type, Component component, byte id, int count)
+        {
+            _pool.RegisterAndInstantiatePrefab(type, new(component, null, null), count);
+            _components.Add((id, component, type));
+        }
+
+        public void RegisterComponentRange(Type type, Component component, byte idFirst, byte idLast, int count)
+        {
+            _pool.RegisterAndInstantiatePrefab(type, new(component, null, null), count);
+            for (byte i = idFirst; i <= idLast; i++)
+            {
+                _components.Add((i, component, type));
+            }
         }
 
         public byte ComponentToByte(Component component)
