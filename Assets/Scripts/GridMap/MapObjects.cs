@@ -10,6 +10,7 @@ namespace GridMap
     public class MapObjects : MonoBehaviour
     {
         [SerializeField] private FireParticles _fire;
+        [SerializeField] private IceFloor _iceFloor;
 
         private ObjectPool _pool;
         private readonly List<(byte, Component, Type)> _components = new();
@@ -23,6 +24,10 @@ namespace GridMap
                 typeof(FireParticles), _fire,
                 GridMapValues.Fire5Seconds, GridMapValues.Fire25Seconds,
                 Mathf.RoundToInt(32 * map.CellsPerUnit));
+            
+            RegisterComponent(
+                typeof(IceFloor), _iceFloor,
+                GridMapValues.IceFloor, Mathf.RoundToInt(64 * map.CellsPerUnit));
         }
 
         public void RegisterComponent(Type type, Component component, byte id, int count)

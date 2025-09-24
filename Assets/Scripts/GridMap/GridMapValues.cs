@@ -12,5 +12,6 @@ namespace GridMap
         public const byte Thunder5Seconds = 7;
         public const byte Thunder10Seconds = 8;
         public const byte Thunder20Seconds = 9;
+        public const byte IceFloor = 10;
     }
 }
