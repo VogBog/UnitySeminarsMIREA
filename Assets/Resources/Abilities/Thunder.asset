@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 061bbed6a8964c3c8eda0219dac92edf, type: 3}
   m_Name: Thunder
   m_EditorClassIdentifier: 
-  <HeavyAbilityTime>k__BackingField: 1
+  <HeavyAbilityTime>k__BackingField: 1.5
   <HeavyAbilityCooldown>k__BackingField: 1
   <QuickAbilityCooldown>k__BackingField: 1
   <QuickFirstDistance>k__BackingField: 4

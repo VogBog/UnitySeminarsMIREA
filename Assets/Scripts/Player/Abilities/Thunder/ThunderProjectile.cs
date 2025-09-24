@@ -89,7 +89,7 @@ namespace Player.Abilities.Thunder
             }
 
             var rects = _gridMap.FromWorldRectToIndexesRect(
-                center.x, center.z, halfExtends.z * 2f, halfExtends.x * 2f, direction, GridMapValues.Fire10Seconds);
+                center.x, center.z, halfExtends.z * 2f, halfExtends.x * 2f, direction, GridMapValues.Thunder10Seconds);
             _gridMap.SetCellsAsync(rects);
             DrawThunder(_hugeLineRenderer,
                 player.RealTransform.position,

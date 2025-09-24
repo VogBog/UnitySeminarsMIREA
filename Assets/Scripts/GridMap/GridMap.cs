@@ -91,6 +91,13 @@ namespace GridMap
             return 0;
         }
 
+        private int SetCellRule(byte fromValue, byte toValue, out bool changed)
+        {
+            int result = GridMapRules.SetCellRule(fromValue, toValue);
+            changed = fromValue != result;
+            return result;
+        }
+
         public void CreateGrid()
         {
             int width = Mathf.CeilToInt(_bounds.x * _cellsPerUnit);
@@ -103,8 +110,12 @@ namespace GridMap
 
         public void SetCell(int x, int y, byte c)
         {
-            _map[x, y] = c;
-            ChunkChanged?.Invoke(new(x / _chunkSize, y / _chunkSize));
+            int value = SetCellRule(_map[x, y], c, out bool changed);
+            if (changed)
+            {
+                _map[x, y] = (byte)value;
+                ChunkChanged?.Invoke(new(x / _chunkSize, y / _chunkSize));
+            }
         }
 
         private void SetCells(SetCellsRect rect)
@@ -123,8 +134,13 @@ namespace GridMap
                     {
                         continue;
                     }
+
+                    int value = SetCellRule(_map[x, y], rect.Value, out bool changed);
                     
-                    _map[x, y] = rect.Value;
+                    if(!changed)
+                        continue;
+                    
+                    _map[x, y] = (byte)value;
                     var chunk = new Vector2Int(x / _chunkSize, y / _chunkSize);
                     
                     if(!_cellsBuffer.Contains(chunk))
