@@ -166,7 +166,7 @@ namespace GridMap
             }
         }
 
-        public void SetCellsAsync(SetCellsRect[] rects)
+        public void SetCellsAsync(IEnumerable<SetCellsRect> rects)
         {
             foreach (var rect in rects)
             {
@@ -226,10 +226,25 @@ namespace GridMap
             return new SetCellsRect(rect, value);
         }
 
-        public SetCellsRect[] FromWorldSphereToIndexesSphere(float posX, float posY, float radius, byte value)
+        public List<SetCellsRect> FromWorldSphereToIndexesSphere(float posX, float posY, float radius, byte value)
         {
-            var rect = FromWorldRangeToIndexesRange(posX - radius, posY - radius, posX + radius, posY + radius, value);
-            return new[] { rect };
+            var list = new List<SetCellsRect>();
+            
+            for (float y = posY + radius; y >= posY - radius; y -= _cellsPerUnit)
+            {
+                float dy = y - posY;
+                float dx = Mathf.Sqrt(radius * radius - dy * dy);
+                float leftX = posX - dx;
+                float rightX = posX + dx;
+
+                var (minX, maxX) = FromWorldPositionToIndexes(leftX, rightX);
+                var (curY, _) = FromWorldPositionToIndexes(y, 0);
+
+                var rect = new RectInt(minX, curY, maxX - minX, 1);
+                list.Add(new(rect, value));
+            }
+
+            return list;
         }
         
 #if UNITY_EDITOR

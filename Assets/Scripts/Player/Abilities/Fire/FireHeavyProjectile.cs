@@ -62,9 +62,9 @@ namespace Player.Abilities.Fire
                 damageable.TakeDamage(data);
             }
 
-            var rect = _gridMap.FromWorldSphereToIndexesSphere(
+            var rects = _gridMap.FromWorldSphereToIndexesSphere(
                 transform.position.x, transform.position.z, _radius, GridMapValues.Fire10Seconds);
-            _gridMap.SetCellsAsync(rect);
+            _gridMap.SetCellsAsync(rects);
             
             _pool.Despawn(this);
         }
