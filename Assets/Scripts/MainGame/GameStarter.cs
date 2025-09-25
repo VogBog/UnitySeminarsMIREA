@@ -12,6 +12,7 @@ namespace MainGame
     {
         [SerializeField] private Player.Player _playerPrefab;
         [SerializeField] private Transform _spawnPointsParent;
+        [SerializeField] private float _addYForEveryPlayer;
 
         private void Start()
         {
@@ -93,6 +94,15 @@ namespace MainGame
                     break;
                 default:
                     throw new Exception("Max count of players is 4");
+            }
+
+            if (players.Count == 1)
+                return;
+
+            foreach (var player in players)
+            {
+                player.Camera.transform.localPosition -=
+                    player.Camera.transform.forward * _addYForEveryPlayer * (players.Count - 1);
             }
         }
     }
