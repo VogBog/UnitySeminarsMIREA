@@ -47,8 +47,9 @@ namespace Player.Abilities.Thunder
             
             foreach (var collider in colliders)
             {
+                Debug.Log(collider.name, collider);
                 if(!collider.TryGetComponent<IDamageable>(out var iDamageable) || damageable == iDamageable ||
-                   iDamageable == player) 
+                   player.HurtBox == iDamageable) 
                     continue;
                 
                 float dist = Vector3.Distance(hit.point, collider.transform.position);
@@ -60,7 +61,12 @@ namespace Player.Abilities.Thunder
             }
 
             if (target.Item1 == null)
+            {
+                var rand = new Vector3(Random.Range(-4f, 4f), 0f, Random.Range(-4f, 4f));
+                var pos = hit.point + rand;
+                DrawThunder(_secondLineRenderer, hit.point, pos);
                 return;
+            }
             
             var getDamageData2 = new GetDamageData(data.QuickDamage, player.gameObject, Elementals.Thunder);
             target.Item2.TakeDamage(getDamageData2);
@@ -81,7 +87,7 @@ namespace Player.Abilities.Thunder
             foreach (var collider in colliders)
             {
                 if(!collider.TryGetComponent<IDamageable>(out var damageable) ||
-                   damageable == player)
+                   damageable == player.HurtBox)
                     continue;
 
                 var damage = new GetDamageData(data.HeavyDamage, player.gameObject, Elementals.Thunder);

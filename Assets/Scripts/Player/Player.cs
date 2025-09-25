@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public class Player : MonoBehaviour, IDamageable
+    public class Player : MonoBehaviour
     {
         [field: SerializeField] public Camera Camera { get; private set; }
         [field: SerializeField] public Movement Movement { get; private set; }
@@ -17,6 +17,7 @@ namespace Player
         [field: SerializeField] public PlayerHealth Health { get; private set; }
         
         public PlayerInput Input { get; private set; }
+        public PlayerHurtBox HurtBox { get; private set; }
 
         public Transform RealTransform => Movement.ControllerTransform;
         
@@ -29,6 +30,8 @@ namespace Player
             Model.Initialize(this);
             AbilityUsage.Initialize(this, data.Data);
             Markers.Initialize(this);
+
+            HurtBox = GetComponentInChildren<PlayerHurtBox>();
             
             SetMaterial(Model.Renderer, data.Data.Color);
         }

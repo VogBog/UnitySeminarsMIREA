@@ -10,7 +10,7 @@ namespace GridMap
                 GridMapValues.Thunder5Seconds => GridMapValues.Fire5Seconds,
                 GridMapValues.Thunder10Seconds => GridMapValues.Fire10Seconds,
                 GridMapValues.Thunder20Seconds => GridMapValues.Fire20Seconds,
-                _ => GridMapValues.None
+                _ => toRule
             };
         }
     }

@@ -54,7 +54,7 @@ namespace Player.Abilities.Fire
             var colliders = Physics.OverlapSphere(transform.position, _radius);
             foreach (var collider in colliders)
             {
-                if(collider.gameObject == _player.gameObject ||
+                if(collider.gameObject == _player.HurtBox.gameObject ||
                    !collider.gameObject.TryGetComponent<IDamageable>(out var damageable))
                     continue;
 

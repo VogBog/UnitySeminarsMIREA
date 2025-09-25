@@ -87,8 +87,7 @@ namespace GridMap
             if (value <= GridMapValues.Fire25Seconds)
                 return value - 1;
 
-            changed = true;
-            return 0;
+            return value;
         }
 
         private int SetCellRule(byte fromValue, byte toValue, out bool changed)
