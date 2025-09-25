@@ -13,6 +13,7 @@ namespace Player
         [field: SerializeField] public PlayerModel Model { get; private set; }
         [field: SerializeField] public PlayerAbilityUsage AbilityUsage { get; private set; }
         [field: SerializeField] public PlayerMarkerView Markers { get; private set; }
+        [field: SerializeField] public PlayerGameUI GameUI { get; private set; }
         
         [field: SerializeField] public PlayerHealth Health { get; private set; }
         
@@ -30,10 +31,14 @@ namespace Player
             Model.Initialize(this);
             AbilityUsage.Initialize(this, data.Data);
             Markers.Initialize(this);
+            GameUI.Initialize(this);
+            Health.Initialize();
 
             HurtBox = GetComponentInChildren<PlayerHurtBox>();
             
             SetMaterial(Model.Renderer, data.Data.Color);
+
+            Health.Died += OnDie;
         }
 
         private void SetMaterial(MeshRenderer renderer, Color color)
@@ -65,6 +70,12 @@ namespace Player
         private void OnDestroy()
         {
             Input.Dispose();
+        }
+
+        private void OnDie(PlayerHealth playerHealth)
+        {
+            Camera.transform.SetParent(null);
+            Destroy(gameObject);
         }
 
         public void TakeDamage(GetDamageData data) => Health.TakeDamage(data);

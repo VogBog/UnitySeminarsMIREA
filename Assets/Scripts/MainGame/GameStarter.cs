@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Data;
+using Extensions;
 using Lobby;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -14,8 +15,11 @@ namespace MainGame
         [SerializeField] private Transform _spawnPointsParent;
         [SerializeField] private float _addYForEveryPlayer;
 
+        private PlayersRepo _playersRepo;
+
         private void Start()
         {
+            _playersRepo = this.FindFirstObjectByTypeOrException<PlayersRepo>();
             var players = StaticParameters.Players;
             
             if (players == null || players.Length == 0)
@@ -57,6 +61,8 @@ namespace MainGame
                 StartCoroutine(InitializePlayerDelayed(instance, data));
                 
                 instances.Add(instance);
+                
+                _playersRepo.RegisterPlayer(instance);
             }
             
             SetCameras(instances);
