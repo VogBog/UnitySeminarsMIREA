@@ -3,7 +3,7 @@ using Tests;
 
 namespace GridMap.EmptyMonoBehs
 {
-    public class FireParticles : TileWithParticles
+    public class ElectroWaterFloor : TileWithParticles
     {
         
     }

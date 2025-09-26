@@ -1,9 +1,8 @@
 using GridMap.Tiles;
-using Tests;
 
 namespace GridMap.EmptyMonoBehs
 {
-    public class FireParticles : TileWithParticles
+    public class SteamAir : TileWithParticles
     {
         
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Extensions;
+using GridMap.Tiles;
 using Pool;
 using UnityEngine;
 
@@ -33,7 +34,15 @@ namespace GridMap
             while (stack.Count > 0)
             {
                 var (component, type) = stack.Pop();
-                _pool.Despawn(component, type);
+                if (component is ITile tile)
+                {
+                    tile.Hided += OnComponentHided;
+                    tile.OnHide();
+                }
+                else
+                {
+                    _pool.Despawn(component, type);
+                }
             }
         }
 
@@ -58,6 +67,11 @@ namespace GridMap
                 obj.transform.localScale = new Vector3(scale, 1f, scale);
                 
                 stack.Push((obj, type));
+
+                if (obj is ITile tile)
+                {
+                    tile.OnShow();
+                }
             }
         }
 
@@ -87,6 +101,12 @@ namespace GridMap
             }
             
             _jobsProcessing = false;
+        }
+
+        private void OnComponentHided(Component component, ITile tile)
+        {
+            tile.Hided -= OnComponentHided;
+            _pool.Despawn(component, component.GetType());
         }
     }
 }

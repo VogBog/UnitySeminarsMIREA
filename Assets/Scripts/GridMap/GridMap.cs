@@ -76,23 +76,16 @@ namespace GridMap
         private int CellEvery5SecondsRule(byte value, out bool changed)
         {
             changed = false;
-            
-            if (value == 0) return 0;
-            if (value == 1)
-            {
+            int newValue = GridMapRules.Every5SecondsRule(value);
+            if (value != newValue)
                 changed = true;
-                return 0;
-            }
-            
-            if (value <= GridMapValues.Fire25Seconds)
-                return value - 1;
 
-            return value;
+            return newValue;
         }
 
         private int SetCellRule(byte fromValue, byte toValue, out bool changed)
         {
-            int result = GridMapRules.SetCellRule(fromValue, toValue);
+            int result = GridMapRules.SetCellRule(this, fromValue, toValue);
             changed = fromValue != result;
             return result;
         }

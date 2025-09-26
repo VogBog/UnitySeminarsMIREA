@@ -547,6 +547,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fire: {fileID: -7023283005397812194, guid: 09bc07a8b7cc54e41b3344dcf7799271, type: 3}
   _iceFloor: {fileID: 6659353467976761116, guid: 3119e4cb1427196419f1d2923198dd29, type: 3}
+  _waterFloor: {fileID: -7240702087069533527, guid: 2ebece04bffcf82489e88c15296ce9e0, type: 3}
+  _electroWaterFloor: {fileID: 4932266567899581424, guid: 1fb3a6ee9f1501648b204527b0caff2f, type: 3}
+  _steamAir: {fileID: 1198622884003269762, guid: ac4553baa10397e43b80b02fd452c77b, type: 3}
 --- !u!114 &1295534317
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,9 @@ namespace GridMap
     {
         [SerializeField] private FireParticles _fire;
         [SerializeField] private IceFloor _iceFloor;
+        [SerializeField] private WaterFloor _waterFloor;
+        [SerializeField] private ElectroWaterFloor _electroWaterFloor;
+        [SerializeField] private SteamAir _steamAir;
 
         private ObjectPool _pool;
         private readonly List<(byte, Component, Type)> _components = new();
@@ -28,6 +31,25 @@ namespace GridMap
             RegisterComponent(
                 typeof(IceFloor), _iceFloor,
                 GridMapValues.IceFloor, Mathf.RoundToInt(64 * map.CellsPerUnit));
+            
+            RegisterComponent(
+                typeof(WaterFloor),
+                _waterFloor,
+                GridMapValues.Water,
+                Mathf.RoundToInt(32 * map.CellsPerUnit));
+            
+            RegisterComponent(
+                typeof(SteamAir),
+                _steamAir,
+                GridMapValues.Steam,
+                Mathf.RoundToInt(16 * map.CellsPerUnit));
+            
+            RegisterComponentRange(
+                typeof(ElectroWaterFloor),
+                _electroWaterFloor,
+                GridMapValues.ThunderWater5Seconds,
+                GridMapValues.ThunderWater30Seconds,
+                Mathf.RoundToInt(32 * map.CellsPerUnit));
         }
 
         public void RegisterComponent(Type type, Component component, byte id, int count)

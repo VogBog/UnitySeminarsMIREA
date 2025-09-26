@@ -13,5 +13,13 @@ namespace GridMap
         public const byte Thunder10Seconds = 8;
         public const byte Thunder20Seconds = 9;
         public const byte IceFloor = 10;
+        public const byte Steam = 11;
+        public const byte ThunderWater5Seconds = 12;
+        public const byte ThunderWater10Seconds = 13;
+        public const byte ThunderWater15Seconds = 14;
+        public const byte ThunderWater20Seconds = 15;
+        public const byte ThunderWater25Seconds = 16;
+        public const byte ThunderWater30Seconds = 17;
+        public const byte Water = 18;
     }
 }
