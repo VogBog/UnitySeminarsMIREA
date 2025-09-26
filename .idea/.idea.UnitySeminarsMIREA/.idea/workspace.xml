@@ -5,30 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e905ed2-0d71-4056-936f-b87fe484aaa5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/EmptyMonoBehs/ElectroWaterFloor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/EmptyMonoBehs/ElectroWaterFloor.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/EmptyMonoBehs/SteamAir.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/EmptyMonoBehs/SteamAir.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/EmptyMonoBehs/WaterFloor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/EmptyMonoBehs/WaterFloor.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/Tiles.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/Tiles/ITile.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/Tiles/ITile.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/Tiles/TileWithParticles.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/Tiles/TileWithParticles.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/DarkGrey.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/DarkGrey.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Ice.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Ice.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Red.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Red.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cells/Fire.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cells/Fire.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridMap/CellsVisuals.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/CellsVisuals.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridMap/EmptyMonoBehs/FireParticles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/EmptyMonoBehs/FireParticles.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridMap/GridMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/GridMap.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridMap/GridMapRules.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/GridMapRules.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridMap/GridMapValues.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/GridMapValues.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridMap/MapObjects.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/MapObjects.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tests/EmptyMonoBeh.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tests/EmptyMonoBeh.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/MoveByTiles.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/MoveByTiles.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMoveByTiles.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMoveByTiles.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Movement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Movement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +115,7 @@
       <workItem from="1758313482558" duration="3402000" />
       <workItem from="1758707725090" duration="32884000" />
       <workItem from="1758804255487" duration="11578000" />
-      <workItem from="1758923268154" duration="2981000" />
+      <workItem from="1758923268154" duration="4032000" />
     </task>
     <servers />
   </component>

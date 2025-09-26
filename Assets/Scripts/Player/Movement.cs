@@ -10,6 +10,7 @@ namespace Player
         [field: SerializeField] public float Speed;
         
         public Vector3 Forward { get; private set; }
+        public bool AffectByIce;
         
         private CharacterController _controller;
         private Vector3 _moveVector;
@@ -45,8 +46,15 @@ namespace Player
 
         private void CheckControls()
         {
+            var oldMoveVector = _moveVector;
             var moveAxis = _player.Input.MoveAxis;
             _moveVector = new Vector3(moveAxis.x, 0, moveAxis.y);
+            
+            if (AffectByIce)
+            {
+                _moveVector = Vector3.Lerp(oldMoveVector, _moveVector, Time.deltaTime);
+            }
+            
             Forward = _moveVector;
         }
 

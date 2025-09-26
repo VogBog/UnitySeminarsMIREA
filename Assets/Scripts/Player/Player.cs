@@ -12,6 +12,7 @@ namespace Player
         [field: SerializeField] public Movement Movement { get; private set; }
         [field: SerializeField] public PlayerModel Model { get; private set; }
         [field: SerializeField] public PlayerAbilityUsage AbilityUsage { get; private set; }
+        [field: SerializeField] public PlayerMoveByTiles MoveByTiles { get; private set; }
         [field: SerializeField] public PlayerMarkerView Markers { get; private set; }
         [field: SerializeField] public PlayerGameUI GameUI { get; private set; }
         
@@ -30,6 +31,7 @@ namespace Player
             Movement.Initialize(this);
             Model.Initialize(this);
             AbilityUsage.Initialize(this, data.Data);
+            MoveByTiles.Initialize(this);
             Markers.Initialize(this);
             GameUI.Initialize(this);
             Health.Initialize();

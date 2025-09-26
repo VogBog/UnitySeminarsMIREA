@@ -521,6 +521,8 @@ GameObject:
   - component: {fileID: 8801211737757357796}
   - component: {fileID: 3587024304170673476}
   - component: {fileID: 5858563865534448048}
+  - component: {fileID: 7622132229683766086}
+  - component: {fileID: 7730265829787226617}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -599,6 +601,30 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7622132229683766086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4047576889376374232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fbeabc2b05d4e529b21dbbc42db643d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7730265829787226617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4047576889376374232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5a29eb3a5d4fe38b7cf6f390703d0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4445350443820101393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,11 +1040,13 @@ MonoBehaviour:
   <Camera>k__BackingField: {fileID: 8137339626034755284}
   <Movement>k__BackingField:
     Speed: 5
+    AffectByIce: 0
   <Model>k__BackingField:
     <Model>k__BackingField: {fileID: 8801211737757357796}
     _characterControllerTransform: {fileID: 6264251380514319366}
   <AbilityUsage>k__BackingField:
     _projectileOrigin: {fileID: 8068330967233996931}
+  <MoveByTiles>k__BackingField: {fileID: 7730265829787226617}
   <Markers>k__BackingField:
     <Marker>k__BackingField: {fileID: 1881322294935247344}
     <HeavyMarker>k__BackingField: {fileID: 841395071037080607}
