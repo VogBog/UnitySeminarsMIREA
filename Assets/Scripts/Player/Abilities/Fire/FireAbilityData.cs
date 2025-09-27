@@ -1,3 +1,4 @@
+using Pool;
 using UnityEngine;
 
 namespace Player.Abilities.Fire
@@ -21,5 +22,8 @@ namespace Player.Abilities.Fire
         
         [field: Space] [field: SerializeField] public FireProjectile ProjectilePrefab { get; protected set; }
         [field: SerializeField] public FireHeavyProjectile HeavyProjectilePrefab { get; protected set; }
+        [field: SerializeField] public FireProjectileParticles ProjectileParticles { get; protected set; }
+        [field: SerializeField] public FireHeavyProjectileParticles HeavyProjectileParticles { get; protected set; }
+        [field: SerializeField] public ExplosionEffect ExplosionEffect { get; private set; }
     }
 }

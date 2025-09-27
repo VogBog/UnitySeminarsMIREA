@@ -25,5 +25,6 @@ namespace Player.Abilities.Ice
         [field: Space]
         [field: SerializeField] public IceProjectile ProjectilePrefab { get; private set; }
         [field: SerializeField] public IceWall WallPrefab { get; private set; }
+        [field: SerializeField] public IceProjectileParticles ProjectileParticles { get; private set; }
     }
 }

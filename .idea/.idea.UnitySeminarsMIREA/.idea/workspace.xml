@@ -5,18 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e905ed2-0d71-4056-936f-b87fe484aaa5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/TargetObj.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/TargetObj.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/WaterBigBottle.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/WaterBigBottle.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireHeavyProjectileParticles.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireHeavyProjectileParticles.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireProjectileParticles.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireProjectileParticles.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceProjectileParticles.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceProjectileParticles.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/ProjectileParticles.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/ProjectileParticles.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/ExplosionEffect.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/ExplosionEffect.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Abilities/Fire.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Abilities/Fire.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Abilities/Ice.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Abilities/Ice.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridMap/GridMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/GridMap.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridMap/GridMapIEnumerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/GridMapIEnumerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridMap/GridMapRules.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/GridMapRules.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Thunder/ThunderProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Thunder/ThunderProjectile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireAbility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireAbility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireAbilityData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireAbilityData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireHeavyProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireHeavyProjectile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireProjectile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceAbility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceAbility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceAbilityData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceAbilityData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceProjectile.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +129,7 @@
       <workItem from="1758313482558" duration="3402000" />
       <workItem from="1758707725090" duration="32884000" />
       <workItem from="1758804255487" duration="11578000" />
-      <workItem from="1758923268154" duration="8330000" />
+      <workItem from="1758923268154" duration="10579000" />
     </task>
     <servers />
   </component>

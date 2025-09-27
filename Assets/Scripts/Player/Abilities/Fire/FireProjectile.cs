@@ -10,9 +10,11 @@ namespace Player.Abilities.Fire
     {
         private float _speed;
         private int _damage;
+        
         private Coroutine _lifetimeCor;
         private ObjectPool _pool;
         private GameObject _attacker;
+        private FireProjectileParticles _particles;
 
         public void SetPool(ObjectPool pool)
         {
@@ -26,6 +28,9 @@ namespace Player.Abilities.Fire
             _damage = damage;
             _speed = speed;
             _attacker = attacker;
+
+            _particles = _pool.Spawn<FireProjectileParticles>(transform.position, Quaternion.identity);
+            _particles.Connect(transform);
         }
 
         private void Update()
@@ -52,6 +57,7 @@ namespace Player.Abilities.Fire
 
         public void Break()
         {
+            _particles.Stop();
             _pool.Despawn(this);
             
             if(_lifetimeCor != null)

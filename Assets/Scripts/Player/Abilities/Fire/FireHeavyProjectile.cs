@@ -12,6 +12,7 @@ namespace Player.Abilities.Fire
         private Player _player;
         private ObjectPool _pool;
         private GridMap.GridMap _gridMap;
+        private ProjectileParticles _particles;
         
         private int _damage;
         private float _speed;
@@ -35,6 +36,8 @@ namespace Player.Abilities.Fire
             _yDistance = data.HeavyDistance;
             _distance = data.HeavyDistance;
             _radius = data.HeavyRadius;
+            _particles = _pool.Spawn<FireHeavyProjectileParticles>(transform.position, Quaternion.identity);
+            _particles.Connect(transform);
             
             transform.position += Vector3.up * _yDistance;
             StartCoroutine(LifetimeRoutine());
@@ -51,6 +54,11 @@ namespace Player.Abilities.Fire
 
         public void Explode()
         {
+            _particles.Stop();
+            
+            var effect = _pool.Spawn<ExplosionEffect>(transform.position, Quaternion.identity);
+            effect.Explode();
+            
             var colliders = Physics.OverlapSphere(transform.position, _radius);
             foreach (var collider in colliders)
             {

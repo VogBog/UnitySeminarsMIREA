@@ -16,7 +16,7 @@ MonoBehaviour:
   <HeavyAbilityCooldown>k__BackingField: 30
   <QuickAbilityCooldown>k__BackingField: 1
   <QuickDamage>k__BackingField: 1
-  <QuickDistance>k__BackingField: 6
+  <QuickDistance>k__BackingField: 7
   <QuickSpeed>k__BackingField: 14
   <HeavyDamage>k__BackingField: 1
   <HeavyDistance>k__BackingField: 5
@@ -24,3 +24,6 @@ MonoBehaviour:
   <HeavyRadius>k__BackingField: 5
   <ProjectilePrefab>k__BackingField: {fileID: 9048790160818407935, guid: f802e93ada01e13498bc01fd7742c188, type: 3}
   <HeavyProjectilePrefab>k__BackingField: {fileID: 5286265401540593171, guid: 31e39b8ea94d0c6439c37d5cb5157a8f, type: 3}
+  <ProjectileParticles>k__BackingField: {fileID: 8717276261860332858, guid: 5f45b4ae2b8b11548a7c322f1f5a9d73, type: 3}
+  <HeavyProjectileParticles>k__BackingField: {fileID: 7915093957943937587, guid: 1d46f81bc0285294291ecccc932cdf71, type: 3}
+  <ExplosionEffect>k__BackingField: {fileID: 2645530496477960805, guid: dc34ea75fe9803f43818550edc1e3f50, type: 3}

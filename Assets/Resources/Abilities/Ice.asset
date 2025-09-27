@@ -23,3 +23,4 @@ MonoBehaviour:
   <WallLifetime>k__BackingField: 10
   <ProjectilePrefab>k__BackingField: {fileID: 6723433425098780178, guid: 6b3d829b81a8fe54c9ec9e22dc9667d0, type: 3}
   <WallPrefab>k__BackingField: {fileID: -8383318383922032337, guid: a07c283fe433be04c999b299f9f205c2, type: 3}
+  <ProjectileParticles>k__BackingField: {fileID: 3915186283316650005, guid: 17dec4dceed3b2e48b47fc9e8890430e, type: 3}

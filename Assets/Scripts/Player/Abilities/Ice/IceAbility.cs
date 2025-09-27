@@ -23,6 +23,13 @@ namespace Player.Abilities.Ice
                     null),
                 3);
             
+            _pool.RegisterAndInstantiatePrefab(
+                typeof(IceProjectileParticles),
+                new(_data.ProjectileParticles,
+                    (pool, comp) => (comp as IceProjectileParticles)?.SetPool(pool),
+                    null),
+                3);
+            
             _pool.RegisterAndInstantiatePrefab(typeof(IceWall),
                 new(data.WallPrefab,
                     (pool, comp) => (comp as IceWall)?.SetPool(pool),

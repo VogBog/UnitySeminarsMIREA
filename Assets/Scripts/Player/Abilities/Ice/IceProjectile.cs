@@ -15,6 +15,7 @@ namespace Player.Abilities.Ice
         private Player _player;
         private GridMap.GridMap _gridMap;
         private Coroutine _lifetimeCor;
+        private ProjectileParticles _particles;
 
         private bool _exploded;
         private int _damage;
@@ -36,6 +37,8 @@ namespace Player.Abilities.Ice
             _distance = distance;
             _explodeRadius = explodeRadius;
             _exploded = false;
+            _particles = _pool.Spawn<IceProjectileParticles>(transform.position, Quaternion.identity);
+            _particles.Connect(transform);
 
             _lifetimeCor = StartCoroutine(LifetimeRoutine());
         }
@@ -54,6 +57,8 @@ namespace Player.Abilities.Ice
             if (_exploded)
                 return;
             _exploded = true;
+            
+            _particles.Stop();
 
             var colliders = Physics.OverlapSphere(transform.position, _explodeRadius);
             foreach (var collider in colliders)

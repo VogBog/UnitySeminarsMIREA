@@ -31,6 +31,27 @@ namespace Player.Abilities.Fire
                     (pool, comp) => (comp as FireHeavyProjectile)?.SetPool(pool),
                     null),
                 1);
+            
+            _pool.RegisterAndInstantiatePrefab(
+                typeof(FireProjectileParticles),
+                new(_data.ProjectileParticles,
+                    (pool, comp) => (comp as FireProjectileParticles)?.SetPool(pool),
+                        null),
+                    4);
+            
+            _pool.RegisterAndInstantiatePrefab(
+                typeof(FireHeavyProjectileParticles),
+                new(_data.HeavyProjectileParticles,
+                (pool, comp) => (comp as FireHeavyProjectileParticles)?.SetPool(pool),
+                null),
+                1);
+            
+            _pool.RegisterAndInstantiatePrefab(
+                typeof(ExplosionEffect),
+                new(_data.ExplosionEffect,
+                    (pool, comp) => (comp as ExplosionEffect)?.SetPool(pool),
+                    null),
+                1);
         }
 
         public void QuickAbility()
