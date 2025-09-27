@@ -21,5 +21,6 @@ namespace GridMap
         public const byte ThunderWater25Seconds = 16;
         public const byte ThunderWater30Seconds = 17;
         public const byte Water = 18;
+        public const byte QuickFire = 19;
     }
 }

@@ -18,7 +18,7 @@ MonoBehaviour:
   <QuickDamage>k__BackingField: 1
   <QuickSpeed>k__BackingField: 12
   <QuickDistance>k__BackingField: 12
-  <QuickExplosionRadius>k__BackingField: 2
+  <QuickExplosionRadius>k__BackingField: 1
   <WallHealth>k__BackingField: 4
   <WallLifetime>k__BackingField: 10
   <ProjectilePrefab>k__BackingField: {fileID: 6723433425098780178, guid: 6b3d829b81a8fe54c9ec9e22dc9667d0, type: 3}

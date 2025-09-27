@@ -29,17 +29,19 @@ namespace Player.Abilities.Thunder
             var ray = new Ray(player.RealTransform.position, direction);
             if (!Physics.Raycast(ray, out var hit, data.QuickFirstDistance))
             {
-                DrawThunder(_lineRenderer, ray.origin, ray.origin + ray.direction * data.QuickFirstDistance);
+                var endPos = ray.origin + ray.direction * data.QuickFirstDistance;
+                DrawThunder(_lineRenderer, ray.origin, endPos);
+                SetQuickThunder(endPos);
                 return;
             }
             
             DrawThunder(_lineRenderer, ray.origin, hit.point);
+            SetQuickThunder(hit.point);
 
             if (!hit.collider.TryGetComponent<IDamageable>(out var damageable))
                 return;
 
-            var getDamageData = new GetDamageData(data.QuickDamage, player.gameObject, Elementals.Thunder);
-            damageable.TakeDamage(getDamageData);
+            DealDamage(player, damageable, hit.collider.gameObject, data.QuickDamage);
             
             var colliders = Physics.OverlapSphere(hit.point, data.QuickSecondDistance);
             float minDist = float.MaxValue;
@@ -69,11 +71,12 @@ namespace Player.Abilities.Thunder
                 var rand = new Vector3(Random.Range(-4f, 4f), 0f, Random.Range(-4f, 4f));
                 var pos = hit.point + rand;
                 DrawThunder(_secondLineRenderer, hit.point, pos);
+                SetQuickThunder(pos);
                 return;
             }
             
-            var getDamageData2 = new GetDamageData(data.QuickDamage, player.gameObject, Elementals.Thunder);
-            target.Item2.TakeDamage(getDamageData2);
+            DealDamage(player, target.Item2, target.Item1, data.QuickDamage);
+            SetQuickThunder(target.Item1.transform.position);
             
             DrawThunder(_secondLineRenderer, hit.point, target.Item1.transform.position);
         }
@@ -94,8 +97,7 @@ namespace Player.Abilities.Thunder
                    damageable == player.HurtBox)
                     continue;
 
-                var damage = new GetDamageData(data.HeavyDamage, player.gameObject, Elementals.Thunder);
-                damageable.TakeDamage(damage);
+                DealDamage(player, damageable, collider.gameObject, data.HeavyDamage);
             }
 
             var rects = _gridMap.FromWorldRectToIndexesRect(
@@ -136,6 +138,26 @@ namespace Player.Abilities.Thunder
             yield return new WaitForSeconds(delay);
             
             line.gameObject.SetActive(false);
+        }
+
+        private void DealDamage(Player player, IDamageable damageable, GameObject damageableObject, int defaultDamage)
+        {
+            var (x, y) = _gridMap.FromWorldPositionToIndexes(
+                damageableObject.transform.position.x, damageableObject.transform.position.z);
+            byte cell = _gridMap.GetCell(x, y);
+            if ((cell is GridMapValues.Steam or GridMapValues.Water or 
+                >= GridMapValues.ThunderWater5Seconds and <= GridMapValues.ThunderWater30Seconds)
+                && Random.Range(0, 2) == 0)
+                defaultDamage++;
+
+            var damageData = new GetDamageData(defaultDamage, player.gameObject, Elementals.Thunder);
+            damageable.TakeDamage(damageData);
+        }
+
+        private void SetQuickThunder(Vector3 pos)
+        {
+            var (x, y) = _gridMap.FromWorldPositionToIndexes(pos.x, pos.z);
+            _gridMap.SetCell(x, y, GridMapValues.QuickThunder);
         }
     }
 }

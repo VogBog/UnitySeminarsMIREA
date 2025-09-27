@@ -14,6 +14,7 @@ namespace Player.Abilities.Fire
         [field: SerializeField] public int QuickDamage { get; protected set; }
         [field: SerializeField] public float QuickDistance { get; protected set; }
         [field: SerializeField] public float QuickSpeed { get; protected set; }
+        [field: SerializeField] public float QuickFireRadius { get; protected set; }
         
         [field: SerializeField] public int HeavyDamage { get; protected set; }
         [field: SerializeField] public float HeavyDistance { get; protected set; }

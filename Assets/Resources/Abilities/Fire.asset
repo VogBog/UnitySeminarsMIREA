@@ -18,6 +18,7 @@ MonoBehaviour:
   <QuickDamage>k__BackingField: 1
   <QuickDistance>k__BackingField: 7
   <QuickSpeed>k__BackingField: 14
+  <QuickFireRadius>k__BackingField: 1
   <HeavyDamage>k__BackingField: 1
   <HeavyDistance>k__BackingField: 5
   <HeavySpeed>k__BackingField: 8

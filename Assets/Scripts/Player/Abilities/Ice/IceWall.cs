@@ -1,5 +1,6 @@
 using System.Collections;
 using Damage;
+using Data;
 using Extensions;
 using GridMap;
 using Pool;
@@ -62,6 +63,9 @@ namespace Player.Abilities.Ice
         {
             if (data.Damage <= 0)
                 return;
+            
+            if(data.Elemental == Elementals.Fire)
+                data.Damage *= 2;
             
             _health -= data.Damage;
             if (_health <= 0)

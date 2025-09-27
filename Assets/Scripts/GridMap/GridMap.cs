@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Tests;
 using UnityEngine;
 
@@ -83,10 +84,10 @@ namespace GridMap
             return newValue;
         }
 
-        private int SetCellRule(byte fromValue, byte toValue, out bool changed)
+        private int SetCellRule(RuleData rule, out bool changed)
         {
-            int result = GridMapRules.SetCellRule(this, fromValue, toValue);
-            changed = fromValue != result;
+            int result = GridMapRules.SetCellRule(rule);
+            changed = rule.From != result;
             return result;
         }
 
@@ -102,7 +103,8 @@ namespace GridMap
 
         public void SetCell(int x, int y, byte c)
         {
-            int value = SetCellRule(_map[x, y], c, out bool changed);
+            var rule = new RuleData(this, new(x, y), _map[x, y], c);
+            int value = SetCellRule(rule, out bool changed);
             if (changed)
             {
                 _map[x, y] = (byte)value;
@@ -127,7 +129,8 @@ namespace GridMap
                         continue;
                     }
 
-                    int value = SetCellRule(_map[x, y], rect.Value, out bool changed);
+                    var rule = new RuleData(this, new(x, y), _map[x, y], rect.Value);
+                    int value = SetCellRule(rule, out bool changed);
                     
                     if(!changed)
                         continue;
@@ -373,6 +376,113 @@ namespace GridMap
             float maxY = Mathf.Max(a.y, b.y, c.y, d.y);
             
             return new Rect(minX, minY, maxX - minX, maxY - minY);
+        }
+
+        public static RectInt CalculateAABBInt(IEnumerable<Vector2Int> points)
+        {
+            int minY = int.MaxValue;
+            int maxY = int.MinValue;
+            int minX = int.MaxValue;
+            int maxX = int.MinValue;
+
+            foreach (var i in points)
+            {
+                if(i.x < minX) minX = i.x;
+                if(i.x > maxX) maxX = i.x;
+                if(i.y < minY) minY = i.y;
+                if(i.y > maxY) maxY = i.y;
+            }
+            
+            return new(minX, minY, maxX - minX, maxY - minY);
+        }
+
+        public List<SetCellsRect> PaintConnectedAreaByPredicate(
+            int centerX, int centerY, int maxDist, byte value, Predicate<byte> predicate)
+        {
+            var paintedAreas = new List<Vector2Int>();
+            var queue = new Queue<(int, int, int)>();
+            queue.Enqueue((centerX - 1, centerY, 1));
+            queue.Enqueue((centerX + 1, centerY, 1));
+            queue.Enqueue((centerX, centerY - 1, 1));
+            queue.Enqueue((centerX, centerY + 1, 1));
+
+            while (queue.Count > 0)
+            {
+                var (x, y, dist) = queue.Dequeue();
+                if(dist > maxDist)
+                    continue;
+
+                try
+                {
+                    var cell = _map[x, y];
+                    if (cell == value)
+                        continue;
+                    if (!predicate.Invoke(cell))
+                        continue;
+
+                    var point = new Vector2Int(x, y);
+                    if(paintedAreas.Contains(point))
+                        continue;
+
+                    paintedAreas.Add(point);
+
+                    queue.Enqueue((x - 1, y, dist + 1));
+                    queue.Enqueue((x + 1, y, dist + 1));
+                    queue.Enqueue((x, y - 1, dist + 1));
+                    queue.Enqueue((x, y + 1, dist + 1));
+                }
+                catch (IndexOutOfRangeException)
+                {
+                }
+            }
+            
+            var result = new List<SetCellsRect>();
+            
+            if(paintedAreas.Count == 0)
+                return result;
+            
+            var aabb = CalculateAABBInt(paintedAreas);
+
+            for (int x = aabb.xMin; x <= aabb.xMax; x++)
+            {
+                int bottom = aabb.yMin - 1;
+                for (int y = aabb.yMin; y <= aabb.yMax; y++)
+                {
+                    if (paintedAreas.Contains(new Vector2Int(x, y)))
+                    {
+                        if (bottom < aabb.yMin)
+                            bottom = y;
+                        continue;
+                    }
+                    
+                    if(bottom < aabb.yMin)
+                        continue;
+
+                    var rect = new RectInt(x, bottom, 1, y - bottom);
+                    result.Add(new(rect, value));
+                    
+                    bottom = aabb.yMin - 1;
+                }
+                
+                if(bottom < aabb.yMin)
+                    continue;
+                
+                var rect2 = new RectInt(x, bottom, 1, aabb.yMax - bottom + 1);
+                result.Add(new(rect2, value));
+            }
+            
+            return result;
+        }
+
+        public void DelayedCall(Action call)
+        {
+            StartCoroutine(DelayedCallRoutine(call));
+        }
+
+        private IEnumerator DelayedCallRoutine(Action action)
+        {
+            yield return new WaitForFixedUpdate();
+            action.Invoke();
         }
         
 #if UNITY_EDITOR

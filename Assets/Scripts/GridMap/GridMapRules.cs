@@ -2,16 +2,17 @@ namespace GridMap
 {
     public static class GridMapRules
     {
-        public static int SetCellRule(GridMap map, int fromRule, int toRule)
+        public static int SetCellRule(RuleData rule)
         {
-            return fromRule switch
+            return rule.From switch
             {
-                0 => DefaultRule(map, toRule),
-                >= GridMapValues.Fire5Seconds and <= GridMapValues.Fire25Seconds => FireRule(map, toRule),
-                GridMapValues.Water => WaterRule(map, toRule),
-                GridMapValues.Steam => SteamRule(map, toRule),
-                GridMapValues.IceFloor => IceRule(map, toRule),
-                _ => DefaultRule(map, toRule)
+                0 => DefaultRule(rule),
+                >= GridMapValues.Fire5Seconds and <= GridMapValues.Fire25Seconds => FireRule(rule),
+                GridMapValues.Water or 
+                    >= GridMapValues.ThunderWater5Seconds and <= GridMapValues.ThunderWater30Seconds => WaterRule(rule),
+                GridMapValues.Steam => SteamRule(rule),
+                GridMapValues.IceFloor => IceRule(rule),
+                _ => DefaultRule(rule)
             };
         }
 
@@ -30,38 +31,82 @@ namespace GridMap
             return value;
         }
 
-        public static int DefaultRule(GridMap map, int value)
+        public static int DefaultRule(RuleData rule)
         {
-            return value switch
+            return rule.To switch
             {
                 GridMapValues.QuickThunder => GridMapValues.None,
                 GridMapValues.Thunder5Seconds => GridMapValues.Fire5Seconds,
                 GridMapValues.Thunder10Seconds => GridMapValues.Fire10Seconds,
                 GridMapValues.Thunder20Seconds => GridMapValues.Fire20Seconds,
-                _ => value
+                GridMapValues.QuickFire => 0,
+                _ => rule.To
             };
         }
 
-        public static int WaterRule(GridMap map, int value)
+        public static int WaterRule(RuleData rule)
         {
-            return DefaultRule(map, value);
+            if (rule.To is >= GridMapValues.Thunder5Seconds and <= GridMapValues.Thunder20Seconds or
+                GridMapValues.QuickThunder)
+            {
+                rule.Map.DelayedCall(() =>
+                {
+                    var rects = rule.Map.PaintConnectedAreaByPredicate(
+                        rule.Indexes.x, rule.Indexes.y, 16, GridMapValues.ThunderWater25Seconds,
+                        b => b is GridMapValues.Water);
+                    
+                    if (rects.Count == 0)
+                        return;
+                    
+                    rule.Map.DelayedCall(() => rule.Map.SetCellsAsync(rects));
+                });
+
+                return GridMapValues.ThunderWater25Seconds;
+            }
+
+            if (rule.To is >= GridMapValues.Fire5Seconds and <= GridMapValues.Fire25Seconds or
+                GridMapValues.QuickFire)
+                return GridMapValues.Steam;
+
+            if (rule.To is GridMapValues.IceFloor)
+            {
+                rule.Map.DelayedCall(() =>
+                {
+                    var rects = rule.Map.PaintConnectedAreaByPredicate(
+                        rule.Indexes.x, rule.Indexes.y, 4, GridMapValues.IceFloor,
+                        b => b is GridMapValues.Water or
+                            >= GridMapValues.ThunderWater5Seconds and <= GridMapValues.ThunderWater30Seconds);
+
+                    if (rects.Count == 0)
+                        return;
+                    
+                    rule.Map.DelayedCall(() => rule.Map.SetCellsAsync(rects));
+                });
+
+                return GridMapValues.IceFloor;
+            }
+            
+            return DefaultRule(rule);
         }
 
-        public static int FireRule(GridMap map, int value)
+        public static int FireRule(RuleData rule)
         {
-            if (value == GridMapValues.IceFloor)
+            if (rule.To == GridMapValues.IceFloor)
                 return 0;
-            return DefaultRule(map, value);
+            return DefaultRule(rule);
         }
 
-        public static int SteamRule(GridMap map, int value)
+        public static int SteamRule(RuleData rule)
         {
-            return DefaultRule(map, value);
+            return DefaultRule(rule);
         }
 
-        public static int IceRule(GridMap map, int value)
+        public static int IceRule(RuleData rule)
         {
-            return DefaultRule(map, value);
+            if (rule.To is >= GridMapValues.Fire5Seconds and <= GridMapValues.Fire25Seconds or
+                GridMapValues.QuickFire)
+                return GridMapValues.Water;
+            return DefaultRule(rule);
         }
     }
 }
