@@ -28,6 +28,7 @@ namespace Player
         public void Initialize(PlayerData data)
         {
             Input = new PlayerInput(data.Index);
+            Input.Device = data.Device;
             Movement.Initialize(this);
             Model.Initialize(this);
             AbilityUsage.Initialize(this, data.Data);

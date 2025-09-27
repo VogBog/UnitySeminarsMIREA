@@ -9,11 +9,12 @@ namespace InputSystems
         private readonly IPlayerActions _actions;
         
         public Vector2 MoveAxis => _actions.Move.ReadValue<Vector2>();
+        public InputDevice Device;
 
         public event Action<PlayerInput, Vector2> StartMoving;
         public event Action<PlayerInput> EndMoving, Interacted, EndInteraction;
 
-        public event Action<PlayerInput> SomethingPressed;
+        public event Action<PlayerInput, InputDevice> SomethingPressed;
 
         public PlayerInput(int playerIndex)
         {
@@ -38,23 +39,35 @@ namespace InputSystems
 
         private void OnMoveStarting(InputAction.CallbackContext ctx)
         {
-            SomethingPressed?.Invoke(this);
+            if (Device != null && Device != ctx.control.device)
+                return;
+            
+            SomethingPressed?.Invoke(this, ctx.control.device);
             StartMoving?.Invoke(this, ctx.ReadValue<Vector2>());
         }
 
         private void OnMoveEnded(InputAction.CallbackContext ctx)
         {
+            if (Device != null && Device != ctx.control.device)
+                return;
+            
             EndMoving?.Invoke(this);
         }
 
         private void OnInteractionPerformed(InputAction.CallbackContext ctx)
         {
-            SomethingPressed?.Invoke(this);
+            if (Device != null && Device != ctx.control.device)
+                return;
+            
+            SomethingPressed?.Invoke(this, ctx.control.device);
             Interacted?.Invoke(this);
         }
 
         private void OnInteractionEnd(InputAction.CallbackContext ctx)
         {
+            if (Device != null && Device != ctx.control.device)
+                return;
+            
             EndInteraction?.Invoke(this);
         }
 

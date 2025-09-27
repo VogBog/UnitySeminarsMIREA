@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e905ed2-0d71-4056-936f-b87fe484aaa5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Thunder/ThunderProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Thunder/ThunderProjectile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InputSystems/PlayerInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InputSystems/PlayerInput.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Lobby/Lobby.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Lobby/Lobby.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Lobby/PlayerData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Lobby/PlayerData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +114,7 @@
       <workItem from="1758313482558" duration="3402000" />
       <workItem from="1758707725090" duration="32884000" />
       <workItem from="1758804255487" duration="11578000" />
-      <workItem from="1758923268154" duration="10949000" />
+      <workItem from="1758923268154" duration="12127000" />
     </task>
     <servers />
   </component>

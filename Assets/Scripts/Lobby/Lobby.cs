@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Data;
-using InputSystems;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using PlayerInput = InputSystems.PlayerInput;
 
 namespace Lobby
 {
@@ -55,20 +56,25 @@ namespace Lobby
             _activePlayers.Clear();
         }
 
-        private void OnPlayerPressedSomething(PlayerInput input)
+        private void OnPlayerPressedSomething(PlayerInput input, InputDevice device)
         {
             int index = 0;
             for (int i = 0; i < _inputs.Length; i++)
             {
+                if (_inputs[i].Device == device && device.description.deviceClass != "Keyboard")
+                    return;
+                
                 if (_inputs[i] == input)
                 {
                     index = i + 1;
-                    break;
                 }
             }
 
-            if (!_activePlayers.TryAdd(input, new(index, _allElements[index % _allElements.Length])))
+            if (!_activePlayers.TryAdd(input, new(index, device, _allElements[index % _allElements.Length])))
                 return;
+            
+            input.SomethingPressed -= OnPlayerPressedSomething;
+            input.Device = device;
             
             ActivePlayersChanged?.Invoke(_activePlayers.Values.ToArray());
             input.Interacted += ChangeElemental;
