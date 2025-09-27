@@ -30,5 +30,7 @@ namespace MainGame
 
             PlayersCountChanged?.Invoke(_players.Count);
         }
+
+        public List<Player.Player> GetPlayersCopy() => new(_players);
     }
 }

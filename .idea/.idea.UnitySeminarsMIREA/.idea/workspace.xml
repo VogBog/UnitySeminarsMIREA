@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="3e905ed2-0d71-4056-936f-b87fe484aaa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameUI/GameUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameUI/GameUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InputSystems/PlayerInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InputSystems/PlayerInput.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameFinisher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameFinisher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainGame/PlayersRepo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/PlayersRepo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerGameUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerGameUI.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +114,7 @@
       <workItem from="1758313482558" duration="3402000" />
       <workItem from="1758707725090" duration="32884000" />
       <workItem from="1758804255487" duration="11578000" />
-      <workItem from="1758923268154" duration="19722000" />
+      <workItem from="1758923268154" duration="20377000" />
     </task>
     <servers />
   </component>
