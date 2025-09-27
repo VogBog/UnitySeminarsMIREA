@@ -10,6 +10,8 @@ namespace Player
         [field: SerializeField] public float Speed;
         
         public Vector3 Forward { get; private set; }
+        
+        public float CannotMoveTime;
         public bool AffectByIce;
         
         private CharacterController _controller;
@@ -60,7 +62,9 @@ namespace Player
 
         private void FixedUpdate()
         {
-            _controller.Move(_moveVector * (Speed * Time.fixedDeltaTime));
+            CannotMoveTime = Mathf.Clamp(CannotMoveTime - Time.fixedDeltaTime, 0f, 10f);
+            if(CannotMoveTime == 0f)
+                _controller.Move(_moveVector * (Speed * Time.fixedDeltaTime));
         }
     }
 }

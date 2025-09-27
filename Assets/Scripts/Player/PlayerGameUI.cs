@@ -1,3 +1,5 @@
+using DG.Tweening;
+using GridMap;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +8,7 @@ namespace Player
     public class PlayerGameUI : MonoBehaviour
     {
         [SerializeField] private Transform _layoutGroup;
+        [SerializeField] private Image _smokeImage;
 
         private Player _player;
         private Image[] _images;
@@ -16,6 +19,11 @@ namespace Player
             _player = player;
             
             _player.Health.Changed += OnPlayerHealthChanged;
+            _player.MoveByTiles.MoveByTiles.WentToNewCellType += OnWentToNewCellType;
+            
+            var clr = _smokeImage.color;
+            clr.a = 0f;
+            _smokeImage.color = clr;
         }
 
         private void OnPlayerHealthChanged(PlayerHealth health, int value)
@@ -36,6 +44,28 @@ namespace Player
             {
                 _images[i].gameObject.SetActive(false);
             }
+        }
+
+        private void OnWentToNewCellType(byte type, Vector2Int position)
+        {
+            if(type is GridMapValues.Steam)
+                GoIntoSmoke();
+            else
+                GoFromSmoke();
+        }
+
+        public void GoIntoSmoke()
+        {
+            var clr = _smokeImage.color;
+            clr.a = 1f;
+            _smokeImage.DOColor(clr, 1f);
+        }
+
+        public void GoFromSmoke()
+        {
+            var clr = _smokeImage.color;
+            clr.a = 0f;
+            _smokeImage.DOColor(clr, 1f);
         }
     }
 }

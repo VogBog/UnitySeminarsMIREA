@@ -15,7 +15,9 @@ namespace Player
 
         public const float OneTickInSeconds = 1f;
 
-        private Action Tick;
+        private Action _tick;
+        
+        public MoveByTiles MoveByTiles => _moveByTiles;
 
         public void Initialize(Player player)
         {
@@ -26,18 +28,24 @@ namespace Player
 
         private void OnWentNewCellType(byte type, Vector2Int coords)
         {
-            Tick = null;
+            _tick = null;
             _player.Movement.AffectByIce = false;
             
             if (type is >= GridMapValues.Fire5Seconds and <= GridMapValues.Fire20Seconds)
             {
-                Tick += FireTick;
+                _tick += FireTick;
                 return;
             }
 
             if (type is GridMapValues.IceFloor)
             {
                 _player.Movement.AffectByIce = true;
+                return;
+            }
+
+            if (type is >= GridMapValues.ThunderWater5Seconds and <= GridMapValues.ThunderWater30Seconds)
+            {
+                _tick += ThunderTick;
                 return;
             }
         }
@@ -48,7 +56,7 @@ namespace Player
             if (_tickTime >= OneTickInSeconds)
             {
                 _tickTime = 0f;
-                Tick?.Invoke();
+                _tick?.Invoke();
             }
         }
 
@@ -56,6 +64,11 @@ namespace Player
         {
             var damageEvent = new GetDamageData(1, _player.gameObject, Elementals.Fire);
             _player.TakeDamage(damageEvent);
+        }
+
+        private void ThunderTick()
+        {
+            _player.Movement.CannotMoveTime += 0.4f;
         }
     }
 }

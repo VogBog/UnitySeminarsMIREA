@@ -98,6 +98,11 @@ namespace GridMap
 
         public static int SteamRule(RuleData rule)
         {
+            if (rule.To is GridMapValues.IceFloor)
+                return GridMapValues.Water;
+            if(rule.To is >= GridMapValues.Thunder5Seconds and <= GridMapValues.Thunder20Seconds)
+                return GridMapValues.Water;
+            
             return DefaultRule(rule);
         }
 

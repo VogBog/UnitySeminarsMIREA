@@ -151,7 +151,7 @@ namespace InputSystems
                 {
                     ""name"": """",
                     ""id"": ""5f7982ed-a256-4448-80eb-121575702db7"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -287,7 +287,7 @@ namespace InputSystems
                 {
                     ""name"": """",
                     ""id"": ""404694fe-5f69-4f50-9f57-82381f2d8e80"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -357,7 +357,7 @@ namespace InputSystems
                 {
                     ""name"": """",
                     ""id"": ""df55c2dc-3d56-4db2-93cd-f71911e7ca8e"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -427,7 +427,7 @@ namespace InputSystems
                 {
                     ""name"": """",
                     ""id"": ""b17ac21e-9267-49b2-8905-19cbb3deb126"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
