@@ -55,6 +55,11 @@ namespace Player.Abilities.Thunder
                 if(dist > minDist)
                     continue;
                 
+                var ray2 = new Ray(hit.point, collider.transform.position - hit.point);
+                if(!Physics.Raycast(ray2, out var hit2, dist + 1f) ||
+                   hit2.collider != collider)
+                    continue;
+                
                 minDist = dist;
                 target = (collider.gameObject, iDamageable);
             }
