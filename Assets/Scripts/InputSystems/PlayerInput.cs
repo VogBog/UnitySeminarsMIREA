@@ -39,7 +39,7 @@ namespace InputSystems
 
         private void OnMoveStarting(InputAction.CallbackContext ctx)
         {
-            if (Device != null && Device != ctx.control.device)
+            if (Device != null && Device != ctx.control.device || Time.timeScale == 0f)
                 return;
             
             SomethingPressed?.Invoke(this, ctx.control.device);
@@ -48,7 +48,7 @@ namespace InputSystems
 
         private void OnMoveEnded(InputAction.CallbackContext ctx)
         {
-            if (Device != null && Device != ctx.control.device)
+            if (Device != null && Device != ctx.control.device || Time.timeScale == 0f)
                 return;
             
             EndMoving?.Invoke(this);
@@ -56,7 +56,7 @@ namespace InputSystems
 
         private void OnInteractionPerformed(InputAction.CallbackContext ctx)
         {
-            if (Device != null && Device != ctx.control.device)
+            if (Device != null && Device != ctx.control.device || Time.timeScale == 0f)
                 return;
             
             SomethingPressed?.Invoke(this, ctx.control.device);
@@ -65,7 +65,7 @@ namespace InputSystems
 
         private void OnInteractionEnd(InputAction.CallbackContext ctx)
         {
-            if (Device != null && Device != ctx.control.device)
+            if (Device != null && Device != ctx.control.device || Time.timeScale == 0f)
                 return;
             
             EndInteraction?.Invoke(this);
