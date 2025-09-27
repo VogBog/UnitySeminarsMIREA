@@ -27,6 +27,8 @@ namespace Player
             if (data.Damage <= 0 || _died)
                 return;
             
+            Debug.Log($"Take {data.Damage} damage");
+            
             Health = Mathf.Clamp(Health - data.Damage, 0, MaxHealth);
             Changed?.Invoke(this, Health);
             

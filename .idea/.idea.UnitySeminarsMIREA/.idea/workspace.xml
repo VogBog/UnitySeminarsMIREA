@@ -7,9 +7,13 @@
     <list default="true" id="3e905ed2-0d71-4056-936f-b87fe484aaa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameFinisher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameFinisher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainGame/PlayersRepo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/PlayersRepo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerGameUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerGameUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Abilities/Thunder.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Abilities/Thunder.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridMap/MoveByTiles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/MoveByTiles.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/PC_RPAsset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/PC_RPAsset.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +118,8 @@
       <workItem from="1758313482558" duration="3402000" />
       <workItem from="1758707725090" duration="32884000" />
       <workItem from="1758804255487" duration="11578000" />
-      <workItem from="1758923268154" duration="20377000" />
+      <workItem from="1758923268154" duration="20474000" />
+      <workItem from="1758944906079" duration="455000" />
     </task>
     <servers />
   </component>

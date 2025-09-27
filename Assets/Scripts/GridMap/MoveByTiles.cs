@@ -21,9 +21,10 @@ namespace GridMap
         private void FixedUpdate()
         {
             var (x, y) = _gridMap.FromWorldPositionToIndexes(transform.position.x, transform.position.z);
-            if (_indexes.x != x || _indexes.y != y)
+            byte type = _gridMap.GetCell(x, y);
+            
+            if (_indexes.x != x || _indexes.y != y || _cellType != type)
             {
-                byte type = _gridMap.GetCell(x, y);
                 _indexes = new Vector2Int(x, y);
                 WentToNewCell?.Invoke(type, _indexes);
 
