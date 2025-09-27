@@ -47,7 +47,6 @@ namespace Player.Abilities.Thunder
             
             foreach (var collider in colliders)
             {
-                Debug.Log(collider.name, collider);
                 if(!collider.TryGetComponent<IDamageable>(out var iDamageable) || damageable == iDamageable ||
                    player.HurtBox == iDamageable) 
                     continue;

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fe81c2a41a44b21a914099df13b262f, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
-  <HeavyAbilityTime>k__BackingField: 2
-  <HeavyAbilityCooldown>k__BackingField: 15
+  <HeavyAbilityTime>k__BackingField: 1.5
+  <HeavyAbilityCooldown>k__BackingField: 30
   <QuickAbilityCooldown>k__BackingField: 1
   <QuickDamage>k__BackingField: 1
   <QuickDistance>k__BackingField: 6

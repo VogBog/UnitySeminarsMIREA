@@ -24,7 +24,7 @@ namespace GridMap
 
             if (value == GridMapValues.ThunderWater5Seconds)
                 return GridMapValues.Water;
-            if(value <= GridMapValues.ThunderWater30Seconds)
+            if(value is >= GridMapValues.ThunderWater10Seconds and <= GridMapValues.ThunderWater30Seconds)
                 return value - 1;
 
             return value;

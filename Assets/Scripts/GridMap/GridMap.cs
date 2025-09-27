@@ -328,7 +328,6 @@ namespace GridMap
                         continue;
 
                     float t = (x - line.x) / (line.z - line.x);
-                    Debug.Log(t);
                     float yIntersection = line.y + t * (line.w - line.y);
                     buffer.Add(yIntersection);
                 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2fc5a2ea4ce44f0b2207b4557855a2c, type: 3}
   m_Name: Ice
   m_EditorClassIdentifier: 
-  <HeavyAbilityTime>k__BackingField: 1
+  <HeavyAbilityTime>k__BackingField: 0.5
   <HeavyAbilityCooldown>k__BackingField: 8
   <QuickAbilityCooldown>k__BackingField: 1
   <QuickDamage>k__BackingField: 1

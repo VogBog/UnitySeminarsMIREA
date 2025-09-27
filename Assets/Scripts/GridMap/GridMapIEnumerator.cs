@@ -36,6 +36,9 @@ namespace GridMap
                         continue;
                     }
                     
+                    if(_y < 0 || _y >= _map.GetLength(1) - 1)
+                        continue;
+                    
                     if (_x < 0) _x = -1;
 
                     Current = (++_x, _y, _map[_x, _y]);
@@ -52,6 +55,9 @@ namespace GridMap
                         _y++;
                         continue;
                     }
+                    
+                    if(_x < 0 || _x >= _map.GetLength(0) - 1)
+                        continue;
                     
                     if (_y < 0) _y = -1;
 
