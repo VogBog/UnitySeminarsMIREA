@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
+  m_Name: ReferenceImageLibrary
+  m_EditorClassIdentifier: 
+  m_GuidLow: 4855551021301248459
+  m_GuidHigh: 11519100646928862350
+  m_DataStore:
+    m_Storage: []
+  m_Images:
+  - m_SerializedGuid:
+      m_GuidLow: 5616475514347504226
+      m_GuidHigh: 681337252878868149
+    m_SerializedTextureGuid:
+      m_GuidLow: 9738026868864281147
+      m_GuidHigh: 13206330117816408827
+    m_Size: {x: 0.3, y: 0.19081272}
+    m_SpecifySize: 0
+    m_Name: ezgif-frame-001
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5587858222407888318
+      m_GuidHigh: 17456382170439118754
+    m_SerializedTextureGuid:
+      m_GuidLow: 12683358245731869732
+      m_GuidHigh: 4538435769389662362
+    m_Size: {x: 0.3, y: 0.16907379}
+    m_SpecifySize: 0
+    m_Name: meme
+    m_Texture: {fileID: 0}
