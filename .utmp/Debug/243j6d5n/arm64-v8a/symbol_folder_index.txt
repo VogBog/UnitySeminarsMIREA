@@ -1,0 +1,1 @@
+D:\GitHub\UnitySeminarsMIREA\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\Debug\243j6d5n\obj\arm64-v8a

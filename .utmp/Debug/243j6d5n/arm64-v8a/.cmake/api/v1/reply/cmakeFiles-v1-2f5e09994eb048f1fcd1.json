@@ -49,7 +49,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "D:/GitHub/UnitySeminarsMIREA/.utmp/RelWithDebInfo/5e5375f6/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeSystem.cmake"
+			"path" : "D:/GitHub/UnitySeminarsMIREA/.utmp/Debug/243j6d5n/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeSystem.cmake"
 		},
 		{
 			"isExternal" : true,
@@ -324,7 +324,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "D:/GitHub/UnitySeminarsMIREA/.utmp/RelWithDebInfo/5e5375f6/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake"
+			"path" : "D:/GitHub/UnitySeminarsMIREA/.utmp/Debug/243j6d5n/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -558,7 +558,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "D:/GitHub/UnitySeminarsMIREA/.utmp/RelWithDebInfo/5e5375f6/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake"
+			"path" : "D:/GitHub/UnitySeminarsMIREA/.utmp/Debug/243j6d5n/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -722,7 +722,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "D:/GitHub/UnitySeminarsMIREA/.utmp/RelWithDebInfo/5e5375f6/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake"
+			"path" : "D:/GitHub/UnitySeminarsMIREA/.utmp/Debug/243j6d5n/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -816,20 +816,20 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "D:/GitHub/UnitySeminarsMIREA/.utmp/RelWithDebInfo/5e5375f6/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake"
+			"path" : "D:/GitHub/UnitySeminarsMIREA/.utmp/Debug/243j6d5n/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake"
 		},
 		{
 			"path" : "GameActivity/CMakeLists.txt"
 		},
 		{
 			"isExternal" : true,
-			"path" : "D:/GitHub/UnitySeminarsMIREA/.utmp/RelWithDebInfo/5e5375f6/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/game-activity/game-activityConfig.cmake"
+			"path" : "D:/GitHub/UnitySeminarsMIREA/.utmp/Debug/243j6d5n/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/game-activity/game-activityConfig.cmake"
 		}
 	],
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "D:/GitHub/UnitySeminarsMIREA/.utmp/RelWithDebInfo/5e5375f6/arm64-v8a",
+		"build" : "D:/GitHub/UnitySeminarsMIREA/.utmp/Debug/243j6d5n/arm64-v8a",
 		"source" : "D:/GitHub/UnitySeminarsMIREA/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp"
 	},
 	"version" : 
