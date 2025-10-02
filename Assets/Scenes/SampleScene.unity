@@ -309,7 +309,7 @@ MonoBehaviour:
         m_MethodName: SetPrefab
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 4378174953248740082, guid: 93517e4e88e0a3c4190d8814a92a66cf,
+          m_ObjectArgument: {fileID: 13834203360297141, guid: 27bec2318395854418f2a384cbb1847b,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a1bda230b3959884bab22835b13fa137, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 89584e7616e39af439101d0f1c2c6d01, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -545,7 +545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4383d5cef2534a8ca12860de1405476f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxObjectsCount: 7
+  _maxObjectsCount: 6
 --- !u!1 &702413256
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,7 +693,7 @@ MonoBehaviour:
         m_MethodName: SetPrefab
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 4461465904915353775, guid: 46358f6642ba62b43ac8e29e621fa11a,
+          m_ObjectArgument: {fileID: 3910015824464773344, guid: 42e1991244917f2479ce3a06fec3529d,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
@@ -721,7 +721,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 759d8dc8ea7c6994fa77dc6aa842f51f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e8caadc1598179d479254d1139da79b2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
