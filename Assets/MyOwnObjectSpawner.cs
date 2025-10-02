@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -17,7 +16,6 @@ namespace DefaultNamespace
         private void Awake()
         {
             _raycastManager = FindFirstObjectByType<ARRaycastManager>();
-            if(_raycastManager == null) throw new NullReferenceException("Cannot find ARRaycastManager");
         }
 
         private void Update()
@@ -25,15 +23,17 @@ namespace DefaultNamespace
             if (Input.touchCount < 1)
                 return;
             
-            var touchPosition = Input.GetTouch(0).position;
+            Vector2 touchPosition = Input.GetTouch(0).position;
 
             if (!_raycastManager.Raycast(touchPosition, _hits, TrackableType.PlaneWithinPolygon))
                 return;
             
-            var hitPose = _hits[0].pose;
+            Pose hitPose = _hits[0].pose;
             
-            _spawnedObject ??= Instantiate(_prefab, hitPose.position, hitPose.rotation);
-            _spawnedObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
+            if(_spawnedObject == null)
+                _spawnedObject = Instantiate(_prefab, hitPose.position, hitPose.rotation);
+            else
+                _spawnedObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
         }
     }
 }
