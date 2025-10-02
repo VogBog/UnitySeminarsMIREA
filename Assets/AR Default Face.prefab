@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8865638981433701905}
   - component: {fileID: 639198315805330127}
   - component: {fileID: 5828860635964830675}
+  - component: {fileID: 2903048710866782304}
   m_Layer: 0
   m_Name: AR Default Face
   m_TagString: Untagged
@@ -113,3 +114,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2903048710866782304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5693143581806374487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c13b9f67334f1bad3aefafa8b477ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _face: {fileID: 2277620022766309733}
+  _sphereIndex: 4
+  _spherePrefab: {fileID: 3612471199615418518, guid: 2118d832ad82ca34faf0fd073eb2b62c,
+    type: 3}
+  _hornsIndexes: 2b01000045000000
+  _hornPrefab: {fileID: 1451260335498765980, guid: ebd8c1451c61ceb4fabe6c69ff7b6703,
+    type: 3}
