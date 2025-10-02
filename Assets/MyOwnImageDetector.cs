@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -15,13 +14,12 @@ namespace DefaultNamespace
         private void Awake()
         {
             _trackedImageManager = FindFirstObjectByType<ARTrackedImageManager>();
-            if(_trackedImageManager == null) throw new NullReferenceException("ARTrackedImageManager not found");
 
             foreach (var prefab in _prefabs)
             {
-                var instance = Instantiate(prefab, transform);
-                instance.SetActive(false);
-                _instances.Add(prefab.name, instance);
+                var obj = Instantiate(prefab, transform);
+                obj.SetActive(false);
+                _instances.Add(prefab.name, obj);
             }
         }
 
@@ -54,11 +52,12 @@ namespace DefaultNamespace
             if (string.IsNullOrEmpty(image.referenceImage.name))
                 return;
             
-            if (!_instances.TryGetValue(image.referenceImage.name, out var instance))
+            if (!_instances.TryGetValue(image.referenceImage.name, out var obj))
                 return;
-            
-            instance.transform.SetPositionAndRotation(image.pose.position, image.pose.rotation);
-            instance.SetActive(true);
+
+            obj.transform.position = image.pose.position;
+            obj.transform.rotation = image.pose.rotation;
+            obj.SetActive(true);
         }
     }
 }

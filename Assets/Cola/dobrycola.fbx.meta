@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 79e1e0d52a366864290ea76752b56245
+guid: 845fb01f9157ce14c8a7550a1b59b84b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: sutr_tmave_sedy
-    second: {fileID: 2100000, guid: ecb226f5308bdab4f9b594f9d9062927, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
