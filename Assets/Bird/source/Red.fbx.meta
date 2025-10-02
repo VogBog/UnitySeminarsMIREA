@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e3b48e84e2aa6aa4e99cff3f8dc3f1ed
+guid: 1629467392fdc9f4a96290009a8e8d19
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Om_Nelle_001__TextureAtlas_004
-    second: {fileID: 2100000, guid: 1d839106655c27c498bff3bf69bf8fff, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: accessory-sunglasses-nelle
-    second: {fileID: 2100000, guid: 27a0f611af8b1514ab5505e434cbeb66, type: 2}
+      name: Material #55
+    second: {fileID: 2100000, guid: 3395df324b05e3640a4113276aecb13a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -75,7 +70,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
