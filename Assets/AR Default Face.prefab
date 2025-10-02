@@ -127,5 +127,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _face: {fileID: 2277620022766309733}
-  _indexes: 9f00000082010000
+  _indexes: 04000000
   _prefab: {fileID: 3612471199615418518, guid: 2118d832ad82ca34faf0fd073eb2b62c, type: 3}
