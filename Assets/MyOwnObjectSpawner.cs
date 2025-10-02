@@ -8,7 +8,7 @@ namespace DefaultNamespace
 {
     public class MyOwnObjectSpawner : MonoBehaviour
     {
-        [SerializeField] private int _maxObjectsCount = 6;
+        [SerializeField] private int _maxObjectsCount = 7;
         
         private GameObject _prefab;
         private ARRaycastManager _raycastManager;
@@ -21,23 +21,26 @@ namespace DefaultNamespace
             if(_raycastManager == null) throw new NullReferenceException("Cannot find ARRaycastManager");
         }
 
-        private bool CanSpawnObject() =>
-            Input.touchCount > 0 &&
-            Input.GetTouch(0).phase == TouchPhase.Began &&
-            _objectsCount < _maxObjectsCount &&
-            _prefab != null;
+        private bool CanSpawnObject()
+        {
+            return Input.touchCount > 0 &&
+                   Input.GetTouch(0).phase == TouchPhase.Began &&
+                   _objectsCount < _maxObjectsCount &&
+                   _prefab != null;
+        }
+            
 
         private void Update()
         {
             if (!CanSpawnObject())
                 return;
             
-            var touchPosition = Input.GetTouch(0).position;
+            Vector2 touchPosition = Input.GetTouch(0).position;
 
             if (!_raycastManager.Raycast(touchPosition, _hits, TrackableType.PlaneWithinPolygon))
                 return;
             
-            var hitPose = _hits[0].pose;
+            Pose hitPose = _hits[0].pose;
             
             Instantiate(_prefab, hitPose.position, hitPose.rotation);
             _objectsCount++;
