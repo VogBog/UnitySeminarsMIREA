@@ -25,15 +25,9 @@ namespace DefaultNamespace
             }
         }
 
-        private void OnEnable()
-        {
-            _trackedImageManager.trackablesChanged.AddListener(ImageChanged);
-        }
+        private void OnEnable() => _trackedImageManager.trackablesChanged.AddListener(ImageChanged);
 
-        private void OnDisable()
-        {
-            _trackedImageManager.trackablesChanged.RemoveListener(ImageChanged);
-        }
+        private void OnDisable() => _trackedImageManager.trackablesChanged.RemoveListener(ImageChanged);
 
         private void ImageChanged(ARTrackablesChangedEventArgs<ARTrackedImage> args)
         {

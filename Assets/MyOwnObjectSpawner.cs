@@ -8,11 +8,12 @@ namespace DefaultNamespace
 {
     public class MyOwnObjectSpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject _prefab;
+        [SerializeField] private int _maxObjectsCount = 6;
         
+        private GameObject _prefab;
         private ARRaycastManager _raycastManager;
-        private GameObject _spawnedObject;
         private readonly List<ARRaycastHit> _hits = new();
+        private int _objectsCount;
 
         private void Awake()
         {
@@ -20,9 +21,15 @@ namespace DefaultNamespace
             if(_raycastManager == null) throw new NullReferenceException("Cannot find ARRaycastManager");
         }
 
+        private bool CanSpawnObject() =>
+            Input.touchCount > 0 &&
+            Input.GetTouch(0).phase == TouchPhase.Began &&
+            _objectsCount < _maxObjectsCount &&
+            _prefab != null;
+
         private void Update()
         {
-            if (Input.touchCount < 1)
+            if (!CanSpawnObject())
                 return;
             
             var touchPosition = Input.GetTouch(0).position;
@@ -32,8 +39,13 @@ namespace DefaultNamespace
             
             var hitPose = _hits[0].pose;
             
-            _spawnedObject ??= Instantiate(_prefab, hitPose.position, hitPose.rotation);
-            _spawnedObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
+            Instantiate(_prefab, hitPose.position, hitPose.rotation);
+            _objectsCount++;
+        }
+
+        public void SetPrefab(GameObject prefab)
+        {
+            _prefab = prefab;
         }
     }
 }
