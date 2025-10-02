@@ -7,10 +7,8 @@ namespace DefaultNamespace
     public class FaceMeshAdder : MonoBehaviour
     {
         [SerializeField] private ARFace _face;
-        [SerializeField] private int _sphereIndex;
-        [SerializeField] private GameObject _spherePrefab;
-        [SerializeField] private int[] _hornsIndexes;
-        [SerializeField] private GameObject _hornPrefab;
+        [SerializeField] private int[] _indexes;
+        [SerializeField] private GameObject _prefab;
 
         private readonly Dictionary<int, Transform> _objects = new();
 
@@ -19,15 +17,11 @@ namespace DefaultNamespace
 
         private void SetObjectsPositions(ARFaceUpdatedEventArgs args)
         {
-            SetObjectPosition(_sphereIndex);
-            foreach(var horn in _hornsIndexes)
-                SetObjectPosition(horn);
-        }
-
-        private void SetObjectPosition(int index)
-        {
-            var obj = GetObject(index);
-            obj.transform.position = _face.transform.TransformPoint(_face.vertices[index]);
+            foreach (var index in _indexes)
+            {
+                var obj = GetObject(index);
+                obj.transform.position = _face.transform.TransformPoint(_face.vertices[index]);
+            }
         }
 
         private Transform GetObject(int index)
@@ -35,18 +29,10 @@ namespace DefaultNamespace
             if (_objects.TryGetValue(index, out var obj))
                 return obj;
 
-            var prefab = GetPrefab(index);
-            var instance = Instantiate(prefab);
-            _objects.Add(index, instance);
+            var instance = Instantiate(_prefab);
+            _objects.Add(index, instance.transform);
 
-            return instance;
-        }
-
-        private Transform GetPrefab(int index)
-        {
-            if (index == _sphereIndex)
-                return _spherePrefab.transform;
-            return _hornPrefab.transform;
+            return instance.transform;
         }
     }
 }

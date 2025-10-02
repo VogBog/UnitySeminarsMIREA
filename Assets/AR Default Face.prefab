@@ -127,9 +127,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _face: {fileID: 2277620022766309733}
-  _sphereIndex: 4
-  _spherePrefab: {fileID: 3612471199615418518, guid: 2118d832ad82ca34faf0fd073eb2b62c,
-    type: 3}
-  _hornsIndexes: 2b01000045000000
-  _hornPrefab: {fileID: 1451260335498765980, guid: ebd8c1451c61ceb4fabe6c69ff7b6703,
-    type: 3}
+  _indexes: 9f00000082010000
+  _prefab: {fileID: 3612471199615418518, guid: 2118d832ad82ca34faf0fd073eb2b62c, type: 3}
