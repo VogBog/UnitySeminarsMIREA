@@ -55,8 +55,25 @@ namespace Game
 
         private IEnumerator FinishRoutine()
         {
+            StaticParameters.FinishData = CreateFinishData();
             yield return new WaitForSeconds(3f);
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(2);
+        }
+
+        private StaticParameters.PlayerFinishData[] CreateFinishData()
+        {
+            var cars = FindObjectsByType<CarMapRunner>(FindObjectsSortMode.InstanceID);
+            var result = new StaticParameters.PlayerFinishData[cars.Length];
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                var playerController = cars[i].GetComponentInChildren<PlayerController>();
+                var timer = cars[i].GetComponentInChildren<GameTimer>();
+
+                result[i] = new(playerController.PlayerIndex, timer.Time);
+            }
+
+            return result;
         }
     }
 }
