@@ -2,14 +2,16 @@ using System;
 using System.Collections;
 using System.Globalization;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Leaderboard
+namespace Leaderboard.FirebaseDesktopHelper
 {
     public struct FirebaseRestQuery
     {
         private string _path;
         private string _query;
+        private string _json;
 
         public string Result => _path + _query;
         
@@ -17,47 +19,60 @@ namespace Leaderboard
         {
             _path = url;
             _query = $".json?auth={apiKey}";
+            _json = string.Empty;
         }
 
-        public Task<string> CompleteAsync()
+        public Task<string> GetAsync()
         {
             return FirebaseRestRequests.SendGetQuery(this);
         }
 
-        public async Task CompleteCallback(Action<string> onComplete)
+        public async Task GetCallback(Action<string> onComplete)
         {
             var result = await FirebaseRestRequests.SendGetQuery(this);
             onComplete?.Invoke(result);
         }
 
-        public IEnumerator CompleteCoroutine(Action<string> result)
+        public IEnumerator GetCoroutine(Action<string> result)
         {
-            var strRef = new Reference<string>();
-            yield return CompleteCallback(str => strRef.Value = str);
-            yield return new WaitWhile(() => string.IsNullOrEmpty(strRef.Value));
+            var strRef = new ReferenceWithFlag<string>();
+            yield return GetCallback(str => strRef.Set(str));
+            yield return new WaitUntil(() => strRef.IsReady);
             
             result?.Invoke(strRef.Value);
         }
 
-        public async Task<T> CompleteAsync<T>()
+        public async Task<T> GetAsync<T>()
         {
             string result = await FirebaseRestRequests.SendGetQuery(this);
             return string.IsNullOrEmpty(result) ? default : JsonUtility.FromJson<T>(result);
         }
 
-        public async Task CompleteCallback<T>(Action<T> onComplete)
+        public async Task GetCallback<T>(Action<T> onComplete)
         {
-            var result = await CompleteAsync<T>();
+            var result = await GetAsync<T>();
             onComplete?.Invoke(result);
         }
 
-        public IEnumerator CompleteCoroutine<T>(Action<T> result)
+        public IEnumerator GetCoroutine<T>(Action<T> result)
         {
-            var strRef = new Reference<string>();
-            yield return CompleteCallback(str => strRef.Value = str);
-            yield return new WaitWhile(() => string.IsNullOrEmpty(strRef.Value));
+            var strRef = new ReferenceWithFlag<string>();
+            yield return GetCallback(str => strRef.Set(str));
+            yield return new WaitUntil(() => strRef.IsReady);
             
-            result?.Invoke(JsonUtility.FromJson<T>(strRef.Value));
+            result?.Invoke(JsonConvert.DeserializeObject<T>(strRef.Value));
+        }
+
+        public FirebaseRestQuery SetJson(string json)
+        {
+            _json = json;
+            return this;
+        }
+
+        public FirebaseRestQuery SetJson<T>(T obj)
+        {
+            _json = JsonConvert.SerializeObject(obj);
+            return this;
         }
 
         public FirebaseRestQuery GetChild(string childName)

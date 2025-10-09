@@ -1,4 +1,4 @@
-namespace Leaderboard
+namespace Leaderboard.FirebaseDesktopHelper
 {
     public class Reference<T>
     {

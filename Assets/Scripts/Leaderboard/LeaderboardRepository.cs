@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Leaderboard.FirebaseDesktopHelper;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -65,7 +66,7 @@ namespace Leaderboard
         public static async Task<List<PlayerData>> GetLeaders(int playersCount)
         {
             var json = await FirebaseRestRequests.GetQuery().GetChild(Path)
-                .OrderBy("Time").LimitToFirst(playersCount).CompleteAsync();
+                .OrderBy("Time").LimitToFirst(playersCount).GetAsync();
 
             return Players.FromJson(json).Records.Select(kvp => kvp.Value).OrderBy(kvp => kvp.Time).ToList();
         }
@@ -85,10 +86,10 @@ namespace Leaderboard
                 return result;
 
             var snapshotBeforeJson = await FirebaseRestRequests.GetQuery().GetChild(Path)
-                .OrderBy("Time").EndAt(data.Time).LimitToLast(playersCount).CompleteAsync();
+                .OrderBy("Time").EndAt(data.Time).LimitToLast(playersCount).GetAsync();
 
             var snapshotAfterJson = await FirebaseRestRequests.GetQuery().GetChild(Path)
-                .OrderBy("Time").StartAt(data.Time).LimitToFirst(playersCount + 1).CompleteAsync();
+                .OrderBy("Time").StartAt(data.Time).LimitToFirst(playersCount + 1).GetAsync();
             
             var snapshotBefore = Players.FromJson(snapshotBeforeJson);
             var snapshotAfter = Players.FromJson(snapshotAfterJson);
