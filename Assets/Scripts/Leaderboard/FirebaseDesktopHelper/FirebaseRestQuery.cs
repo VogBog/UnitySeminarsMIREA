@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
 using System.Globalization;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using UnityEngine;
 
 namespace Leaderboard.FirebaseDesktopHelper
 {
@@ -12,6 +8,7 @@ namespace Leaderboard.FirebaseDesktopHelper
         private string _path;
         private string _query;
         private string _json;
+        private bool _hasChildren;
 
         public string Result => _path + _query;
         public string Json => _json;
@@ -21,48 +18,13 @@ namespace Leaderboard.FirebaseDesktopHelper
             _path = url;
             _query = $".json?auth={apiKey}";
             _json = string.Empty;
-        }
+            _hasChildren = false;
 
-        public Task<string> GetAsync()
-        {
-            return FirebaseRestRequests.SendGetQuery(this);
+            if (!_path.EndsWith("/"))
+                _path += "/";
         }
-
-        public async Task GetCallback(Action<string> onComplete)
-        {
-            var result = await FirebaseRestRequests.SendGetQuery(this);
-            onComplete?.Invoke(result);
-        }
-
-        public IEnumerator GetCoroutine(Action<string> result)
-        {
-            var strRef = new ReferenceWithFlag<string>();
-            yield return GetCallback(str => strRef.Set(str));
-            yield return new WaitUntil(() => strRef.IsReady);
-            
-            result?.Invoke(strRef.Value);
-        }
-
-        public async Task<T> GetAsync<T>()
-        {
-            string result = await FirebaseRestRequests.SendGetQuery(this);
-            return string.IsNullOrEmpty(result) ? default : JsonUtility.FromJson<T>(result);
-        }
-
-        public async Task GetCallback<T>(Action<T> onComplete)
-        {
-            var result = await GetAsync<T>();
-            onComplete?.Invoke(result);
-        }
-
-        public IEnumerator GetCoroutine<T>(Action<T> result)
-        {
-            var strRef = new ReferenceWithFlag<string>();
-            yield return GetCallback(str => strRef.Set(str));
-            yield return new WaitUntil(() => strRef.IsReady);
-            
-            result?.Invoke(JsonConvert.DeserializeObject<T>(strRef.Value));
-        }
+        
+        public FirebaseRestQueryCompleter Call() => new(this);
 
         public FirebaseRestQuery SetJson(string json)
         {
@@ -78,7 +40,8 @@ namespace Leaderboard.FirebaseDesktopHelper
 
         public FirebaseRestQuery GetChild(string childName)
         {
-            _path += $"/{childName}";
+            _path += _hasChildren ? $"/{childName}" : childName;
+            _hasChildren = true;
             return this;
         }
 

@@ -37,5 +37,14 @@ namespace Leaderboard.FirebaseDesktopHelper.CompletersCoroutine
             
             callback?.Invoke(resRef.Value);
         }
+
+        public IEnumerator ObjectWrapped<T>(string wrapperName, Action<T> callback)
+        {
+            var resRef = new ReferenceWithFlag<T>();
+            yield return _completer.ObjectWrapped<T>(wrapperName, obj => resRef.Set(obj));
+            yield return new WaitUntil(() => resRef.IsReady);
+            
+            callback?.Invoke(resRef.Value);
+        }
     }
 }

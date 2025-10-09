@@ -27,5 +27,14 @@ namespace Leaderboard.FirebaseDesktopHelper.CompletersAsync
             string json = await FirebaseRestRequests.SendGetQuery(_query);
             return JsonConvert.DeserializeObject<T>(json);
         }
+        
+        public async Task<T> ObjectWrapped<T>(string wrappedName)
+        {
+            string json = await FirebaseRestRequests.SendGetQuery(_query);
+            json = $"{{\"{wrappedName}\": {json}}}";
+            var obj = JsonConvert.DeserializeObject<T>(json);
+            
+            return obj;
+        }
     }
 }

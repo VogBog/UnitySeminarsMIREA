@@ -29,5 +29,11 @@ namespace Leaderboard.FirebaseDesktopHelper.CompletersCallback
             var obj = await _completer.Object<T>();
             callback?.Invoke(obj);
         }
+
+        public async Task ObjectWrapped<T>(string wrapperName, Action<T> callback)
+        {
+            var obj = await _completer.ObjectWrapped<T>(wrapperName);
+            callback?.Invoke(obj);
+        }
     }
 }
