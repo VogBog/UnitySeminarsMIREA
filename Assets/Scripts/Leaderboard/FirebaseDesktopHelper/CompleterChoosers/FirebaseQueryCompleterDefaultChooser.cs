@@ -1,24 +1,21 @@
-using Leaderboard.FirebaseDesktopHelper.CompletersAsync;
 using Leaderboard.FirebaseDesktopHelper.CompletersCallback;
+using Leaderboard.FirebaseDesktopHelper.CompletersCoroutine;
 
 namespace Leaderboard.FirebaseDesktopHelper.CompleterChoosers
 {
-    public readonly struct FirebaseQueryCompleterGetChooser : IFirebaseQueryCompleterChooser
+    public readonly struct FirebaseQueryCompleterDefaultChooser : IFirebaseQueryCompleterChooser
     {
-        private readonly FirebaseRestQuery _query;
+        private readonly IFirebaseQueryCompleterAsync _completerAsync;
 
-        public FirebaseQueryCompleterGetChooser(FirebaseRestQuery query)
+        public FirebaseQueryCompleterDefaultChooser(IFirebaseQueryCompleterAsync completerAsync)
         {
-            _query = query;
+            _completerAsync = completerAsync;
         }
 
-        public IFirebaseQueryCompleterAsync Async() => new FirebaseQueryCompleterGetAsync(_query);
+        public IFirebaseQueryCompleterAsync Async() => _completerAsync;
 
         public IFirebaseQueryCompleterCallback Callback() => new FirebaseQueryCompleterDefaultCallback(Async());
 
-        public IFirebaseQueryCompleterIEnumerator Coroutine()
-        {
-            throw new System.NotImplementedException();
-        }
+        public IFirebaseQueryCompleterIEnumerator Coroutine() => new FirebaseQueryCompleterDefaultCoroutine(Callback());
     }
 }

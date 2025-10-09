@@ -14,6 +14,7 @@ namespace Leaderboard.FirebaseDesktopHelper
         private string _json;
 
         public string Result => _path + _query;
+        public string Json => _json;
         
         public FirebaseRestQuery(string url, string apiKey)
         {

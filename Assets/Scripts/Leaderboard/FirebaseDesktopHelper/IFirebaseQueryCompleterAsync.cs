@@ -2,10 +2,10 @@ using System.Threading.Tasks;
 
 namespace Leaderboard.FirebaseDesktopHelper
 {
-    public interface IFirebaseQueryCompleter
+    public interface IFirebaseQueryCompleterAsync
     {
-        Task AsyncEmpty();
-        Task<string> AsyncString();
-        Task<T> AsyncObject<T>();
+        Task Empty();
+        Task<string> String();
+        Task<T> Object<T>();
     }
 }

@@ -39,22 +39,55 @@ namespace Leaderboard.FirebaseDesktopHelper
             }
         }
 
+        public static async Task<string> SendRequest(UnityWebRequest request, string methodName)
+        {
+            await request.SendWebRequest();
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                LogError(methodName, request);
+                return string.Empty;
+            }
+            
+            Debug.Log($"Returning JSON {request.downloadHandler.text} by url {request.url}");
+            return request.downloadHandler.text;
+        }
+
         public static async Task<string> SendGetQuery(FirebaseRestQuery query)
         {
             string url = query.Result;
             
             using var request = UnityWebRequest.Get(url);
             
-            await request.SendWebRequest();
+            return await SendRequest(request, "SendGetQuery");
+        }
 
-            if (request.result != UnityWebRequest.Result.Success)
-            {
-                LogError("SendGetQuery", request);
-                return string.Empty;
-            }
+        public static async Task<string> SendPostQuery(FirebaseRestQuery query)
+        {
+            string url = query.Result;
             
-            Debug.Log($"Returning JSON {request.downloadHandler.text} by url {url}");
-            return request.downloadHandler.text;
+            using var request = UnityWebRequest.Post(url, query.Json, "application/json");
+            
+            return await SendRequest(request, "SendPostQuery");
+        }
+
+        public static async Task<string> SendPutQuery(FirebaseRestQuery query)
+        {
+            string url = query.Result;
+            
+            using var request = UnityWebRequest.Post(url, query.Json, "application/json");
+            request.method = "PUT";
+            
+            return await SendRequest(request, "SendPutQuery");
+        }
+
+        public static async Task<string> SendDeleteQuery(FirebaseRestQuery query)
+        {
+            string url = query.Result;
+            
+            using var request = UnityWebRequest.Delete(url);
+            
+            return await SendRequest(request, "SendDeleteQuery");
         }
     }
 }
