@@ -17,6 +17,7 @@ namespace FirebaseDesktopHelper
         public FirebaseRestQuery(string url, string apiKey)
         {
             _path = new(url);
+
             _query = new(".json?auth=");
             _query.Append(apiKey);
             

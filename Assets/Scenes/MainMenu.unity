@@ -2010,7 +2010,7 @@ MonoBehaviour:
     - {fileID: 1675196715}
     - {fileID: 68274661}
     _playBtn: {fileID: 562116788}
-  _levelSceneIndex: 1
+  _levelSceneIndex: 2
 --- !u!1 &1009533167
 GameObject:
   m_ObjectHideFlags: 0

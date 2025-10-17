@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using UnityEngine.Networking;
 
 namespace FirebaseDesktopHelper.CompletersAsync
 {
@@ -12,30 +13,31 @@ namespace FirebaseDesktopHelper.CompletersAsync
             _query = query;
         }
 
-        public Task Empty()
+        public async Task<UnityWebRequest.Result> Empty()
         {
-            return FirebaseRestRequests.SendDeleteQuery(_query);
+            var (_, status) = await FirebaseRestRequests.RealtimeDatabase.SendDeleteQuery(_query);
+            return status;
         }
 
-        public Task<string> String()
+        public Task<(string, UnityWebRequest.Result)> String()
         {
-            return FirebaseRestRequests.SendDeleteQuery(_query);
+            return FirebaseRestRequests.RealtimeDatabase.SendDeleteQuery(_query);
         }
 
-        public async Task<T> Object<T>()
+        public async Task<(T, UnityWebRequest.Result)> Object<T>()
         {
-            string json = await FirebaseRestRequests.SendDeleteQuery(_query);
+            var (json, status) = await FirebaseRestRequests.RealtimeDatabase.SendDeleteQuery(_query);
             var obj = JsonConvert.DeserializeObject<T>(json);
-            return obj;
+            return (obj, status);
         }
 
-        public async Task<T> ObjectWrapped<T>(string wrappedName)
+        public async Task<(T, UnityWebRequest.Result)> ObjectWrapped<T>(string wrappedName)
         {
-            string json = await FirebaseRestRequests.SendDeleteQuery(_query);
+            var (json, status) = await FirebaseRestRequests.RealtimeDatabase.SendDeleteQuery(_query);
             json = $"{{\"{wrappedName}\": {json}}}";
             var obj = JsonConvert.DeserializeObject<T>(json);
             
-            return obj;
+            return (obj, status);
         }
     }
 }

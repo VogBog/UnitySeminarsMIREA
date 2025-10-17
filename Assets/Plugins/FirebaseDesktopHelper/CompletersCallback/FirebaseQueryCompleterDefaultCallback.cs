@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using UnityEngine.Networking;
 
 namespace FirebaseDesktopHelper.CompletersCallback
 {
@@ -12,28 +13,28 @@ namespace FirebaseDesktopHelper.CompletersCallback
             _completer = completer;
         }
 
-        public async Task Empty(Action callback)
+        public async Task Empty(Action<UnityWebRequest.Result> callback)
         {
-            await _completer.Empty();
-            callback?.Invoke();
+            var status = await _completer.Empty();
+            callback?.Invoke(status);
         }
 
-        public async Task String(Action<string> callback)
+        public async Task String(Action<string, UnityWebRequest.Result> callback)
         {
-            string json = await _completer.String();
-            callback?.Invoke(json);
+            var (json, status) = await _completer.String();
+            callback?.Invoke(json, status);
         }
 
-        public async Task Object<T>(Action<T> callback)
+        public async Task Object<T>(Action<T, UnityWebRequest.Result> callback)
         {
-            var obj = await _completer.Object<T>();
-            callback?.Invoke(obj);
+            var (obj, status) = await _completer.Object<T>();
+            callback?.Invoke(obj, status);
         }
 
-        public async Task ObjectWrapped<T>(string wrapperName, Action<T> callback)
+        public async Task ObjectWrapped<T>(string wrapperName, Action<T, UnityWebRequest.Result> callback)
         {
-            var obj = await _completer.ObjectWrapped<T>(wrapperName);
-            callback?.Invoke(obj);
+            var (obj, status) = await _completer.ObjectWrapped<T>(wrapperName);
+            callback?.Invoke(obj, status);
         }
     }
 }
