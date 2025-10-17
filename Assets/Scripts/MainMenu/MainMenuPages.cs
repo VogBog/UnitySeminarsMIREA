@@ -1,5 +1,6 @@
 using Extensions;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MainMenu
 {
@@ -7,11 +8,16 @@ namespace MainMenu
     {
         [SerializeField] private GameObject[] _pages;
         
+        [Header("Network")]
+        [SerializeField] private Button _networkButton;
+        [SerializeField] private NetworkPage _networkPage;
+        
         private Lobby.Lobby _lobby;
 
         private void Start()
         {
             _lobby = this.FindFirstObjectByTypeOrException<Lobby.Lobby>();
+            _networkPage.Initialize(_networkButton);
             
             OpenPage(0);
         }
@@ -34,6 +40,11 @@ namespace MainMenu
         {
             OpenPage(1);
             _lobby.InitializeLobbyHost();
+        }
+
+        public void OpenNetworkPage()
+        {
+            OpenPage(2);
         }
 
         public void QuitFromLobby()

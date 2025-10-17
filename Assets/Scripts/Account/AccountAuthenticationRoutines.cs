@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Data;
 using FirebaseDesktopHelper;
 using FirebaseDesktopHelper.Services.Auth.SignIn;
 using FirebaseDesktopHelper.Services.Auth.SignUp;
@@ -11,17 +12,6 @@ namespace Account
 {
     public static class AccountAuthenticationRoutines
     {
-        public const string PlayerPrefsEmail = "Email";
-        public const string PlayerPrefsPassword = "Password";
-        public const string ProjectRoot = "ElementalsRoot";
-        public const string FirebaseAccounts = "Accounts";
-
-        [Serializable]
-        public struct ProjectRootData
-        {
-            public Dictionary<string, PlayerAccount> PlayerAccounts;
-        }
-
         public static IEnumerator SeveralTries(IEnumerator enumerator, Func<UnityWebRequest.Result> getResult)
         {
             for (int i = 0; i < 3; i++)
@@ -37,14 +27,15 @@ namespace Account
         
         public static IEnumerator TrySignInRoutine(Action<bool, SignInResponse, UnityWebRequest.Result> onComplete)
         {
-            if (!PlayerPrefs.HasKey(PlayerPrefsEmail) || !PlayerPrefs.HasKey(PlayerPrefsPassword))
+            if (!PlayerPrefs.HasKey(AccountAuthenticationModel.PlayerPrefsEmail) ||
+                !PlayerPrefs.HasKey(AccountAuthenticationModel.PlayerPrefsPassword))
             {
                 onComplete?.Invoke(false, default, UnityWebRequest.Result.Success);
                 yield break;
             }
             
-            string email = PlayerPrefs.GetString(PlayerPrefsEmail);
-            string password = PlayerPrefs.GetString(PlayerPrefsPassword);
+            string email = PlayerPrefs.GetString(AccountAuthenticationModel.PlayerPrefsEmail);
+            string password = PlayerPrefs.GetString(AccountAuthenticationModel.PlayerPrefsPassword);
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
@@ -70,8 +61,8 @@ namespace Account
 
             if (isSuccess)
             {
-                PlayerPrefs.SetString(PlayerPrefsEmail, email);
-                PlayerPrefs.SetString(PlayerPrefsPassword, password);
+                PlayerPrefs.SetString(AccountAuthenticationModel.PlayerPrefsEmail, email);
+                PlayerPrefs.SetString(AccountAuthenticationModel.PlayerPrefsPassword, password);
             }
             
             onComplete?.Invoke(isSuccess, responseRef.Value.Item1, responseRef.Value.Item2);
@@ -108,11 +99,7 @@ namespace Account
                 yield break;
             }
 
-            var accountToRegister = new PlayerAccount()
-            {
-                NickName = nickName,
-                MaxScore = 0f
-            };
+            var accountToRegister = new PlayerAccount(responseRef.Value.Item1.LocalId, nickName);
 
             var strRef = new Reference<(string, UnityWebRequest.Result)>();
 
@@ -120,8 +107,8 @@ namespace Account
             {
                 yield return FirebaseRestRequests.RealtimeDatabase
                     .Query()
-                    .GetChild(ProjectRoot)
-                    .GetChild(FirebaseAccounts)
+                    .GetChild(FirebaseKeys.ProjectRoot)
+                    .GetChild(FirebaseKeys.FirebaseAccounts)
                     .GetChild(responseRef.Value.Item1.LocalId)
                     .SetJson(accountToRegister)
                     .Call()
@@ -141,14 +128,19 @@ namespace Account
         public static IEnumerator GetPlayerRoutine(string uuid,
             Action<PlayerAccount, UnityWebRequest.Result> onComplete)
         {
+            var reference = new Reference<(PlayerAccount, UnityWebRequest.Result)>();
             yield return FirebaseRestRequests.RealtimeDatabase.Query()
-                .GetChild(ProjectRoot)
-                .GetChild(FirebaseAccounts)
+                .GetChild(FirebaseKeys.ProjectRoot)
+                .GetChild(FirebaseKeys.FirebaseAccounts)
                 .GetChild(uuid)
                 .Call()
                 .Get()
                 .Coroutine()
-                .Object(onComplete);
+                .Object<PlayerAccount>((obj, status) => reference.Value = (obj, status));
+            var account = reference.Value.Item1;
+            account.Id = uuid;
+            
+            onComplete?.Invoke(account, reference.Value.Item2);
         }
 
         public static IEnumerator IsNickNameFreeRoutineSeveralTries(
@@ -178,8 +170,8 @@ namespace Account
         {
             var strRef = new Reference<(ProjectRootData, UnityWebRequest.Result)>();
             yield return FirebaseRestRequests.RealtimeDatabase.Query()
-                .GetChild(ProjectRoot)
-                .GetChild(FirebaseAccounts)
+                .GetChild(FirebaseKeys.ProjectRoot)
+                .GetChild(FirebaseKeys.FirebaseAccounts)
                 .Call()
                 .Get()
                 .Coroutine()

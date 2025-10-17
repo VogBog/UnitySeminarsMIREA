@@ -12,6 +12,9 @@ namespace Account
     public class AccountAuthenticationModel : MonoBehaviour
     {
         [SerializeField] private AccountWelcomeScreen _welcomeScreen;
+        
+        public const string PlayerPrefsEmail = "Email";
+        public const string PlayerPrefsPassword = "Password";
 
         private void Awake()
         {

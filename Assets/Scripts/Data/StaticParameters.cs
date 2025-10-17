@@ -7,6 +7,6 @@ namespace Data
     {
         public static PlayerData[] Players;
         public static PlayerAccount PlayerAccount;
-        public static bool SinglePlayer;
+        public static bool SinglePlayer = true;
     }
 }

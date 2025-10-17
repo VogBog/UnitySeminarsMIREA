@@ -35,6 +35,16 @@ namespace FirebaseDesktopHelper.Services
                 .ConfigureAwait(true);
         }
 
+        public void ClearTokens()
+        {
+            _cts?.Cancel();
+            _cts?.Dispose();
+            _cts = null;
+
+            IdToken = string.Empty;
+            RefreshToken = string.Empty;
+        }
+
         private async Task WaitForRefreshToken(CancellationToken ct, int expiredInSeconds = 3600)
         {
             expiredInSeconds = Mathf.RoundToInt(expiredInSeconds * 0.8f);
