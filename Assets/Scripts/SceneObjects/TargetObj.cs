@@ -8,7 +8,7 @@ namespace SceneObjects
     [RequireComponent(typeof(Collider))]
     public class TargetObj : MonoBehaviour, IDamageable
     {
-        public void TakeDamage(GetDamageData data)
+        public void TakeDamage(ref GetDamageData data)
         {
             StartCoroutine(TakeDamageAnimationRoutine());
         }

@@ -56,7 +56,7 @@ namespace Player.Abilities.Fire
             if (other.gameObject.TryGetComponent<IDamageable>(out var damageable))
             {
                 var data = new GetDamageData(_damage, _attacker, Elementals.Fire);
-                damageable.TakeDamage(data);
+                damageable.TakeDamage(ref data);
             }
             Break();
         }

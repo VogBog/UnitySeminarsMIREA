@@ -20,7 +20,7 @@ namespace SceneObjects
             _health = _initHealth;
         }
         
-        public void TakeDamage(GetDamageData data)
+        public void TakeDamage(ref GetDamageData data)
         {
             _health--;
 

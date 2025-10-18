@@ -12,13 +12,24 @@ namespace Leaderboard
 
         private LeaderboardPage[] _pages;
         private readonly Leaderboard _leaderboard = new();
+        private GameObject _leaderboardLoadingGameObject;
 
-        private IEnumerator Start()
+        private void Start()
+        {
+            _leaderboardLoadingGameObject = new GameObject("Leaderboard loading");
+            _leaderboardLoadingGameObject.transform.SetParent(null);
+            _leaderboardLoadingGameObject.gameObject.SetActive(true);
+            var comp = _leaderboardLoadingGameObject.AddComponent<LeaderboardLoadingHelper>();
+            comp.StartCoroutine(StartRoutine());
+        }
+
+        private IEnumerator StartRoutine()
         {
             _pages = new LeaderboardPage[3];
             for (int i = 0; i < _pages.Length; i++)
             {
                 _pages[i] = Instantiate(_pagePrefab, _pagesParent);
+                yield return null;
             }
 
             yield return null;
@@ -48,6 +59,11 @@ namespace Leaderboard
                 int index = i;
                 _buttons[index].onClick.AddListener(() => OpenPage(index));
             }
+
+            yield return null;
+            
+            Destroy(_leaderboardLoadingGameObject);
+            _leaderboardLoadingGameObject = null;
         }
 
         public void OpenPage(int index)

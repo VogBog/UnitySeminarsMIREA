@@ -38,7 +38,6 @@ namespace Leaderboard
         {
             if (_setDataCoroutine != null)
             {
-                _setDataCoroutine.Reset();
                 StartCoroutine(_setDataCoroutine);
             }
         }
@@ -48,7 +47,7 @@ namespace Leaderboard
             Task<UnityWebRequest.Result> loadAccounts,
             Func<PlayerAccount, float> getScore)
         {
-            Task.Run(async () => await LoadDataAsync(getAccounts, loadAccounts, getScore)).ConfigureAwait(true);
+            _ = LoadDataAsync(getAccounts, loadAccounts, getScore);
         }
 
         public async Task LoadDataAsync(
@@ -56,9 +55,12 @@ namespace Leaderboard
             Task<UnityWebRequest.Result> loadAccounts,
             Func<PlayerAccount, float> getScore)
         {
+            Debug.Log("Gooo");
             _errorText.text = "Loading data...";
 
+            Debug.Log("Before await");
             var status = await loadAccounts;
+            Debug.Log("After await");
             if (status != UnityWebRequest.Result.Success)
             {
                 _errorText.text = status switch

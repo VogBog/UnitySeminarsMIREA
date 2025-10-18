@@ -5,5 +5,6 @@ namespace FirebaseDesktopHelper
         IFirebaseQueryCompleterAsync Async();
         IFirebaseQueryCompleterCallback Callback();
         IFirebaseQueryCompleterIEnumerator Coroutine();
+        IFirebaseQueryCompleterVoid Void();
     }
 }

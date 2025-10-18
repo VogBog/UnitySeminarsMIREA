@@ -31,8 +31,7 @@ namespace FirebaseDesktopHelper.Services
             _cts = new CancellationTokenSource();
             
             IdToken = idToken;
-            Task.Run(async () => await WaitForRefreshToken(_cts.Token, expiredInSeconds))
-                .ConfigureAwait(true);
+            WaitForRefreshToken(_cts.Token, expiredInSeconds);
         }
 
         public void ClearTokens()
@@ -45,12 +44,11 @@ namespace FirebaseDesktopHelper.Services
             RefreshToken = string.Empty;
         }
 
-        private async Task WaitForRefreshToken(CancellationToken ct, int expiredInSeconds = 3600)
+        private async void WaitForRefreshToken(CancellationToken ct, int expiredInSeconds = 3600)
         {
-            expiredInSeconds = Mathf.RoundToInt(expiredInSeconds * 0.8f);
-            
             try
             {
+                expiredInSeconds = Mathf.RoundToInt(expiredInSeconds * 0.8f);
                 await Task.Delay(expiredInSeconds * 1000, cancellationToken: ct);
                 await Refresh();
             }
@@ -61,6 +59,10 @@ namespace FirebaseDesktopHelper.Services
             catch (OperationCanceledException)
             {
                 return;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
             }
         }
 

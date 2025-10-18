@@ -16,10 +16,12 @@ namespace MainGame
         [SerializeField] private float _addYForEveryPlayer;
 
         private PlayersRepo _playersRepo;
+        private GameTimer _gameTimer;
 
         private void Start()
         {
             _playersRepo = this.FindFirstObjectByTypeOrException<PlayersRepo>();
+            _gameTimer = this.FindFirstObjectByTypeOrException<GameTimer>();
             var players = StaticParameters.Players;
             
             if (players == null || players.Length == 0)
@@ -66,6 +68,8 @@ namespace MainGame
             }
             
             SetCameras(instances);
+            
+            _gameTimer.StartTimer();
         }
 
         private IEnumerator InitializePlayerDelayed(Player.Player player, PlayerData data)

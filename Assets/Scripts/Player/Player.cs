@@ -1,13 +1,17 @@
 using System;
 using Damage;
+using Extensions;
 using InputSystems;
 using Lobby;
+using MainGame;
 using UnityEngine;
 
 namespace Player
 {
     public class Player : MonoBehaviour
     {
+        private ScoreCounter _scoreCounter;
+        
         [field: SerializeField] public Camera Camera { get; private set; }
         [field: SerializeField] public Movement Movement { get; private set; }
         [field: SerializeField] public PlayerModel Model { get; private set; }
@@ -35,7 +39,10 @@ namespace Player
             MoveByTiles.Initialize(this);
             Markers.Initialize(this);
             GameUI.Initialize(this);
-            Health.Initialize();
+            Health.Initialize(this.FindFirstObjectByTypeOrException<EventBus>(), this);
+
+            if (data.Index == 1)
+                _scoreCounter = new(this);
 
             HurtBox = GetComponentInChildren<PlayerHurtBox>();
             
@@ -81,6 +88,6 @@ namespace Player
             Destroy(gameObject);
         }
 
-        public void TakeDamage(GetDamageData data) => Health.TakeDamage(data);
+        public void TakeDamage(ref GetDamageData data) => Health.TakeDamage(ref data);
     }
 }

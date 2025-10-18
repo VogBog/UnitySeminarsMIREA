@@ -34,6 +34,7 @@ namespace MainMenu
             }
             
             _quitBtn.onClick.AddListener(QuitAccount);
+            _backBtn.onClick.AddListener(GoBack);
             _editNameButton.onClick.AddListener(OpenChangePlayerNameScreen);
             _submitEditNameButton.onClick.AddListener(SubmitChangingName);
             _editNameInputField.onSubmit.AddListener(_ => SubmitChangingName());

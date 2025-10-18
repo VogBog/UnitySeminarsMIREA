@@ -18,6 +18,7 @@ namespace MainMenu
         {
             _lobby = this.FindFirstObjectByTypeOrException<Lobby.Lobby>();
             _networkPage.Initialize(_networkButton);
+            _networkPage.BackClicked += () => OpenPage(0);
             
             OpenPage(0);
         }

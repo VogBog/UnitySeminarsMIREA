@@ -63,7 +63,7 @@ namespace Player
         private void FireTick()
         {
             var damageEvent = new GetDamageData(1, _player.gameObject, Elementals.Fire);
-            _player.TakeDamage(damageEvent);
+            _player.TakeDamage(ref damageEvent);
         }
 
         private void ThunderTick()

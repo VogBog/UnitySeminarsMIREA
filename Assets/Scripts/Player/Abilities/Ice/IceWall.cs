@@ -59,7 +59,7 @@ namespace Player.Abilities.Ice
             _pool.Despawn(this);
         }
 
-        public void TakeDamage(GetDamageData data)
+        public void TakeDamage(ref GetDamageData data)
         {
             if (data.Damage <= 0)
                 return;

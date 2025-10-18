@@ -5,29 +5,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e905ed2-0d71-4056-936f-b87fe484aaa5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Data/FirebaseKeys.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Data/ProjectRootData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Data/ProjectRootData.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/Leaderboard.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/Leaderboard.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardPage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardPage.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardRecord.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardRecord.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardTable.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardTable.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/MainMenu/NetworkPage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/MainMenu/NetworkPage.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/FirebaseDesktopHelper/CompletersVoid.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/FirebaseDesktopHelper/CompletersVoid/FirebaseQueryCompleterDefaultVoid.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/FirebaseDesktopHelper/CompletersVoid/FirebaseQueryCompleterDefaultVoid.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/FirebaseDesktopHelper/IFirebaseQueryCompleterVoid.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/FirebaseDesktopHelper/IFirebaseQueryCompleterVoid.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AfterGame.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AfterGame/AfterGame.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AfterGame/AfterGame.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AfterGame/ScoreRecord.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AfterGame/ScoreRecord.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Data/GameType.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardLoadingHelper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardLoadingHelper.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/EventBus.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/EventBus.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameTimer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameTimer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/ScoreCounter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/ScoreCounter.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FirebaseDesktopHelper/CompleterChoosers/FirebaseQueryCompleterDefaultChooser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/FirebaseDesktopHelper/CompleterChoosers/FirebaseQueryCompleterDefaultChooser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FirebaseDesktopHelper/IFirebaseQueryCompleterChooser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/FirebaseDesktopHelper/IFirebaseQueryCompleterChooser.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Plugins/FirebaseDesktopHelper/Services/FirebaseTokens.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/FirebaseDesktopHelper/Services/FirebaseTokens.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Account/AccountAuthenticationModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Account/AccountAuthenticationModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Account/AccountAuthenticationRoutines.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Account/AccountAuthenticationRoutines.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Account/PlayerAccount.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Account/PlayerAccount.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Damage/IDamageable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Damage/IDamageable.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Data/StaticParameters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Data/StaticParameters.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/Leaderboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/Leaderboard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardPage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardPage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardTable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Lobby/Lobby.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Lobby/Lobby.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameFinisher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameFinisher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameStarter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameStarter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainMenu/MainMenuPages.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainMenu/MainMenuPages.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainMenu/NetworkPage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainMenu/NetworkPage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireHeavyProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireHeavyProjectile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireProjectile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceProjectile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceWall.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceWall.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Thunder/ThunderProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Thunder/ThunderProjectile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerHurtBox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerHurtBox.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMoveByTiles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMoveByTiles.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/TargetObj.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/TargetObj.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/WaterBigBottle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/WaterBigBottle.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +158,7 @@
       <workItem from="1758923268154" duration="20474000" />
       <workItem from="1758944906079" duration="455000" />
       <workItem from="1760124482685" duration="14609000" />
-      <workItem from="1760713612769" duration="23214000" />
+      <workItem from="1760713612769" duration="32695000" />
     </task>
     <servers />
   </component>

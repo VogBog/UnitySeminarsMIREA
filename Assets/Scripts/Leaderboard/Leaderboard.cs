@@ -71,7 +71,7 @@ namespace Leaderboard
             => FirebaseRestRequests.RealtimeDatabase.Query()
                 .GetAccounts()
                 .OrderBy(orderBy)
-                .LimitToFirst(MaxPlayers)
+                .LimitToLast(MaxPlayers)
                 .Call()
                 .Get()
                 .Async()
@@ -90,7 +90,7 @@ namespace Leaderboard
             if (accounts.Count == 0)
                 return UnityWebRequest.Result.DataProcessingError;
 
-            var orderedAccounts = accounts.OrderBy(orderBy);
+            var orderedAccounts = accounts.OrderByDescending(orderBy);
             
             list.Clear();
             list.AddRange(orderedAccounts);

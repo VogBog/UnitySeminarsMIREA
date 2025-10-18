@@ -7,9 +7,9 @@ namespace Player
     {
         [SerializeField] private Player _player;
         
-        public void TakeDamage(GetDamageData data)
+        public void TakeDamage(ref GetDamageData data)
         {
-            _player.TakeDamage(data);
+            _player.TakeDamage(ref data);
         }
     }
 }

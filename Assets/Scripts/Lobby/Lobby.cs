@@ -109,6 +109,9 @@ namespace Lobby
         {
             var allPlayers = _activePlayers.Values.ToArray();
             StaticParameters.Players = allPlayers;
+            StaticParameters.GameType = GameType.None;
+            if (allPlayers.Length == 2) StaticParameters.GameType = GameType.P1Vs1;
+            else if (allPlayers.Length == 4) StaticParameters.GameType = GameType.P1Vs3;
             
             DisposeLobby();
             

@@ -67,7 +67,7 @@ namespace Player.Abilities.Fire
                     continue;
 
                 var data = new GetDamageData(_damage, _player.gameObject, Elementals.Fire);
-                damageable.TakeDamage(data);
+                damageable.TakeDamage(ref data);
             }
 
             var rects = _gridMap.FromWorldSphereToIndexesSphere(

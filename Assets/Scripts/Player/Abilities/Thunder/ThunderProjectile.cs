@@ -151,7 +151,7 @@ namespace Player.Abilities.Thunder
                 defaultDamage++;
 
             var damageData = new GetDamageData(defaultDamage, player.gameObject, Elementals.Thunder);
-            damageable.TakeDamage(damageData);
+            damageable.TakeDamage(ref damageData);
         }
 
         private void SetQuickThunder(Vector3 pos)

@@ -68,7 +68,7 @@ namespace Player.Abilities.Ice
                     continue;
 
                 var damageData = new GetDamageData(_damage, _player.gameObject, Elementals.Ice);
-                damageable.TakeDamage(damageData);
+                damageable.TakeDamage(ref damageData);
             }
 
             var rects = _gridMap.FromWorldSphereToIndexesSphere(
