@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3e905ed2-0d71-4056-936f-b87fe484aaa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/Leaderboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/Leaderboard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardPage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardPage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardRecord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardRecord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Leaderboard/LeaderboardTable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AfterGame/ScoreRecord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AfterGame/ScoreRecord.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +114,7 @@
       <workItem from="1758923268154" duration="20474000" />
       <workItem from="1758944906079" duration="455000" />
       <workItem from="1760124482685" duration="14609000" />
-      <workItem from="1760713612769" duration="37946000" />
+      <workItem from="1760713612769" duration="38591000" />
     </task>
     <servers />
   </component>
