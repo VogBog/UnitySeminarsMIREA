@@ -27,7 +27,7 @@ namespace AfterGame
             _background.color = new Color(0f, 0f, 0f, 0f);
             
             _nameText.DOColor(textColor, _animationTime);
-            _scoreText.DOColor(textColor, score);
+            _scoreText.DOColor(textColor, _animationTime);
             _background.DOColor(backgroundColor, _animationTime);
         }
     }
