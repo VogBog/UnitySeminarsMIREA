@@ -41,16 +41,19 @@ namespace Leaderboard
             
             _pages[0].LoadData(
                 () => _leaderboard.Leaderboard4,
+                () => _leaderboard.ActivePlayer4,
                 _leaderboard.Load4(),
                 acc => acc.Max4Score);
             
             _pages[1].LoadData(
                 () => _leaderboard.Leaderboard2Vs2,
+                () => _leaderboard.ActivePlayer2Vs2,
                 _leaderboard.Load2Vs2(),
                 acc => acc.Max2V2Score);
             
             _pages[2].LoadData(
                 () => _leaderboard.Leaderboard1Vs1,
+                () => _leaderboard.ActivePlayer1Vs1,
                 _leaderboard.Load1Vs1(),
                 acc => acc.Max1V1Score);
 

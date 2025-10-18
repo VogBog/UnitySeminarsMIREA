@@ -21,14 +21,14 @@ namespace Leaderboard
 
         private void Awake()
         {
-            for (int i = 0; i < Leaderboard.MaxPlayers; i++)
+            for (int i = 0; i < Leaderboard.MaxPlayers * 2; i++)
             {
                 var instance = Instantiate(_recordPrefab, _group.transform);
                 instance.gameObject.SetActive(false);
             }
 
-            _records = new LeaderboardRecord[Leaderboard.MaxPlayers];
-            for (int i = 0; i < Leaderboard.MaxPlayers; i++)
+            _records = new LeaderboardRecord[Leaderboard.MaxPlayers * 2];
+            for (int i = 0; i < _records.Length; i++)
             {
                 _records[i] = _group.transform.GetChild(i).GetComponent<LeaderboardRecord>();
             }
@@ -44,23 +44,23 @@ namespace Leaderboard
 
         public void LoadData(
             Func<List<PlayerAccount>> getAccounts,
+            Func<List<PlayerAccount>> getNearAccounts,
             Task<UnityWebRequest.Result> loadAccounts,
             Func<PlayerAccount, float> getScore)
         {
-            _ = LoadDataAsync(getAccounts, loadAccounts, getScore);
+            _ = LoadDataAsync(getAccounts, getNearAccounts, loadAccounts, getScore);
         }
 
         public async Task LoadDataAsync(
             Func<List<PlayerAccount>> getAccounts,
+            Func<List<PlayerAccount>> getNearAccounts,
             Task<UnityWebRequest.Result> loadAccounts,
             Func<PlayerAccount, float> getScore)
         {
-            Debug.Log("Gooo");
             _errorText.text = "Loading data...";
 
-            Debug.Log("Before await");
             var status = await loadAccounts;
-            Debug.Log("After await");
+            
             if (status != UnityWebRequest.Result.Success)
             {
                 _errorText.text = status switch
@@ -76,15 +76,20 @@ namespace Leaderboard
 
             _errorText.text = "";
             var accounts = getAccounts.Invoke();
+            var nearAccounts = getNearAccounts.Invoke();
 
-            _setDataCoroutine = SetData(accounts, getScore);
+            _setDataCoroutine = SetData(accounts, nearAccounts.Count > 0, nearAccounts, getScore);
             if (gameObject.activeSelf)
             {
                 StartCoroutine(_setDataCoroutine);
             }
         }
 
-        public IEnumerator SetData(IEnumerable<PlayerAccount> accounts, Func<PlayerAccount, float> getScore)
+        public IEnumerator SetData(
+            IEnumerable<PlayerAccount> accounts,
+            bool hasNearAccounts,
+            IEnumerable<PlayerAccount> nearAccounts,
+            Func<PlayerAccount, float> getScore)
         {
             int count = 0;
             _group.enabled = true;
@@ -99,18 +104,45 @@ namespace Leaderboard
                 yield return null;
             }
 
+            if (hasNearAccounts)
+            {
+                SetDotsData(count++);
+                yield return null;
+                
+                foreach (var account in nearAccounts)
+                {
+                    SetData(count, account, getScore.Invoke(account).ToString("00.00"), "..");
+                    count++;
+
+                    yield return null;
+                }
+            }
+
             yield return null;
             _group.enabled = false;
             _setDataCoroutine = null;
         }
 
-        public void SetData(int index, PlayerAccount account, string score)
+        public void SetData(int index, PlayerAccount account, string score, string place = "")
         {
-            if (index < 0 || index >= Leaderboard.MaxPlayers)
+            if (index < 0 || index >= _records.Length)
                 return;
             
             var record = _records[index];
             record.SetData(account.NickName, index + 1, score);
+            if(!string.IsNullOrEmpty(place))
+                record.SetPlaceText(place);
+            
+            record.gameObject.SetActive(true);
+        }
+
+        public void SetDotsData(int index)
+        {
+            if (index < 0 || index >= _records.Length)
+                return;
+
+            var record = _records[index];
+            record.SetDots();
             record.gameObject.SetActive(true);
         }
     }

@@ -41,6 +41,11 @@ namespace Leaderboard
                 _firstBgColor : _secondBgColor;
         }
 
+        public void SetPlaceText(string place)
+        {
+            _placeText.text = place;
+        }
+
         public void SetEmpty()
         {
             _background.color = new Color(0, 0, 0, 0);
