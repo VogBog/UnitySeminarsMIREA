@@ -32,6 +32,9 @@ namespace Account
                 return;
             }
             
+            PlayerPrefs.SetString(PlayerPrefEmail, email);
+            PlayerPrefs.SetString(PlayerPrefPassword, password);
+            
             AccountRepository.LogIn(email, password, res =>
             {
                 if (res == UnityWebRequest.Result.Success)
@@ -67,6 +70,9 @@ namespace Account
 
         public void Register(string email, string password, string username)
         {
+            PlayerPrefs.SetString(PlayerPrefEmail, email);
+            PlayerPrefs.SetString(PlayerPrefPassword, password);
+            
             AccountRepository.Register(email, password, username, res =>
             {
                 if (res == UnityWebRequest.Result.Success)
