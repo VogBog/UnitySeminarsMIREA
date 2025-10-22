@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Account;
 using Global;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Leaderboard
 {
@@ -14,7 +15,62 @@ namespace Leaderboard
         private void Start()
         {
             _records = _recordsParent.GetComponentsInChildren<LeaderboardRecord>();
+
+            if (StaticParameters.PlayerScore > 0)
+            {
+                SetScore(StaticParameters.PlayerScore);
+                StaticParameters.PlayerScore = 0f;
+            }
+            else
+            {
+                SetData();
+            }
+        }
+
+        private void SetScore(float score)
+        {
+            var acc = StaticParameters.Account;
+            if (string.IsNullOrEmpty(acc.Id))
+            {
+                SetData();
+                return;
+            }
+
+            acc.MaxScore = score;
+            StaticParameters.Account = acc;
             
+            AccountRepository.SetAccount(acc, res =>
+            {
+                if (res != UnityWebRequest.Result.ConnectionError)
+                {
+                    SetData();
+                    return;
+                }
+                AccountRepository.SetAccount(acc, res2 =>
+                {
+                    if (res2 != UnityWebRequest.Result.ConnectionError)
+                    {
+                        SetData();
+                        return;
+                    }
+                    AccountRepository.SetAccount(acc, res3 =>
+                    {
+                        if (res3 != UnityWebRequest.Result.ConnectionError)
+                        {
+                            SetData();
+                            return;
+                        }
+                        AccountRepository.SetAccount(acc, _ =>
+                        {
+                            SetData();
+                        });
+                    });
+                });
+            });
+        }
+
+        private void SetData()
+        {
             LeaderboardRepository.GetLeaderboardSeveralTries(SetLeaderboardTop);
             LeaderboardRepository.GetNeighboursSeveralTries(StaticParameters.Account, SetLeaderboardBottom);
         }

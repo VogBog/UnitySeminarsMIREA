@@ -1,3 +1,4 @@
+using System.Collections;
 using Global;
 using TMPro;
 using UnityEngine;
@@ -16,6 +17,21 @@ namespace Leaderboard
         {
             _quitBtn.onClick.AddListener(OnQuitBtnClicked);
 
+            SetData();
+            StartCoroutine(UpdateRoutine());
+        }
+
+        private IEnumerator UpdateRoutine()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(3f);
+                SetData();
+            }
+        }
+
+        private void SetData()
+        {
             var acc = StaticParameters.Account;
             _username.text = acc.Name;
             _score.text = acc.MaxScore.ToString("F2");
