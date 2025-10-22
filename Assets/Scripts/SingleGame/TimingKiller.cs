@@ -37,7 +37,7 @@ namespace SingleGame
                 StartTickForSeconds?.Invoke(TickDuration);
                 yield return new WaitForSeconds(TickDuration);
                 
-                if(_player.Movement.IsStopped)
+                if(_player != null && _player.Movement.IsStopped)
                     _player.GetDamage();
                 
                 TickConfirmed?.Invoke();

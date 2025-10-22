@@ -13,14 +13,14 @@ namespace SingleGame
             var killPoints = FindObjectsByType<KillPoint>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (var killPoint in killPoints)
             {
-                killPoint.Interacted += OnInteract;
+                killPoint.InteractedWithSpeed += OnInteract;
             }
         }
 
-        private void OnInteract(IInteractableObservable interactable, GameObject go)
+        private void OnInteract(KillPoint killPoint, float speed)
         {
-            go.SetActive(false);
-            StartCoroutine(InteractRoutine(go));
+            killPoint.gameObject.SetActive(false);
+            StartCoroutine(InteractRoutine(killPoint.gameObject));
         }
 
         private IEnumerator InteractRoutine(GameObject go)
