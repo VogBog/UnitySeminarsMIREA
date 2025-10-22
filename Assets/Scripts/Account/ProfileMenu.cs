@@ -2,6 +2,7 @@ using System;
 using Global;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Account
@@ -96,7 +97,7 @@ namespace Account
 
         private void OnLeaderboardClicked()
         {
-            
+            SceneManager.LoadScene(3);
         }
 
         private void OnLogoutClicked()
