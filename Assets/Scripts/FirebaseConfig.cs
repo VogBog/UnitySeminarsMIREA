@@ -8,5 +8,8 @@ namespace Global
     {
         [field: SerializeField] public string RealtimeDatabaseUrl { get; private set; }
         [field: SerializeField] public string ApiKey { get; private set; }
+
+        public const string ProjectRoot = "WaveRoot";
+        public const string AccountsRoot = "Accounts";
     }
 }

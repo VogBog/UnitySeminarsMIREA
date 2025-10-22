@@ -82,7 +82,12 @@ namespace Game
         {
             yield return new WaitForSeconds(3f);
 
-            int sceneIndex = StaticParameters.PlayersCount == 1 ? 3 : 0;
+            int sceneIndex = 0;
+            if (StaticParameters.PlayersCount == 1 && !string.IsNullOrEmpty(StaticParameters.Account.Id))
+            {
+                sceneIndex = 3;
+            }
+            
             SceneManager.LoadScene(sceneIndex);
         }
     }

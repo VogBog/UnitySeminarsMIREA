@@ -12,5 +12,6 @@ namespace FirebaseDesktopHelper.Services.Auth.SignIn
         public FirebaseSignInAsync Async() => new FirebaseSignInAsync(_json);
         public FirebaseSignInCallback Callback() => new FirebaseSignInCallback(_json);
         public FirebaseSignInCoroutine Coroutine() => new FirebaseSignInCoroutine(_json);
+        public FirebaseSignInVoid Void() => new FirebaseSignInVoid(Async());
     }
 }
