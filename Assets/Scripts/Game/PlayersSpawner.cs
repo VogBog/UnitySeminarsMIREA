@@ -82,7 +82,8 @@ namespace Game
         {
             yield return new WaitForSeconds(3f);
 
-            SceneManager.LoadScene(0);
+            int sceneIndex = StaticParameters.PlayersCount == 1 ? 3 : 0;
+            SceneManager.LoadScene(sceneIndex);
         }
     }
 }

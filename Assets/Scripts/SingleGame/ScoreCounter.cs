@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Game;
+using Global;
 using UnityEngine;
 
 namespace SingleGame
@@ -41,6 +42,7 @@ namespace SingleGame
 
             Score += speed;
             AddedAndTotal?.Invoke(speed, Score);
+            StaticParameters.PlayerScore = Score;
         }
     }
 }
