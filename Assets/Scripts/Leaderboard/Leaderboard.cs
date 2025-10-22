@@ -4,6 +4,7 @@ using System.Linq;
 using Global;
 using Leaderboard.FirebaseDesktopHelper;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Leaderboard
 {
@@ -20,6 +21,11 @@ namespace Leaderboard
         {
             FirebaseRestRequests.SetData(_config.FirebaseUrl, _config.FirebaseApiKey);
             _playerNameInput.Initialize();
+        }
+
+        public void LoadNextScene()
+        {
+            SceneManager.LoadScene(0);
         }
 
         private void Start()
