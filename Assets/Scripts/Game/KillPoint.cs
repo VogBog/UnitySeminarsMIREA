@@ -1,11 +1,15 @@
+using System;
 using System.Collections;
+using SingleGame;
 using UnityEngine;
 
 namespace Game
 {
-    public class KillPoint : MonoBehaviour, IInteractable
+    public class KillPoint : MonoBehaviour, IInteractableObservable
     {
         public const float RadiusForEverySpeedUnit = 1f;
+        
+        public event Action<IInteractableObservable, GameObject> Interacted;
         
         public void Interact(Player player)
         {
@@ -24,8 +28,11 @@ namespace Game
                 otherPlayer.GetDamage();
                 otherPlayer.GetDamage();
             }
+            
+            Interacted?.Invoke(this, gameObject);
 
-            StartCoroutine(AnimationRoutine(radius));
+            if(gameObject.activeSelf)
+                StartCoroutine(AnimationRoutine(radius));
         }
 
         private IEnumerator AnimationRoutine(float scale)
