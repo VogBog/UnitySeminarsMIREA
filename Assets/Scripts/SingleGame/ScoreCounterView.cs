@@ -24,8 +24,8 @@ namespace SingleGame
 
         private void OnAdded(float added, float total)
         {
-            _added.text = added.ToString("N0");
-            _total.text = "+" + total.ToString("N0");
+            _added.text = "+" + added.ToString("N0");
+            _total.text = total.ToString("N0");
             
             if(_coroutine != null)
                 _counter.StopCoroutine(_coroutine);
