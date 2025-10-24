@@ -1,5 +1,7 @@
 using Extensions;
+using Lobby;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace MainMenu
@@ -12,8 +14,9 @@ namespace MainMenu
         [SerializeField] private Button _networkButton;
         [SerializeField] private NetworkPage _networkPage;
         
+        [FormerlySerializedAs("_localMultiplayerPage")]
         [Header("Local Multiplayer")]
-        [SerializeField] private LocalMultiplayerPage _localMultiplayerPage;
+        [SerializeField] private LocalMultiplayerAutoFinder _localMultiplayerAutoFinder;
         
         private Lobby.Lobby _lobby;
 
@@ -43,7 +46,7 @@ namespace MainMenu
         public void OpenSplitScreenLobby()
         {
             OpenPage(1);
-            _lobby.InitializeLobbyHost();
+            _lobby.InitializeSplitScreenLobby();
         }
 
         public void OpenNetworkPage()
@@ -54,7 +57,7 @@ namespace MainMenu
         public void OpenLocalMultiplayerPage()
         {
             OpenPage(1);
-            _localMultiplayerPage.StartLocalMultiplayer();
+            _lobby.InitializeLocalMultiplayerLobby();
         }
 
         public void QuitFromLobby()

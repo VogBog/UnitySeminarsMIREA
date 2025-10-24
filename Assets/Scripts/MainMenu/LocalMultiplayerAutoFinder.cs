@@ -12,18 +12,15 @@ using UnityEngine;
 namespace MainMenu
 {
     [Serializable]
-    public class LocalMultiplayerPage
+    public class LocalMultiplayerAutoFinder
     {
-        public void Initialize()
-        {
-            
-        }
-
         [SerializeField] private int _gamePort = 7777;
         [SerializeField] private int _batchSize = 20;
         [SerializeField] private int _connectionTimeoutMs = 100;
         
         private CancellationTokenSource _cancellationTokenSource;
+
+        public event Action Finished;
 
         public async void StartLocalMultiplayer()
         {
@@ -43,6 +40,8 @@ namespace MainMenu
                     Debug.Log("No host found, starting as host");
                     BecomeHost();
                 }
+                
+                Finished?.Invoke();
             }
             catch (Exception e)
             {
@@ -210,7 +209,7 @@ namespace MainMenu
             Debug.Log($"Client {request.ClientNetworkId} approved");
         }
         
-        private void OnDestroy()
+        public void OnDestroy()
         {
             _cancellationTokenSource?.Cancel();
             _cancellationTokenSource?.Dispose();
