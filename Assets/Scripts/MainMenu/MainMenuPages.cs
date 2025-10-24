@@ -12,6 +12,9 @@ namespace MainMenu
         [SerializeField] private Button _networkButton;
         [SerializeField] private NetworkPage _networkPage;
         
+        [Header("Local Multiplayer")]
+        [SerializeField] private LocalMultiplayerPage _localMultiplayerPage;
+        
         private Lobby.Lobby _lobby;
 
         private void Start()
@@ -46,6 +49,12 @@ namespace MainMenu
         public void OpenNetworkPage()
         {
             OpenPage(2);
+        }
+
+        public void OpenLocalMultiplayerPage()
+        {
+            OpenPage(1);
+            _localMultiplayerPage.StartLocalMultiplayer();
         }
 
         public void QuitFromLobby()
