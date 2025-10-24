@@ -1,7 +1,5 @@
 using Extensions;
-using Lobby;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace MainMenu
@@ -14,7 +12,6 @@ namespace MainMenu
         [SerializeField] private Button _networkButton;
         [SerializeField] private NetworkPage _networkPage;
         
-        [FormerlySerializedAs("_localMultiplayerPage")]
         [Header("Local Multiplayer")]
         [SerializeField] private LocalMultiplayerAutoFinder _localMultiplayerAutoFinder;
         

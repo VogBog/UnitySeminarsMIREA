@@ -15,13 +15,13 @@ namespace Lobby
         public const string SecondPlayerTip = "RShift or Right button";
         public const string OtherPlayerTip = "Right button (gamepad)";
 
-        public void SetData(PlayerData playerData, bool isActivePlayer)
+        public void SetData(PlayerData playerData, bool isAllPlayersActive)
         {
             gameObject.SetActive(true);
             _elementalImage.color = playerData.Data.Color;
             _elementalName.text = playerData.Data.Name;
             
-            _activePlayerTip.gameObject.SetActive(isActivePlayer);
+            _activePlayerTip.gameObject.SetActive(playerData.IsActive || isAllPlayersActive);
 
             _activePlayerTip.text = playerData.Index switch
             {
@@ -29,6 +29,11 @@ namespace Lobby
                 2 => SecondPlayerTip,
                 _ => OtherPlayerTip
             };
+
+            if (!isAllPlayersActive)
+            {
+                _activePlayerTip.text = FirstPlayerTip;
+            }
         }
 
         public void SetInactive()

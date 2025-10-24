@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Data;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using PlayerInput = InputSystems.PlayerInput;
 
 namespace Lobby
@@ -14,6 +15,8 @@ namespace Lobby
         private Lobby _lobby;
         
         public ElementalData[] AllElements => _lobby.AllElements;
+
+        public bool IsAllPlayersActive => true;
         
         public event Action<PlayerData> PlayerChanged;
         public event Action<int> PlayerDisconnected;
@@ -56,6 +59,11 @@ namespace Lobby
         {
             CompanyStarted?.Invoke(players, true);
         }
+
+        public void LoadScene(int sceneIndex, bool isHost)
+        {
+            SceneManager.LoadScene(sceneIndex);
+        }
         
         private void OnPlayerPressedSomething(PlayerInput input, InputDevice device)
         {
@@ -71,7 +79,7 @@ namespace Lobby
                 }
             }
 
-            if (!_activePlayers.TryAdd(input, new(index, device, AllElements[index % AllElements.Length])))
+            if (!_activePlayers.TryAdd(input, new(true, index, device, AllElements[index % AllElements.Length])))
                 return;
             
             input.SomethingPressed -= OnPlayerPressedSomething;

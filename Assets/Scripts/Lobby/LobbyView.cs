@@ -19,15 +19,15 @@ namespace Lobby
             lobby.ActivePlayersChanged += UpdatePlayers;
             _playBtn.onClick.AddListener(OnPlayBtnClicked);
             
-            UpdatePlayers(Array.Empty<PlayerData>());
+            UpdatePlayers(Array.Empty<PlayerData>(), false);
         }
 
-        private void UpdatePlayers(PlayerData[] players)
+        private void UpdatePlayers(PlayerData[] players, bool isAllPlayersActive)
         {
             int i;
             for (i = 0; i < players.Length; i++)
             {
-                _players[i].SetData(players[i], true);
+                _players[i].SetData(players[i], isAllPlayersActive);
             }
 
             for (; i < _players.Length; i++)
@@ -41,6 +41,7 @@ namespace Lobby
         private void OnPlayBtnClicked()
         {
             PlayBtnClicked?.Invoke();
+            _playBtn.gameObject.SetActive(false);
         }
     }
 }

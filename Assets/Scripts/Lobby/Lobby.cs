@@ -18,7 +18,7 @@ namespace Lobby
         private ILobby _lobby;
         private readonly Dictionary<int, PlayerData> _activePlayers = new();
         
-        public event Action<PlayerData[]> ActivePlayersChanged;
+        public event Action<PlayerData[], bool> ActivePlayersChanged;
 
         public void InitializeSplitScreenLobby() => InitializeLobby(_splitScreenLobby);
         public void InitializeLocalMultiplayerLobby() => InitializeLobby(_localMultiplayerLobby);
@@ -44,13 +44,13 @@ namespace Lobby
                 _activePlayers[player.Index] = player;
             }
             
-            ActivePlayersChanged?.Invoke(_activePlayers.Values.ToArray());
+            ActivePlayersChanged?.Invoke(_activePlayers.Values.ToArray(), _lobby.IsAllPlayersActive);
         }
 
         private void OnPlayerDisconnected(int index)
         {
             _activePlayers.Remove(index);
-            ActivePlayersChanged?.Invoke(_activePlayers.Values.ToArray());
+            ActivePlayersChanged?.Invoke(_activePlayers.Values.ToArray(), _lobby.IsAllPlayersActive);
         }
 
         public void LeaveLobby()
@@ -77,6 +77,8 @@ namespace Lobby
         
         public PlayerData[] GetAllPlayers() => _activePlayers.Values.ToArray();
 
+        public PlayerData GetPlayer(int index) => _activePlayers.GetValueOrDefault(index);
+
         private void StartCompanyLocal(PlayerData[] players, bool isHost)
         {
             StaticParameters.Players = players;
@@ -84,9 +86,11 @@ namespace Lobby
             if (players.Length == 2) StaticParameters.GameType = GameType.P1Vs1;
             else if (players.Length == 4) StaticParameters.GameType = GameType.P1Vs3;
             
+            var lobby = _lobby;
+            
             DisposeLobby();
             
-            SceneManager.LoadScene(_levelSceneIndex);
+            lobby.LoadScene(_levelSceneIndex, isHost);
         }
     }
 }
