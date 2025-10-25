@@ -1,38 +1,22 @@
-using System.Collections;
+using MainGame.GameTimers;
 using UnityEngine;
 
 namespace MainGame
 {
     public class GameTimer : MonoBehaviour
     {
-        public int Seconds { get; private set; }
-        
-        private Coroutine _coroutine;
+        private IGameTimer _timer;
 
-        public void StartTimer()
+        public int Seconds => _timer.Seconds;
+
+        public GameTimer Initialize(IGameTimer timer)
         {
-            if(_coroutine != null)
-                return;
-            
-            _coroutine = StartCoroutine(TimerRoutine());
+            _timer = timer;
+            return this;
         }
 
-        public void StopTimer()
-        {
-            if (_coroutine == null)
-                return;
-            
-            StopCoroutine(_coroutine);
-        }
-        
-        private IEnumerator TimerRoutine()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(1f);
-                
-                Seconds++;
-            }
-        }
+        public void StartTimer() => _timer.StartTimer(this);
+
+        public void StopTimer() => _timer.StopTimer(this);
     }
 }

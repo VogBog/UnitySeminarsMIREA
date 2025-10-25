@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Data;
 using Extensions;
 using Lobby;
+using MainGame.GameStarters;
+using MainGame.Initializers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,13 +17,19 @@ namespace MainGame
         [SerializeField] private Transform _spawnPointsParent;
         [SerializeField] private float _addYForEveryPlayer;
 
+        private IGameStarter _gameStarter;
         private PlayersRepo _playersRepo;
         private GameTimer _gameTimer;
+        
+        public Player.Player PlayerPrefab => _playerPrefab;
 
         private void Start()
         {
             _playersRepo = this.FindFirstObjectByTypeOrException<PlayersRepo>();
             _gameTimer = this.FindFirstObjectByTypeOrException<GameTimer>();
+
+            _gameStarter = ServicesInitializer.InitializeServices();
+            
             var players = StaticParameters.Players;
             
             if (players == null || players.Length == 0)
@@ -30,7 +38,7 @@ namespace MainGame
                 return;
             }
             
-            InitializePlayers(players);
+            StartCoroutine(InitializePlayers(players));
         }
 
         private List<Vector3> GetAllSpawnPoints()
@@ -45,26 +53,28 @@ namespace MainGame
             return result;
         }
 
-        private void InitializePlayers(PlayerData[] players)
+        private IEnumerator InitializePlayers(PlayerData[] players)
         {
             var spawnPoints = GetAllSpawnPoints();
             var instances = new List<Player.Player>();
 
             foreach (var data in players)
             {
-                var instance = Instantiate(_playerPrefab, transform);
+                if(!data.IsActive)
+                    continue;
                 
                 int randIndex = Random.Range(0, spawnPoints.Count);
                 var point = spawnPoints[randIndex];
                 spawnPoints.RemoveAt(randIndex);
-                
-                instance.transform.position = point;
 
-                StartCoroutine(InitializePlayerDelayed(instance, data));
+                var dataForLambda = data;
                 
-                instances.Add(instance);
-                
-                _playersRepo.RegisterPlayer(instance);
+                yield return _gameStarter.CreatePlayerRoutine(this, point, instance =>
+                {
+                    instances.Add(instance);
+                    _playersRepo.RegisterPlayer(instance);
+                    StartCoroutine(InitializePlayerDelayed(instance, dataForLambda));
+                });
             }
             
             SetCameras(instances);

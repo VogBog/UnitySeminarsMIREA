@@ -1,9 +1,13 @@
 using System;
 using Damage;
+using Data;
 using Extensions;
 using InputSystems;
 using Lobby;
 using MainGame;
+using MainGame.Initializers;
+using MainMenu;
+using Player.NetworkPolitics;
 using UnityEngine;
 
 namespace Player
@@ -11,6 +15,7 @@ namespace Player
     public class Player : MonoBehaviour
     {
         private ScoreCounter _scoreCounter;
+        private INetworkPolitics _networkPolitics;
         
         [field: SerializeField] public Camera Camera { get; private set; }
         [field: SerializeField] public Movement Movement { get; private set; }
@@ -31,15 +36,26 @@ namespace Player
 
         public void Initialize(PlayerData data)
         {
-            Input = new PlayerInput(data.Index);
+            if (StaticParameters.NetworkType is NetworkTypes.SplitScreen)
+            {
+                Input = new PlayerInput(data.Index);
+            }
+            else
+            {
+                Input = new PlayerInput(1);
+            }
+
+            var eventBus = this.FindFirstObjectByTypeOrException<EventBus>();
+            
             Input.Device = data.Device;
             Movement.Initialize(this);
             Model.Initialize(this);
             AbilityUsage.Initialize(this, data.Data);
             MoveByTiles.Initialize(this);
             Markers.Initialize(this);
-            GameUI.Initialize(this);
-            Health.Initialize(this.FindFirstObjectByTypeOrException<EventBus>(), this);
+            GameUI.Initialize(this, eventBus);
+            Health.Initialize(eventBus, this);
+            _networkPolitics = ServicesInitializer.GetPlayerPolitics(Health);
 
             if (data.Index == 1)
                 _scoreCounter = new(this);
@@ -48,7 +64,7 @@ namespace Player
             
             SetMaterial(Model.Renderer, data.Data.Color);
 
-            Health.Died += OnDie;
+            eventBus.PlayerDied += OnDie;
         }
 
         private void SetMaterial(MeshRenderer renderer, Color color)
@@ -82,12 +98,15 @@ namespace Player
             Input.Dispose();
         }
 
-        private void OnDie(PlayerHealth playerHealth)
+        private void OnDie(Player player)
         {
+            if (this != player)
+                return;
+            
             Camera.transform.SetParent(null);
             Destroy(gameObject);
         }
 
-        public void TakeDamage(ref GetDamageData data) => Health.TakeDamage(ref data);
+        public void TakeDamage(ref GetDamageData data) => _networkPolitics.TakeDamage(ref data);
     }
 }

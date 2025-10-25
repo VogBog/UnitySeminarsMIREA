@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Data;
+using MainMenu;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using PlayerInput = InputSystems.PlayerInput;
@@ -17,6 +18,7 @@ namespace Lobby
         public ElementalData[] AllElements => _lobby.AllElements;
 
         public bool IsAllPlayersActive => true;
+        public NetworkTypes NetworkType => NetworkTypes.SplitScreen;
         
         public event Action<PlayerData> PlayerChanged;
         public event Action<int> PlayerDisconnected;

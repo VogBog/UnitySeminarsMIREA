@@ -3,25 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using Data;
 using Extensions;
+using MainGame.GameFinishers;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace MainGame
 {
     public class GameFinisher : MonoBehaviour
     {
         private bool _ended = false;
+        private IGameFinisher _gameFinisher;
         private PlayersRepo _playersRepo;
         private GameTimer _gameTimer;
 
         public event Action<Player.Player> PlayerWinned; 
         public event Action Finished;
         
-        private void Awake()
+        public GameFinisher Initialize(IGameFinisher finisher)
         {
             _playersRepo = this.FindFirstObjectByTypeOrException<PlayersRepo>();
             _gameTimer = this.FindFirstObjectByTypeOrException<GameTimer>();
             _playersRepo.PlayersCountChanged += OnPlayersCountChanged;
+            
+            _gameFinisher = finisher;
+            _gameFinisher.Finished += () => Finished?.Invoke();
+            _gameFinisher.PlayerWinned += p => PlayerWinned?.Invoke(p);
+
+            return this;
         }
 
         private void OnPlayersCountChanged(int count)
@@ -32,7 +39,7 @@ namespace MainGame
 
         public void EndGame(IEnumerable<Player.Player> winners)
         {
-            if (_ended)
+            if (_ended || !_gameFinisher.CanFinishGame())
                 return;
             _ended = true;
 
@@ -40,9 +47,9 @@ namespace MainGame
             StartCoroutine(EndGameRoutine());
             
             foreach(var winner in winners)
-                PlayerWinned?.Invoke(winner);
+                _gameFinisher.InvokePlayerWinned(winner);
             
-            Finished?.Invoke();
+            _gameFinisher.InvokeFinished();
         }
 
         private IEnumerator EndGameRoutine()
@@ -51,11 +58,11 @@ namespace MainGame
 
             if (StaticParameters.PlayerScore == null)
             {
-                SceneManager.LoadScene(1);
+                _gameFinisher.LoadScene(1);
             }
             else
             {
-                SceneManager.LoadScene(3);
+                _gameFinisher.LoadScene(3);
             }
         }
     }

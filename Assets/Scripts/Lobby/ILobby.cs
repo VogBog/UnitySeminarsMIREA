@@ -1,10 +1,12 @@
 using System;
+using MainMenu;
 
 namespace Lobby
 {
     public interface ILobby
     {
         bool IsAllPlayersActive { get; }
+        NetworkTypes NetworkType { get; }
         
         event Action<PlayerData> PlayerChanged;
         event Action<int> PlayerDisconnected; 

@@ -17,14 +17,14 @@ namespace Player
         private Player _player;
         private Image[] _images;
 
-        public void Initialize(Player player)
+        public void Initialize(Player player, EventBus eventBus)
         {
             _images = _layoutGroup.GetComponentsInChildren<Image>();
             _player = player;
-            
-            _player.Health.Changed += OnPlayerHealthChanged;
+
+            eventBus.PlayerHealthChanged += OnPlayerHealthChanged;
             _player.MoveByTiles.MoveByTiles.WentToNewCellType += OnWentToNewCellType;
-            _player.Health.Died += _ => ShowGameOver();
+            eventBus.PlayerDied += ShowGameOver;
             
             var clr = _smokeImage.color;
             clr.a = 0f;
@@ -36,9 +36,10 @@ namespace Player
             FindFirstObjectByType<GameFinisher>().PlayerWinned += OnPlayerWinned;
         }
 
-        private void OnPlayerHealthChanged(PlayerHealth health, int value)
+        private void OnPlayerHealthChanged(Player player, PlayerHealth playerHealth, int value)
         {
-            SetHealth(value);
+            if (player == _player)
+                SetHealth(value);
         }
 
         public void SetHealth(int value)
@@ -84,8 +85,11 @@ namespace Player
             _smokeImage.DOColor(clr, 1f);
         }
 
-        public void ShowGameOver()
+        public void ShowGameOver(Player player)
         {
+            if (player != _player)
+                return;
+            
             _canvas.transform.SetParent(null);
             _gameOver.SetActive(true);
         }

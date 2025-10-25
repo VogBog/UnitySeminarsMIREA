@@ -20,6 +20,7 @@ namespace Lobby
         private string _addNewPlayerMess;
 
         public bool IsAllPlayersActive => false;
+        public NetworkTypes NetworkType => NetworkTypes.LocalMultiplayer;
         
         public event Action<PlayerData> PlayerChanged;
         public event Action<int> PlayerDisconnected;

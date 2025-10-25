@@ -34,7 +34,10 @@ namespace Lobby
             _lobby.PlayerChanged += OnPlayerChanged;
             _lobby.PlayerDisconnected += OnPlayerDisconnected;
             _lobby.CompanyStarted += StartCompanyLocal;
+            
             _lobby.OnInitializeLobby(this);
+
+            StaticParameters.NetworkType = lobby.NetworkType;
         }
 
         private void OnPlayerChanged(PlayerData player)
@@ -55,8 +58,9 @@ namespace Lobby
 
         public void LeaveLobby()
         {
-            DisposeLobby();
             _lobby.OnLeaveLobby();
+            
+            DisposeLobby();
         }
 
         private void DisposeLobby()
