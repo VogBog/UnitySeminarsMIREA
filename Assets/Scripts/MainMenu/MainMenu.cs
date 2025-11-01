@@ -14,6 +14,7 @@ namespace MainMenu
         public void Play(int playersCount)
         {
             StaticParameters.PlayersCount = playersCount;
+            StaticParameters.GameType = playersCount == 1 ? GameTypes.Single : GameTypes.SplitScreen;
             
             int scene = GetSceneIndexByPlayersCount(playersCount);
             SceneManager.LoadScene(scene);
@@ -21,6 +22,7 @@ namespace MainMenu
 
         public void OpenLocalMultiplayerScene()
         {
+            StaticParameters.GameType = GameTypes.LocalMultiplayer;
             SceneManager.LoadScene(4);
         }
 

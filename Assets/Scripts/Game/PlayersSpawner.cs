@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Global;
+using MainMenu;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,16 +21,20 @@ namespace Game
         private void Start()
         {
             _playersCount = StaticParameters.PlayersCount;
-            CreatePlayers(_playersCount);
+            bool singlePlayer = StaticParameters.GameType is GameTypes.Single or GameTypes.SplitScreen;
+            
+            CreatePlayers(singlePlayer ? _playersCount : 1);
         }
 
         private void CreatePlayers(int count)
         {
             var cameras = new List<Camera>();
+            var politics = new PlayersSpawnerPolitics().GetPolitics(this);
             
             for (int i = 0; i < count; i++)
             {
-                var instance = Instantiate(_playerPrefab, _spawnPoints[i].position, Quaternion.identity);
+                var instance = politics.Instantiate(
+                    _playerPrefab, _spawnPoints[i].position, Quaternion.identity, null);
                 instance.Initialize(this);
 
                 instance.Movement.Controller.PlayerIndex = i + 1;

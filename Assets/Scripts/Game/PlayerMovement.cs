@@ -18,10 +18,12 @@ namespace Game
         private bool _stopped = true;
 
         public event Action<float> SpeedChanged;
+        public event Action<bool> StoppedChanged; 
 
         public float Speed => _speed;
         public bool IsStopped => _stopped;
         public PlayerController Controller { get; private set; }
+        public GameObject Marker => _marker;
 
         public void Initialize(Player player)
         {
@@ -45,12 +47,14 @@ namespace Game
             _marker.SetActive(true);
             _stopped = true;
             transform.Rotate(Vector3.up, _rotationSpeed * Time.deltaTime);
+            StoppedChanged?.Invoke(_stopped);
         }
 
         private void OnUnPressedBtn()
         {
             _marker.SetActive(false);
             _stopped = false;
+            StoppedChanged?.Invoke(_stopped);
         }
 
         private void FixedUpdate()

@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using JetBrains.Annotations;
+using Network.LocalMultiplayer;
 using UnityEngine;
 
 namespace Game
@@ -10,10 +12,17 @@ namespace Game
         [SerializeField] private Canvas _canvas;
         
         public PlayerMovement Movement { get; private set; }
+        [CanBeNull] public LocalMultiplayerPlayerSync LocalMultiplayerSync { get; private set; }
 
         public int Health { get; private set; } = 3;
 
-        public event Action<Player> Died; 
+        public event Action<Player> Died;
+
+        private void Start()
+        {
+            Movement = GetComponent<PlayerMovement>();
+            LocalMultiplayerSync = GetComponent<LocalMultiplayerPlayerSync>();
+        }
 
         public void Initialize(PlayersSpawner spawner)
         {

@@ -1,6 +1,8 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using Global;
+using MainMenu;
 using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -80,6 +82,8 @@ namespace LocalMultiplayerPage
                 return;
             
             CloseAll();
+            StaticParameters.PlayersCount = _playersCount;
+            StaticParameters.GameType = GameTypes.LocalMultiplayer;
             NetworkManager.Singleton.SceneManager.LoadScene(_sceneName, LoadSceneMode.Single);
         }
 
@@ -144,6 +148,7 @@ namespace LocalMultiplayerPage
             _playersCount++;
             SetPlayersCountClientRpc(_playersCount);
             _startBtn.interactable = _playersCount > 1;
+            _startBtn.interactable = true; //TODO: REMOVE BEFORE BUILD
         }
 
         private void OnPlayerDisconnected()
