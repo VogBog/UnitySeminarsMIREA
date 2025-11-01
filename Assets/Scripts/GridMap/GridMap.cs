@@ -13,6 +13,7 @@ namespace GridMap
 
         private IGridMap _map;
 
+        public bool Initialized { get; private set; } = false;
         public Vector2 Bounds => _bounds;
         public float CellsPerUnit => _cellsPerUnit;
         public int ChunkSize => _chunkSize;
@@ -23,6 +24,7 @@ namespace GridMap
         {
             _map = map;
             map.ChunkChanged += i => ChunkChanged?.Invoke(i);
+            Initialized = true;
         }
 
         public void CreateGrid() => _map.CreateGrid();

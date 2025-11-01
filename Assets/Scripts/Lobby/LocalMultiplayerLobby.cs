@@ -215,7 +215,8 @@ namespace Lobby
             if (_readyPlayersCount < _lobby.GetAllPlayers().Length)
                 return;
 
-            string sceneName = SceneManager.GetSceneByBuildIndex(sceneIndex).name;
+            string path = SceneUtility.GetScenePathByBuildIndex(sceneIndex);
+            string sceneName = System.IO.Path.GetFileNameWithoutExtension(path);
             NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }
         #endregion

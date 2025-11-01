@@ -35,7 +35,7 @@ namespace Lobby
                 _players[i].SetInactive();
             }
             
-            _playBtn.gameObject.SetActive(players.Length > 1);
+            _playBtn.gameObject.SetActive(players.Length > 0);
         }
 
         private void OnPlayBtnClicked()

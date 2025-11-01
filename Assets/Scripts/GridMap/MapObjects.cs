@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Extensions;
 using GridMap.EmptyMonoBehs;
@@ -20,8 +21,16 @@ namespace GridMap
 
         private void Awake()
         {
+            StartCoroutine(InitializeRoutine());
+        }
+
+        private IEnumerator InitializeRoutine()
+        {
             _pool = this.FindFirstObjectByTypeOrException<ObjectPool>();
             var map = this.FindFirstObjectByTypeOrException<GridMap>();
+
+            while (_pool.GetPool() == null || !map.Initialized)
+                yield return null;
             
             RegisterComponentRange(
                 typeof(FireParticles), _fire,

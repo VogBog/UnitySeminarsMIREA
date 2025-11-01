@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace MainGame.PlayersRepos
 {
@@ -8,6 +10,7 @@ namespace MainGame.PlayersRepos
     {
         private IPlayersRepo _repo;
         private int _lastIndex = 0;
+        private ulong _code;
         
         public event Action<int> PlayersCountChanged;
         public int Count => _repo.Count;
@@ -23,25 +26,55 @@ namespace MainGame.PlayersRepos
             _repo.RegisterPlayer(player, isMy);
             if (isMy)
             {
-                int code = UnityEngine.Random.Range(1_000, 99_000);
-                code += Count * 100_000;
-                PlayerIndex = code;
-                GetPlayerIndexServerRpc(code);
+                _code = NetworkManager.LocalClientId;
+
+                var obj = player.GetComponent<NetworkObject>();
+                ulong id = obj.NetworkObjectId;
+                RegisterPlayerServerRpc(_code, id);
             }
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void GetPlayerIndexServerRpc(int code)
+        private void RegisterPlayerServerRpc(ulong code, ulong playerId)
         {
-            GetPlayerIndexClientRpc(code, _lastIndex++);
+            RegisterPlayerClientRpc(code, playerId, _lastIndex++);
         }
 
         [ClientRpc]
-        private void GetPlayerIndexClientRpc(int code, int index)
+        private void RegisterPlayerClientRpc(ulong code, ulong playerId, int index)
         {
-            if (PlayerIndex != code)
-                return;
-            PlayerIndex = index;
+            if (_code == code)
+            {
+                PlayerIndex = index;
+            }
+
+            StartCoroutine(RegisterPlayerRoutine(playerId, index));
+        }
+
+        private IEnumerator RegisterPlayerRoutine(ulong playerId, int index)
+        {
+            for (int i = 0; i < 120; i++)
+            {
+                if (!NetworkManager.SpawnManager.SpawnedObjects.TryGetValue(playerId, out var obj))
+                {
+                    yield return new WaitForSeconds(0.5f);
+                    continue;
+                }
+
+                if (_repo.Count != index)
+                {
+                    yield return new WaitForSeconds(0.2f);
+                    continue;
+                }
+
+                var player = obj.GetComponent<Player.Player>();
+                bool isMy = obj.IsOwner;
+                _repo.RegisterPlayer(player, isMy);
+
+                yield break;
+            }
+            
+            Debug.LogWarning("LocalMultiplayerPlayersRepo::RegisterPlayerRoutine - something went wrong");
         }
 
         public List<Player.Player> GetPlayersCopy() => _repo.GetPlayersCopy();
