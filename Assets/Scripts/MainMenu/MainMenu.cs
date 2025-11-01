@@ -19,6 +19,11 @@ namespace MainMenu
             SceneManager.LoadScene(scene);
         }
 
+        public void OpenLocalMultiplayerScene()
+        {
+            SceneManager.LoadScene(4);
+        }
+
         public int GetSceneIndexByPlayersCount(int playersCount) =>
             playersCount switch
             {
