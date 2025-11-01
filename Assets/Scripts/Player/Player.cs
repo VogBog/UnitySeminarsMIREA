@@ -29,6 +29,7 @@ namespace Player
         
         public PlayerInput Input { get; private set; }
         public PlayerHurtBox HurtBox { get; private set; }
+        public int Index { get; private set; }
 
         public Transform RealTransform => Movement.ControllerTransform;
         
@@ -36,6 +37,8 @@ namespace Player
 
         public void Initialize(PlayerData data)
         {
+            Index = data.Index;
+            
             if (StaticParameters.NetworkType is NetworkTypes.SplitScreen)
             {
                 Input = new PlayerInput(data.Index);

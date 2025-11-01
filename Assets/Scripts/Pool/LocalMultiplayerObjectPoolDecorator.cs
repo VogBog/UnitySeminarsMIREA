@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace Pool
 {
-    public class ObjectPool : MonoBehaviour
+    public class LocalMultiplayerObjectPoolDecorator : IObjectPool
     {
-        private IObjectPool _pool;
-
-        public void SetPool(IObjectPool pool)
-        {
-            _pool = pool;
-        }
+        private readonly IObjectPool _pool;
         
-        public IObjectPool GetPool() => _pool;
+        public LocalMultiplayerObjectPoolDecorator(IObjectPool pool, LocalMultiplayerObjectPoolNetworkObject lmPool)
+        {
+            var comp = lmPool;
+            _pool = comp;
+            comp.SetPool(pool);
+        }
 
         public void RegisterPrefab(Type type, PooledPrefab prefab) => _pool.RegisterPrefab(type, prefab);
 
@@ -26,9 +26,11 @@ namespace Pool
 
         public Component Spawn(Vector3 position, Quaternion rotation, Type type)
             => _pool.Spawn(position, rotation, type);
-        
-        public void Despawn<T>(T component) where T : Component => _pool.Despawn(component, typeof(T));
 
-        public void Despawn(Component component, Type type) => _pool.Despawn(component, type);
+        public void Despawn<T>(T component) where T : Component
+            => _pool.Despawn(component);
+
+        public void Despawn(Component component, Type type)
+            => _pool.Despawn(component, type);
     }
 }

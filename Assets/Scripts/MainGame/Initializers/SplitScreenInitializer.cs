@@ -1,3 +1,4 @@
+using GridMap.NetworkPolitics;
 using MainGame.EventBuses;
 using MainGame.GameFinishers;
 using MainGame.GameStarters;
@@ -5,6 +6,7 @@ using MainGame.GameTimers;
 using MainGame.PlayersRepos;
 using Player;
 using Player.NetworkPolitics;
+using Pool;
 
 namespace MainGame.Initializers
 {
@@ -14,12 +16,16 @@ namespace MainGame.Initializers
             PlayersRepo playersRepo,
             GameTimer gameTimer,
             EventBus eventBus,
-            GameFinisher gameFinisher)
+            GameFinisher gameFinisher,
+            ObjectPool pool,
+            GridMap.GridMap gridMap)
         {
             playersRepo.Initialize(new DefaultPlayersRepo());
             gameTimer.Initialize(new DefaultGameTimer());
             eventBus.Initialize(new DefaultEventBus());
             gameFinisher.Initialize(new DefaultGameFinisher());
+            pool.SetPool(new DefaultObjectPool(pool.transform, pool));
+            gridMap.Initialize(new DefaultGridMap(gridMap));
 
             return new SplitScreenGameStarter();
         }

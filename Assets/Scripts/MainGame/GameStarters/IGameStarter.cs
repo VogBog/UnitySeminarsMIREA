@@ -7,6 +7,8 @@ namespace MainGame.GameStarters
     public interface IGameStarter
     {
         IEnumerator CreatePlayerRoutine(
-            GameStarter gameStarter, Vector3 spawnPoint, Action<Player.Player> playerCreated);
+            GameStarter gameStarter,
+            Vector3 spawnPoint,
+            Action<Player.Player> playerCreated);
     }
 }

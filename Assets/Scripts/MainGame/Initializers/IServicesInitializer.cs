@@ -1,6 +1,7 @@
 using MainGame.GameStarters;
 using Player;
 using Player.NetworkPolitics;
+using Pool;
 
 namespace MainGame.Initializers
 {
@@ -10,7 +11,9 @@ namespace MainGame.Initializers
             PlayersRepo playersRepo,
             GameTimer gameTimer,
             EventBus eventBus,
-            GameFinisher gameFinisher);
+            GameFinisher gameFinisher,
+            ObjectPool pool,
+            GridMap.GridMap gridMap);
         
         INetworkPolitics GetPlayerPolitics(PlayerHealth playerHealth);
     }

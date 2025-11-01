@@ -4,6 +4,7 @@ using MainGame.GameStarters;
 using MainMenu;
 using Player;
 using Player.NetworkPolitics;
+using Pool;
 
 namespace MainGame.Initializers
 {
@@ -14,11 +15,17 @@ namespace MainGame.Initializers
         
         public static IGameStarter InitializeServices()
         {
-            return GetServicesInitializer().InitializeSystems(
+            var result = GetServicesInitializer().InitializeSystems(
                 Find<PlayersRepo>(),
                 Find<GameTimer>(),
                 Find<EventBus>(),
-                Find<GameFinisher>());
+                Find<GameFinisher>(),
+                Find<ObjectPool>(),
+                Find<GridMap.GridMap>());
+            
+            Find<LocalMultiplayerGameStarter>().DestroyIfNotLocalMultiplayer();
+
+            return result;
         }
         
         public static INetworkPolitics GetPlayerPolitics(PlayerHealth playerHealth)
@@ -31,6 +38,7 @@ namespace MainGame.Initializers
             return StaticParameters.NetworkType switch
             {
                 NetworkTypes.SplitScreen => new SplitScreenInitializer(),
+                NetworkTypes.LocalMultiplayer => new LocalMultiplayerInitializer(),
                 _ => throw new NotImplementedException()
             };
         }

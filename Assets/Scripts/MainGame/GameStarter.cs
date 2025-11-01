@@ -72,7 +72,7 @@ namespace MainGame
                 yield return _gameStarter.CreatePlayerRoutine(this, point, instance =>
                 {
                     instances.Add(instance);
-                    _playersRepo.RegisterPlayer(instance);
+                    _playersRepo.RegisterPlayer(instance, true);
                     StartCoroutine(InitializePlayerDelayed(instance, dataForLambda));
                 });
             }

@@ -14,6 +14,7 @@ namespace Player
         private Player _player;
         private EventBus _eventBus;
         
+        public Player Owner => _player;
         public int Health { get; private set; }
 
         public void Initialize(EventBus eventBus, Player player)
