@@ -29,7 +29,7 @@ namespace Game.EventBus
 
         private bool TryGetNetworkId(Player player, out ulong id)
         {
-            var playerNetwork = player.LocalMultiplayerSync;
+            var playerNetwork = player.Network.NetworkObject;
             id = 0;
             
             if (playerNetwork == null)

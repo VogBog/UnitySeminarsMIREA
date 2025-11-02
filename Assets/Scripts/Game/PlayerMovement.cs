@@ -73,7 +73,8 @@ namespace Game
                 transform.position = hit.point - transform.forward * _sphereRadius;
                 transform.LookAt(transform.position + newDirection);
 
-                if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
+                if (hit.collider.TryGetComponent<IInteractable>(out var interactable) &&
+                    _player.Network.IsOwner())
                 {
                     EventBus.EventBus.Interact(_player, interactable);
                 }

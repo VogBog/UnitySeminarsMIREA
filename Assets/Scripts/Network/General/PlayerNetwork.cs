@@ -26,5 +26,13 @@ namespace Network.General
             var playerSync = GetComponent<LocalMultiplayerPlayerSync>();
             Destroy(playerSync);
         }
+
+        public bool IsOwner()
+        {
+            if (NetworkObject != null)
+                return NetworkObject.IsOwner;
+
+            return true;
+        }
     }
 }

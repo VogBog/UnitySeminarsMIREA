@@ -93,7 +93,7 @@ namespace Network.LocalMultiplayer
 
         public void DestroyPlayer(Player player)
         {
-            player.LocalMultiplayerSync?.NetworkObject.Despawn();
+            player.Network?.NetworkObject.Despawn();
         }
 
         public void LoadScene(int sceneIndex)

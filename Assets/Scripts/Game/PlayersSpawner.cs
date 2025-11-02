@@ -39,12 +39,13 @@ namespace Game
             
             for (int i = 0; i < count; i++)
             {
+                int index = i;
                 _politics.Instantiate(
                     instance =>
                     {
                         instance.Initialize(this);
 
-                        instance.Movement.Controller.PlayerIndex = i + 1;
+                        instance.Movement.Controller.PlayerIndex = index + 1;
 
                         var camera = Instantiate(_cameraPrefab);
                         camera.SetTarget(instance);
