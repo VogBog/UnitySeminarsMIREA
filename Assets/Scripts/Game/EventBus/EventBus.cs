@@ -1,4 +1,5 @@
 using System;
+using Network.General;
 using UnityEngine;
 
 namespace Game.EventBus
@@ -28,7 +29,14 @@ namespace Game.EventBus
 
         private void Initialize()
         {
-            _transport = GetComponentInChildren<IEventBusTransport>() ?? new DefaultEventBus();
+            var network = GetComponent<EventBusNetwork>();
+            if (network == null)
+            {
+                _transport = new DefaultEventBus();
+                return;
+            }
+            
+            _transport = network.GetTransport() ?? new DefaultEventBus();
         }
 
         public static IEventBusTransport Transport => RawInstance._transport;
