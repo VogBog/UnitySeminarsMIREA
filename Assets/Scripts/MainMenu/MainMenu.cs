@@ -1,4 +1,5 @@
 using Global;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +7,15 @@ namespace MainMenu
 {
     public class MainMenu : MonoBehaviour
     {
+        private void Start()
+        {
+            var networkManager = NetworkManager.Singleton;
+            if (networkManager != null)
+            {
+                Destroy(networkManager.gameObject);
+            }
+        }
+
         public void Quit()
         {
             Application.Quit();

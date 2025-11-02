@@ -101,7 +101,7 @@ namespace Game
             yield return new WaitForSeconds(3f);
 
             int sceneIndex = 0;
-            if (StaticParameters.PlayersCount == 1 && !string.IsNullOrEmpty(StaticParameters.Account.Id))
+            if (StaticParameters.GameType is GameTypes.Single && !string.IsNullOrEmpty(StaticParameters.Account.Id))
             {
                 sceneIndex = 3;
             }

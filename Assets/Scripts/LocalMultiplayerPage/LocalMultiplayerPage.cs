@@ -43,11 +43,24 @@ namespace LocalMultiplayerPage
             NetworkManager.Singleton.OnTransportFailure += OnTransportError;
 
             var transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+            transport.SetConnectionData(GetLocalIPv4(), transport.ConnectionData.Port);
             _ipField.text = transport.ConnectionData.Address;
             
             CloseAll();
             _firstPage.SetActive(true);
             _startBtn.interactable = false;
+        }
+
+        public override void OnDestroy()
+        {
+            if (NetworkManager.Singleton != null)
+            {
+                NetworkManager.Singleton.OnClientStopped -= OnClientStopped;
+                NetworkManager.Singleton.OnConnectionEvent -= OnConnected;
+                NetworkManager.Singleton.OnTransportFailure -= OnTransportError;
+            }
+            
+            base.OnDestroy();
         }
 
         private void OnJoinBtnClicked()
@@ -161,6 +174,9 @@ namespace LocalMultiplayerPage
         private void SetPlayersCountClientRpc(int count)
         {
             _playersCount = count;
+            StaticParameters.PlayersCount = count;
+            StaticParameters.GameType = GameTypes.LocalMultiplayer;
+            
             SetInfo();
         }
         
