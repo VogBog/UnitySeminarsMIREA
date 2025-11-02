@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -15,7 +16,15 @@ namespace Game
             
             yield return new WaitForSeconds(0.4f);
 
-            _text.text = $"{PlayerController.GetPlayerCodes(_movement.Controller.PlayerIndex)} for move";
+            try
+            {
+                _text.text = $"{PlayerController.GetPlayerCodes(_movement.Controller.PlayerIndex)} for move";
+            }
+            catch (Exception)
+            {
+                if(_text != null)
+                    _text.gameObject.SetActive(false);
+            }
 
             yield return new WaitForSeconds(2f);
             
