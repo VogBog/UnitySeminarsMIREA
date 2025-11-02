@@ -350,6 +350,8 @@ GameObject:
   - component: {fileID: 313430930}
   - component: {fileID: 313430934}
   - component: {fileID: 313430935}
+  - component: {fileID: 313430937}
+  - component: {fileID: 313430936}
   m_Layer: 0
   m_Name: KillPoint (2)
   m_TagString: Untagged
@@ -497,6 +499,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b8208b8ecc430fb24567c81d924606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &313430936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313430928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 365dd3430da6440da933c2261c269f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &313430937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313430928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 742826d6c83d4fd283b357e803720974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!1 &348516885
 GameObject:
   m_ObjectHideFlags: 0
@@ -2724,6 +2751,8 @@ GameObject:
   - component: {fileID: 1227713025}
   - component: {fileID: 1227713029}
   - component: {fileID: 1227713030}
+  - component: {fileID: 1227713032}
+  - component: {fileID: 1227713031}
   m_Layer: 0
   m_Name: KillPoint (1)
   m_TagString: Untagged
@@ -2871,6 +2900,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b8208b8ecc430fb24567c81d924606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1227713031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227713023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 365dd3430da6440da933c2261c269f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1227713032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227713023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 742826d6c83d4fd283b357e803720974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!1 &1235025881
 GameObject:
   m_ObjectHideFlags: 0
@@ -4157,6 +4211,8 @@ GameObject:
   - component: {fileID: 1903375246}
   - component: {fileID: 1903375250}
   - component: {fileID: 1903375251}
+  - component: {fileID: 1903375253}
+  - component: {fileID: 1903375252}
   m_Layer: 0
   m_Name: KillPoint
   m_TagString: Untagged
@@ -4304,6 +4360,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b8208b8ecc430fb24567c81d924606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1903375252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903375244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 365dd3430da6440da933c2261c269f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1903375253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903375244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 742826d6c83d4fd283b357e803720974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!1 &1916684699
 GameObject:
   m_ObjectHideFlags: 0

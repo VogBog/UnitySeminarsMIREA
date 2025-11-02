@@ -9,7 +9,7 @@ namespace Game
         public const float RadiusForEverySpeedUnit = 1f;
         
         public event Action<KillPoint, float> InteractedWithSpeed;
-        
+
         public void Interact(Player player)
         {
             float speed = player.Movement.Speed;
@@ -32,6 +32,12 @@ namespace Game
 
             if(gameObject.activeSelf)
                 StartCoroutine(AnimationRoutine(radius));
+        }
+
+        public void StartAnimation(float playerSpeed)
+        {
+            float radius = RadiusForEverySpeedUnit * playerSpeed;
+            StartCoroutine(AnimationRoutine(radius));
         }
 
         private IEnumerator AnimationRoutine(float scale)

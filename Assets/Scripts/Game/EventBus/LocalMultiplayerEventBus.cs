@@ -5,6 +5,7 @@ namespace Game.EventBus
 {
     public class LocalMultiplayerEventBus : NetworkBehaviour, IEventBusTransport
     {
+        #region Utils
         private bool TryGetNetworkId(object obj, string objName, out ulong id)
         {
             id = 0;
@@ -57,6 +58,7 @@ namespace Game.EventBus
             
             return component;
         }
+        #endregion
         
         #region Interact
         public void Interact(Player player, IInteractable interactable)
