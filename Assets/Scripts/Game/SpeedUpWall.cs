@@ -17,6 +17,7 @@ namespace Game
         private void Start()
         {
             _renderer = GetComponent<MeshRenderer>();
+            EventBus.EventBus.SubscribeOnInteracted(OnInteracted);
             
             Enabled = true;
             _renderer.sharedMaterial = _enabledMat;
@@ -31,6 +32,15 @@ namespace Game
 
             Enabled = false;
             StartCoroutine(EnableRoutine());
+        }
+
+        private void OnInteracted(Player player, IInteractable interactable)
+        {
+            if (interactable == this && Enabled)
+            {
+                Enabled = false;
+                StartCoroutine(EnableRoutine());
+            }
         }
 
         private IEnumerator EnableRoutine()
