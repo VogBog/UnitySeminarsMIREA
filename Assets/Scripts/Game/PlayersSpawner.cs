@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Global;
 using MainMenu;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Game
 {
@@ -22,34 +21,40 @@ namespace Game
         private void Start()
         {
             _politics = new PlayersSpawnerPolitics().GetPolitics(this);
+            _politics.SetPrefab(_playerPrefab);
             
             _playersCount = StaticParameters.PlayersCount;
             bool singlePlayer = StaticParameters.GameType is GameTypes.Single or GameTypes.SplitScreen;
             
             EventBus.EventBus.SubscribeOnPlayerDied(OnPlayerDie);
             
-            CreatePlayers(singlePlayer ? _playersCount : 1);
+            StartCoroutine(CreatePlayers(singlePlayer ? _playersCount : 1));
         }
 
-        private void CreatePlayers(int count)
+        private IEnumerator CreatePlayers(int count)
         {
             var cameras = new List<Camera>();
             
             for (int i = 0; i < count; i++)
             {
-                var instance = _politics.Instantiate(
-                    _playerPrefab, _spawnPoints[i].position, Quaternion.identity, null);
-                instance.Initialize(this);
+                _politics.Instantiate(
+                    _spawnPoints[i].position, Quaternion.identity, null, instance =>
+                    {
+                        instance.Initialize(this);
 
-                instance.Movement.Controller.PlayerIndex = i + 1;
+                        instance.Movement.Controller.PlayerIndex = i + 1;
 
-                var camera = Instantiate(_cameraPrefab);
-                camera.SetTarget(instance);
+                        var camera = Instantiate(_cameraPrefab);
+                        camera.SetTarget(instance);
                 
-                var rawCamera = camera.GetComponent<Camera>();
-                cameras.Add(rawCamera);
-                instance.SetCameraToCanvas(rawCamera);
+                        var rawCamera = camera.GetComponent<Camera>();
+                        cameras.Add(rawCamera);
+                        instance.SetCameraToCanvas(rawCamera);
+                    });
             }
+
+            while (cameras.Count < count)
+                yield return null;
             
             SetCameras(cameras);
         }

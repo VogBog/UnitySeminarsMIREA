@@ -9,6 +9,8 @@ namespace Game
 {
     public class PlayersSpawnerPolitics : IPlayerSpawnerPolitics
     {
+        private Player _prefab;
+        
         public IPlayerSpawnerPolitics GetPolitics(PlayersSpawner spawner)
         {
             return StaticParameters.GameType switch
@@ -19,10 +21,16 @@ namespace Game
                 _ => throw new NotImplementedException()
             };
         }
-        
-        public Player Instantiate(Player prefab, Vector3 pos, Quaternion rot, Transform parent)
+
+        public void SetPrefab(Player prefab)
         {
-            return UnityEngine.Object.Instantiate(prefab, pos, rot, parent);
+            _prefab = prefab;
+        }
+        
+        public void Instantiate(Vector3 pos, Quaternion rot, Transform parent, Action<Player> onSpawn)
+        {
+            var instance = UnityEngine.Object.Instantiate(_prefab, pos, rot, parent);
+            onSpawn?.Invoke(instance);
         }
 
         public void DestroyPlayer(Player player)

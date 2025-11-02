@@ -148,7 +148,6 @@ namespace LocalMultiplayerPage
             _playersCount++;
             SetPlayersCountClientRpc(_playersCount);
             _startBtn.interactable = _playersCount > 1;
-            _startBtn.interactable = true; //TODO: REMOVE BEFORE BUILD
         }
 
         private void OnPlayerDisconnected()
