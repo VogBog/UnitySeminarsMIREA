@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Global;
 using MainMenu;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace Game
         {
             _politics = new PlayersSpawnerPolitics().GetPolitics(this);
             _politics.SetPrefab(_playerPrefab);
+            _politics.SetSpawnPoints(_spawnPoints.Select(x => x.position).ToArray());
             
             _playersCount = StaticParameters.PlayersCount;
             bool singlePlayer = StaticParameters.GameType is GameTypes.Single or GameTypes.SplitScreen;
@@ -38,7 +40,7 @@ namespace Game
             for (int i = 0; i < count; i++)
             {
                 _politics.Instantiate(
-                    _spawnPoints[i].position, Quaternion.identity, null, instance =>
+                    instance =>
                     {
                         instance.Initialize(this);
 

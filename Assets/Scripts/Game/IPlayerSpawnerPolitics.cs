@@ -6,7 +6,8 @@ namespace Game
     public interface IPlayerSpawnerPolitics
     {
         void SetPrefab(Player prefab);
-        void Instantiate(Vector3 pos, Quaternion rot, Transform parent, Action<Player> onSpawn);
+        void SetSpawnPoints(Vector3[] positions);
+        void Instantiate(Action<Player> onSpawn);
         void DestroyPlayer(Player player);
         void LoadScene(int sceneIndex);
     }

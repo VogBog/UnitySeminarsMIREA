@@ -10,35 +10,46 @@ namespace Network.LocalMultiplayer
     public class LocalMultiplayerPlayersSpawner : NetworkBehaviour, IPlayerSpawnerPolitics
     {
         private Player _prefab;
+        private Vector3[] _spawnPoints;
+        private int _spawnPointIndex = 0;
         private Action<Player> _onSpawn;
         
         public void SetPrefab(Player prefab)
         {
             _prefab = prefab;
         }
+
+        public void SetSpawnPoints(Vector3[] positions)
+        {
+            _spawnPoints = positions;
+        }
         
-        public void Instantiate(Vector3 pos, Quaternion rot, Transform parent, Action<Player> onSpawn)
+        public void Instantiate(Action<Player> onSpawn)
         {
             ulong ownerId = NetworkManager.LocalClientId;
             _onSpawn = onSpawn;
             
-            SpawnPlayerRpc(pos, rot, ownerId);
+            SpawnPlayerRpc(ownerId);
         }
 
         [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
-        private void SpawnPlayerRpc(Vector3 pos, Quaternion rot, ulong ownerClientId)
+        private void SpawnPlayerRpc(ulong ownerClientId)
         {
-            StartCoroutine(SpawnPlayerRoutine(pos, rot, ownerClientId));
+            StartCoroutine(SpawnPlayerRoutine(ownerClientId));
         }
 
-        private IEnumerator SpawnPlayerRoutine(Vector3 pos, Quaternion rot, ulong ownerClientId)
+        private IEnumerator SpawnPlayerRoutine(ulong ownerClientId)
         {
-            while (_prefab == null)
+            while (_prefab == null || _spawnPoints == null)
                 yield return null;
             
             var networkObject = _prefab.GetComponent<NetworkObject>();
             if(networkObject == null)
                 throw new NullReferenceException("Player must have NetworkObject component");
+            
+            var pos = _spawnPoints[_spawnPointIndex];
+            var rot = Quaternion.identity;
+            _spawnPointIndex = (_spawnPointIndex + 1) % _spawnPoints.Length;
             
             NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(
                 networkObject,

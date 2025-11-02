@@ -10,6 +10,8 @@ namespace Game
     public class PlayersSpawnerPolitics : IPlayerSpawnerPolitics
     {
         private Player _prefab;
+        private Vector3[] _spawnPoints;
+        private int _spawnPointIndex;
         
         public IPlayerSpawnerPolitics GetPolitics(PlayersSpawner spawner)
         {
@@ -26,10 +28,19 @@ namespace Game
         {
             _prefab = prefab;
         }
-        
-        public void Instantiate(Vector3 pos, Quaternion rot, Transform parent, Action<Player> onSpawn)
+
+        public void SetSpawnPoints(Vector3[] positions)
         {
-            var instance = UnityEngine.Object.Instantiate(_prefab, pos, rot, parent);
+            _spawnPoints = positions;
+        }
+        
+        public void Instantiate(Action<Player> onSpawn)
+        {
+            var pos = _spawnPoints[_spawnPointIndex];
+            var rot = Quaternion.identity;
+            _spawnPointIndex = (_spawnPointIndex + 1) % _spawnPoints.Length;
+            
+            var instance = UnityEngine.Object.Instantiate(_prefab, pos, rot);
             onSpawn?.Invoke(instance);
         }
 
