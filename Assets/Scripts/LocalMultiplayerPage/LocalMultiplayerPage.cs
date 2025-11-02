@@ -142,7 +142,7 @@ namespace LocalMultiplayerPage
                              $"Players: {_playersCount}";
         }
 
-        [ServerRpc(InvokePermission = RpcInvokePermission.Everyone)]
+        [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
         private void NewPlayerServerRpc()
         {
             _playersCount++;

@@ -18,24 +18,11 @@ namespace Network.LocalMultiplayer
         private void OnInteractedWithSpeed(KillPoint killPoint, float speed)
         {
             ulong clientId = NetworkManager.LocalClientId;
-            if (IsServer)
-            {
-                InteractClientRpc(speed, clientId);
-            }
-            else
-            {
-                InteractServerRpc(speed, clientId);
-            }
+            InteractRpc(speed, clientId);
         }
 
-        [ServerRpc(InvokePermission = RpcInvokePermission.Everyone)]
-        private void InteractServerRpc(float speed, ulong clientId)
-        {
-            InteractClientRpc(speed, clientId);
-        }
-
-        [ClientRpc]
-        private void InteractClientRpc(float speed, ulong clientId)
+        [Rpc(SendTo.Everyone, InvokePermission = RpcInvokePermission.Everyone)]
+        private void InteractRpc(float speed, ulong clientId)
         {
             if (NetworkManager.LocalClientId == clientId)
                 return;

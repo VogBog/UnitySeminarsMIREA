@@ -79,7 +79,7 @@ namespace Game.EventBus
             }
         }
 
-        [ServerRpc(InvokePermission = RpcInvokePermission.Everyone)]
+        [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
         private void InteractServerRpc(ulong playerId, ulong interactableId)
         {
             var player = GetFromId<Player>(playerId);
@@ -104,24 +104,11 @@ namespace Game.EventBus
             if (!TryGetNetworkId(player, out var playerId))
                 return;
             
-            if (IsServer)
-            {
-                PlayerDamagedClientRpc(playerId, totalHealth);
-            }
-            else
-            {
-                PlayerDamagedServerRpc(playerId, totalHealth);
-            }
+            PlayerDamagedRpc(playerId, totalHealth);
         }
 
-        [ServerRpc(InvokePermission = RpcInvokePermission.Everyone)]
-        private void PlayerDamagedServerRpc(ulong playerId, int totalHealth)
-        {
-            PlayerDamagedClientRpc(playerId, totalHealth);
-        }
-
-        [ClientRpc]
-        private void PlayerDamagedClientRpc(ulong clientId, int totalHealth)
+        [Rpc(SendTo.Everyone, InvokePermission = RpcInvokePermission.Everyone)]
+        private void PlayerDamagedRpc(ulong clientId, int totalHealth)
         {
             var player = GetFromId<Player>(clientId);
             EventBus.RawInstance.OpenPlayerDamaged?.Invoke(player, totalHealth);
@@ -134,18 +121,11 @@ namespace Game.EventBus
             if (!TryGetNetworkId(player, out var playerId))
                 return;
             
-            if(IsServer) PlayerDiedClientRpc(playerId);
-            else PlayerDiedServerRpc(playerId);
+            PlayerDiedRpc(playerId);
         }
 
-        [ServerRpc(InvokePermission = RpcInvokePermission.Everyone)]
-        private void PlayerDiedServerRpc(ulong playerId)
-        {
-            PlayerDiedClientRpc(playerId);
-        }
-
-        [ClientRpc]
-        private void PlayerDiedClientRpc(ulong playerId)
+        [Rpc(SendTo.Everyone, InvokePermission = RpcInvokePermission.Everyone)]
+        private void PlayerDiedRpc(ulong playerId)
         {
             var player = GetFromId<Player>(playerId);
             EventBus.RawInstance.OpenPlayerDied?.Invoke(player);

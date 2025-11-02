@@ -21,17 +21,11 @@ namespace Network.LocalMultiplayer
 
         private void OnOwnerStoppedChanged(bool stopped)
         {
-            StoppedChangedServerRpc(stopped);
+            StoppedChangedRpc(stopped);
         }
 
-        [ServerRpc(InvokePermission = RpcInvokePermission.Owner)]
-        private void StoppedChangedServerRpc(bool value)
-        {
-            StoppedChangedClientRpc(value);
-        }
-
-        [ClientRpc]
-        private void StoppedChangedClientRpc(bool value)
+        [Rpc(SendTo.Everyone, InvokePermission = RpcInvokePermission.Everyone)]
+        private void StoppedChangedRpc(bool value)
         {
             if (IsOwner)
                 return;
