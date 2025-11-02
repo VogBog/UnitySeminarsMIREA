@@ -22,6 +22,12 @@ namespace Game
         {
             Movement = GetComponent<PlayerMovement>();
             LocalMultiplayerSync = GetComponent<LocalMultiplayerPlayerSync>();
+            EventBus.EventBus.SubscribeOnPlayerDamaged(OnPlayerDamaged);
+        }
+
+        private void OnDestroy()
+        {
+            EventBus.EventBus.UnsubscribeOnPlayerDamaged(OnPlayerDamaged);
         }
 
         public void Initialize(PlayersSpawner spawner)
@@ -39,12 +45,18 @@ namespace Game
             if (Health == 0)
             {
                 Died?.Invoke(this);
-                Destroy(gameObject);
+                EventBus.EventBus.PlayerDied(this);
             }
             else
             {
-                StartCoroutine(HurtAnimationRoutine());
+                EventBus.EventBus.PlayerDamaged(this, Health);
             }
+        }
+
+        private void OnPlayerDamaged(Player player, int totalHealth)
+        {
+            if (player == this)
+                StartCoroutine(HurtAnimationRoutine());
         }
 
         public void SetCameraToCanvas(Camera camera)

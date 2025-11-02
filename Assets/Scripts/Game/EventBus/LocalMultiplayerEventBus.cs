@@ -95,5 +95,59 @@ namespace Game.EventBus
             EventBus.RawInstance.OpenInteracted?.Invoke(player, interactable);
         }
         #endregion
+        
+        #region PlayerDamaged
+        public void PlayerDamaged(Player player, int totalHealth)
+        {
+            if (!TryGetNetworkId(player, out var playerId))
+                return;
+            
+            if (IsServer)
+            {
+                PlayerDamagedClientRpc(playerId, totalHealth);
+            }
+            else
+            {
+                PlayerDamagedServerRpc(playerId, totalHealth);
+            }
+        }
+
+        [ServerRpc(InvokePermission = RpcInvokePermission.Everyone)]
+        private void PlayerDamagedServerRpc(ulong playerId, int totalHealth)
+        {
+            PlayerDamagedClientRpc(playerId, totalHealth);
+        }
+
+        [ClientRpc]
+        private void PlayerDamagedClientRpc(ulong clientId, int totalHealth)
+        {
+            var player = GetFromId<Player>(clientId);
+            EventBus.RawInstance.OpenPlayerDamaged?.Invoke(player, totalHealth);
+        }
+        #endregion
+
+        #region PlayerDied
+        public void PlayerDied(Player player)
+        {
+            if (!TryGetNetworkId(player, out var playerId))
+                return;
+            
+            if(IsServer) PlayerDiedClientRpc(playerId);
+            else PlayerDiedServerRpc(playerId);
+        }
+
+        [ServerRpc(InvokePermission = RpcInvokePermission.Everyone)]
+        private void PlayerDiedServerRpc(ulong playerId)
+        {
+            PlayerDiedClientRpc(playerId);
+        }
+
+        [ClientRpc]
+        private void PlayerDiedClientRpc(ulong playerId)
+        {
+            var player = GetFromId<Player>(playerId);
+            EventBus.RawInstance.OpenPlayerDied?.Invoke(player);
+        }
+        #endregion
     }
 }

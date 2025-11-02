@@ -15,13 +15,18 @@ namespace Game
         [SerializeField] private Transform[] _spawnPoints;
 
         private int _playersCount;
+        private IPlayerSpawnerPolitics _politics;
 
         public event Action End;
 
         private void Start()
         {
+            _politics = new PlayersSpawnerPolitics().GetPolitics(this);
+            
             _playersCount = StaticParameters.PlayersCount;
             bool singlePlayer = StaticParameters.GameType is GameTypes.Single or GameTypes.SplitScreen;
+            
+            EventBus.EventBus.SubscribeOnPlayerDied(OnPlayerDie);
             
             CreatePlayers(singlePlayer ? _playersCount : 1);
         }
@@ -29,16 +34,14 @@ namespace Game
         private void CreatePlayers(int count)
         {
             var cameras = new List<Camera>();
-            var politics = new PlayersSpawnerPolitics().GetPolitics(this);
             
             for (int i = 0; i < count; i++)
             {
-                var instance = politics.Instantiate(
+                var instance = _politics.Instantiate(
                     _playerPrefab, _spawnPoints[i].position, Quaternion.identity, null);
                 instance.Initialize(this);
 
                 instance.Movement.Controller.PlayerIndex = i + 1;
-                instance.Died += OnPlayerDie;
 
                 var camera = Instantiate(_cameraPrefab);
                 camera.SetTarget(instance);
@@ -75,6 +78,8 @@ namespace Game
 
         private void OnPlayerDie(Player player)
         {
+            _politics.DestroyPlayer(player);
+            
             _playersCount--;
             if (_playersCount <= 1)
             {
@@ -93,7 +98,7 @@ namespace Game
                 sceneIndex = 3;
             }
             
-            SceneManager.LoadScene(sceneIndex);
+            _politics.LoadScene(sceneIndex);
         }
     }
 }

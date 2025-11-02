@@ -75,7 +75,7 @@ namespace Game
 
                 if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
                 {
-                    interactable.Interact(_player);
+                    EventBus.EventBus.Interact(_player, interactable);
                 }
             }
         }

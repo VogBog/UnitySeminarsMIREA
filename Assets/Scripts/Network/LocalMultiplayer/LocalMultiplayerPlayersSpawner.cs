@@ -1,7 +1,9 @@
 using System;
+using System.IO;
 using Game;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Network.LocalMultiplayer
 {
@@ -27,6 +29,17 @@ namespace Network.LocalMultiplayer
                 throw new NullReferenceException("WTF");
 
             return player;
+        }
+
+        public void DestroyPlayer(Player player)
+        {
+            player.LocalMultiplayerSync?.NetworkObject.Despawn();
+        }
+
+        public void LoadScene(int sceneIndex)
+        {
+            NetworkManager.Shutdown();
+            SceneManager.LoadScene(sceneIndex);
         }
     }
 }

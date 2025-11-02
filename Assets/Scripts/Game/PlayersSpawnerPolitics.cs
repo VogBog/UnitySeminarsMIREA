@@ -3,6 +3,7 @@ using Global;
 using MainMenu;
 using Network.LocalMultiplayer;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game
 {
@@ -22,6 +23,16 @@ namespace Game
         public Player Instantiate(Player prefab, Vector3 pos, Quaternion rot, Transform parent)
         {
             return UnityEngine.Object.Instantiate(prefab, pos, rot, parent);
+        }
+
+        public void DestroyPlayer(Player player)
+        {
+            UnityEngine.Object.Destroy(player.gameObject);
+        }
+
+        public void LoadScene(int sceneIndex)
+        {
+            SceneManager.LoadScene(sceneIndex);
         }
 
         private IPlayerSpawnerPolitics GetLocalMultiplayerPolitics(PlayersSpawner spawner)
