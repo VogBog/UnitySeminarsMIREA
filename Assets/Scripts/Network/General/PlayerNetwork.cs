@@ -1,10 +1,10 @@
+using System;
+using System.Collections.Generic;
 using Network.LocalMultiplayer;
 using Unity.Netcode;
-using UnityEngine;
 
 namespace Network.General
 {
-    [RequireComponent(typeof(LocalMultiplayerPlayerSync))]
     public class PlayerNetwork : AbstractNetwork
     {
         protected override bool DestroyAfterAwake => false;
@@ -14,6 +14,11 @@ namespace Network.General
         protected override void BeforeAwake()
         {
             NetworkObject = GetComponent<NetworkObject>();
+        }
+
+        protected override void AddRequireComponents(List<Type> components)
+        {
+            components.Add(typeof(LocalMultiplayerPlayerSync));
         }
 
         protected override void IsNotLocalMultiplayer()

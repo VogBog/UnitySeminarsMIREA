@@ -1,9 +1,9 @@
+using System;
+using System.Collections.Generic;
 using Game.EventBus;
-using UnityEngine;
 
 namespace Network.General
 {
-    [RequireComponent(typeof(LocalMultiplayerEventBus))]
     public class EventBusNetwork : AbstractNetwork
     {
         private LocalMultiplayerEventBus _localMultiplayer;
@@ -11,6 +11,11 @@ namespace Network.General
         protected override void BeforeAwake()
         {
             _localMultiplayer = GetComponent<LocalMultiplayerEventBus>();
+        }
+
+        protected override void AddRequireComponents(List<Type> components)
+        {
+            components.Add(typeof(LocalMultiplayerEventBus));
         }
 
         protected override void IsNotLocalMultiplayer()
