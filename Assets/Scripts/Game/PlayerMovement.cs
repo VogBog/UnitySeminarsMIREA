@@ -63,14 +63,18 @@ namespace Game
                 return;
             
             var ray = new Ray(transform.position, transform.forward);
-            if (!Physics.Raycast(ray, out var hit, _speed * Time.fixedDeltaTime + _sphereRadius))
+            if (!Physics.SphereCast(ray, _sphereRadius, out var hit, _speed * Time.fixedDeltaTime))
             {
                 transform.position += _speed * Time.fixedDeltaTime * transform.forward;
             }
             else
             {
+                Debug.DrawLine(hit.point + Vector3.left, hit.point + Vector3.right, Color.red, 2f);
+                Debug.DrawLine(hit.point + Vector3.forward, hit.point + Vector3.back, Color.red, 2f);
+                
+                var oldDirection = Vector3.Normalize(hit.point - transform.position);
                 var newDirection = Vector3.Reflect(transform.forward, hit.normal);
-                transform.position = hit.point - transform.forward * _sphereRadius;
+                transform.position = hit.point - oldDirection * _sphereRadius;
                 transform.LookAt(transform.position + newDirection);
 
                 if (hit.collider.TryGetComponent<IInteractable>(out var interactable) &&
