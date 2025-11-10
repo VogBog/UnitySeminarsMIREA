@@ -8,7 +8,6 @@ using MainGame.PlayersRepos;
 using Player;
 using Player.NetworkPolitics;
 using Pool;
-using Unity.VisualScripting;
 
 namespace MainGame.Initializers
 {
@@ -45,7 +44,7 @@ namespace MainGame.Initializers
 
         public INetworkPolitics GetPlayerPolitics(PlayerHealth playerHealth)
         {
-            var politics = playerHealth.Owner.AddComponent<LocalMultiplayerNetworkPolitics>();
+            var politics = playerHealth.Owner.transform.GetComponent<LocalMultiplayerNetworkPolitics>();
             politics.SetPlayer(playerHealth.Owner);
             
             return politics;

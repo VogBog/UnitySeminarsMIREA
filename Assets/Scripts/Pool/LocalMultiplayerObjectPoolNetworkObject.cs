@@ -112,7 +112,7 @@ namespace Pool
 
         public void Despawn(Component component, Type type)
         {
-            _pool.Despawn(component);
+            _pool.Despawn(component, type);
             var typeName = type.FullName;
             if (!_livingComponents.TryGetValue(type, out var dict))
                 return;

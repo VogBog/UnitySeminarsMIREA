@@ -18,81 +18,71 @@ namespace GridMap.NetworkPolitics
         public void Initialize(IGridMap gridMap)
         {
             _map = gridMap;
-        }
-        
-        public void CreateGrid()
-        {
-            throw new NotImplementedException();
+            _map.ChunkChanged += ev => ChunkChanged?.Invoke(ev);
         }
 
-        public byte GetCell(int x, int y)
-        {
-            throw new NotImplementedException();
-        }
+        public void CreateGrid() => _map.CreateGrid();
+
+        public byte GetCell(int x, int y) => _map.GetCell(x, y);
 
         public void SetCell(int x, int y, byte c)
         {
-            throw new NotImplementedException();
+            SetCellRpc(x, y, c);
         }
+
+        [Rpc(SendTo.Everyone, RequireOwnership = false)]
+        private void SetCellRpc(int x, int y, byte c) => _map.SetCell(x, y, c);
 
         public void SetCellsAsync(SetCellsRect rect)
         {
-            throw new NotImplementedException();
+            var (a, b, c, d, e) = rect.ToRawData();
+            SetCellsAsyncRpc(a, b, c, d, e);
+        }
+
+        [Rpc(SendTo.Everyone, RequireOwnership = false)]
+        private void SetCellsAsyncRpc(int xMin, int yMin, int width, int height, byte value)
+        {
+            var rect = SetCellsRect.FromRawData(xMin, yMin, width, height, value);
+            _map.SetCellsAsync(rect);
         }
 
         public void SetCellsAsync(IEnumerable<SetCellsRect> rects)
         {
-            throw new NotImplementedException();
+            var (a, b, c, d, e) = SetCellsRect.ToRawDataArray(rects);
+            SetCellsAsyncRpc(a, b, c, d, e);
         }
 
-        public GridMapIEnumerator GetAreaIEnumerator(RectInt rect)
+        [Rpc(SendTo.Everyone, RequireOwnership = false)]
+        private void SetCellsAsyncRpc(int[] x, int[] y, int[] widths, int[] heights, byte[] values)
         {
-            throw new NotImplementedException();
+            var array = SetCellsRect.FromRawDataArray(x, y, widths, heights, values);
+            _map.SetCellsAsync(array);
         }
 
-        public GridMapIEnumerator GetChunkIEnumerator(Vector2Int chunk)
-        {
-            throw new NotImplementedException();
-        }
+        public GridMapIEnumerator GetAreaIEnumerator(RectInt rect) => _map.GetAreaIEnumerator(rect);
 
-        public (float, float) FromIndexesToWorldPosition(int x, int y)
-        {
-            throw new NotImplementedException();
-        }
+        public GridMapIEnumerator GetChunkIEnumerator(Vector2Int chunk) => _map.GetChunkIEnumerator(chunk);
 
-        public (int, int) FromWorldPositionToIndexes(float x, float y)
-        {
-            throw new NotImplementedException();
-        }
+        public (float, float) FromIndexesToWorldPosition(int x, int y) => _map.FromIndexesToWorldPosition(x, y);
+
+        public (int, int) FromWorldPositionToIndexes(float x, float y) => _map.FromWorldPositionToIndexes(x, y);
 
         public SetCellsRect FromWorldRangeToIndexesRange(float startX, float startY, float endX, float endY, byte value)
-        {
-            throw new NotImplementedException();
-        }
+        => _map.FromWorldRangeToIndexesRange(startX, startY, endX, endY, value);
 
         public List<SetCellsRect> FromWorldSphereToIndexesSphere(float posX, float posY, float radius, byte value)
-        {
-            throw new NotImplementedException();
-        }
+        => _map.FromWorldSphereToIndexesSphere(posX, posY, radius, value);
 
         public List<SetCellsRect> FromWorldRectToIndexesRect(float posX, float posY, float width, float height, Vector3 direction, byte value)
-        {
-            throw new NotImplementedException();
-        }
+        => _map.FromWorldRectToIndexesRect(posX, posY, width, height, direction, value);
 
         public List<SetCellsRect> RasterizeRect(Vector2 lb, Vector2 lt, Vector2 rb, Vector2 rt, byte value)
-        {
-            throw new NotImplementedException();
-        }
+            => _map.RasterizeRect(lb, lt, rb, rt, value);
 
-        public List<SetCellsRect> PaintConnectedAreaByPredicate(int centerX, int centerY, int maxDist, byte value, Predicate<byte> predicate)
-        {
-            throw new NotImplementedException();
-        }
+        public List<SetCellsRect> PaintConnectedAreaByPredicate(int centerX, int centerY, int maxDist, byte value,
+            Predicate<byte> predicate)
+            => _map.PaintConnectedAreaByPredicate(centerX, centerY, maxDist, value, predicate);
 
-        public void DelayedCall(Action call)
-        {
-            throw new NotImplementedException();
-        }
+        public void DelayedCall(Action call) => _map.DelayedCall(call);
     }
 }

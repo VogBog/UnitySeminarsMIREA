@@ -1,3 +1,4 @@
+using System.Linq;
 using Damage;
 using Data;
 using Unity.Netcode;
@@ -17,7 +18,7 @@ namespace Player.NetworkPolitics
         {
             if (IsOwner)
             {
-                _player.TakeDamage(ref data);
+                _player.Health.TakeDamage(ref data);
             }
             else
             {
@@ -57,12 +58,15 @@ namespace Player.NetworkPolitics
             if (hasAttacker)
             {
                 NetworkManager.SpawnManager.SpawnedObjects.TryGetValue(networkId, out attacker);
+                if(attacker == null)
+                    attacker = NetworkManager.SpawnManager.PlayerObjects
+                        .FirstOrDefault(x => x.NetworkObjectId == networkId);
             }
 
             var element = Elementals.GetByName(elementalName);
             var ev = new GetDamageData(damage, attacker?.gameObject, element);
             
-            _player.TakeDamage(ref ev);
+            _player.Health.TakeDamage(ref ev);
         }
     }
 }

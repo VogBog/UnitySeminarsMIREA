@@ -1,23 +1,23 @@
 using System;
 using System.Collections.Generic;
 using MainMenu;
-using Unity.Netcode.Components;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace SceneObjects.NetworkComponents
 {
-    public class SyncedTransform : MultiNetworkSyncComponent
+    public class SyncedObject : MultiNetworkSyncComponent
     {
         protected override void GetRequiredComponents(IList<Type> components)
         {
-            components.Add(typeof(NetworkTransform));
+            components.Add(typeof(NetworkObject));
         }
 
         protected override void DeactivateUselessComponents(NetworkTypes type, IDictionary<Type, Component> components)
         {
-            if (components.TryGetValue(typeof(NetworkTransform), out var networkTransform) &&
-                type is not NetworkTypes.LocalMultiplayer)
-                Destroy(networkTransform);
+            if(components.TryGetValue(typeof(NetworkObject), out var networkObject) &&
+               type is not NetworkTypes.LocalMultiplayer)
+                Destroy(networkObject);
         }
     }
 }

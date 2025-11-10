@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -55,7 +56,11 @@ namespace MainGame.PlayersRepos
         {
             for (int i = 0; i < 120; i++)
             {
-                if (!NetworkManager.SpawnManager.SpawnedObjects.TryGetValue(playerId, out var obj))
+                var obj = 
+                    NetworkManager.SpawnManager.PlayerObjects
+                        .FirstOrDefault(x => x.OwnerClientId == playerId);
+                
+                if (obj == null)
                 {
                     yield return new WaitForSeconds(0.5f);
                     continue;
