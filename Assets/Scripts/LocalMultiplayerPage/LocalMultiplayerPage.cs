@@ -65,6 +65,7 @@ namespace LocalMultiplayerPage
 
         private void OnJoinBtnClicked()
         {
+            _playersCount = 0;
             var transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
             transport.SetConnectionData(_ipField.text, transport.ConnectionData.Port);
 
@@ -75,8 +76,10 @@ namespace LocalMultiplayerPage
 
         private void OnCreateBtnClicked()
         {
+            _playersCount = 0;
+            
             CloseAll();
-            string ipAddress = GetLocalIPv4();
+            string ipAddress = _ipField.text;
             var transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
             transport.SetConnectionData(ipAddress, transport.ConnectionData.Port);
             NetworkManager.StartHost();
