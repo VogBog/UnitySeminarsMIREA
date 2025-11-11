@@ -30,26 +30,25 @@ namespace MainGame.PlayersRepos
                 _code = NetworkManager.LocalClientId;
 
                 var obj = player.GetComponent<NetworkObject>();
-                ulong id = obj.NetworkObjectId;
-                RegisterPlayerServerRpc(_code, id);
+                RegisterPlayerServerRpc(_code);
             }
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void RegisterPlayerServerRpc(ulong code, ulong playerId)
+        private void RegisterPlayerServerRpc(ulong code)
         {
-            RegisterPlayerClientRpc(code, playerId, _lastIndex++);
+            RegisterPlayerClientRpc(code, _lastIndex++);
         }
 
         [ClientRpc]
-        private void RegisterPlayerClientRpc(ulong code, ulong playerId, int index)
+        private void RegisterPlayerClientRpc(ulong code, int index)
         {
             if (_code == code)
             {
                 PlayerIndex = index;
             }
 
-            StartCoroutine(RegisterPlayerRoutine(playerId, index));
+            StartCoroutine(RegisterPlayerRoutine(code, index));
         }
 
         private IEnumerator RegisterPlayerRoutine(ulong playerId, int index)

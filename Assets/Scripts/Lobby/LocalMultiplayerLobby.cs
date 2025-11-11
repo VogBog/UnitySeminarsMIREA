@@ -75,6 +75,13 @@ namespace Lobby
                     index++;
             }
 
+            var data = new PlayerData(
+                allPlayers.Length == 0,
+                index,
+                null,
+                _lobby.AllElements[0]);
+            PlayerChanged?.Invoke(data);
+
             AddNewPlayerClientRpc(index, mess);
         }
 
@@ -89,8 +96,47 @@ namespace Lobby
                 player.IsActive = true;
                 _addNewPlayerMess = "";
             }
+
+            UpdatePlayersServerRpc();
+        }
+        #endregion
+
+        #region UpdatePlayers
+        [ServerRpc(RequireOwnership = false)]
+        private void UpdatePlayersServerRpc()
+        {
+            var players = _lobby.GetAllPlayers();
+            int[] indexes = new int[players.Length];
+            int[] elementals = new int[players.Length];
+
+            for (int i = 0; i < players.Length; i++)
+            {
+                indexes[i] = players[i].Index;
+                for (int j = 0; j < _lobby.AllElements.Length; j++)
+                {
+                    if (_lobby.AllElements[j].Name == players[i].Data.Name)
+                    {
+                        elementals[i] = j;
+                        break;
+                    }
+                }
+            }
             
-            PlayerChanged?.Invoke(player);
+            UpdatePlayersClientRpc(indexes, elementals);
+        }
+
+        [ClientRpc]
+        private void UpdatePlayersClientRpc(int[] indexes, int[] elementals)
+        {
+            for (int i = 0; i < indexes.Length; i++)
+            {
+                var element = _lobby.AllElements[elementals[i]];
+                int index = indexes[i];
+                bool isActive = index == _playerIndex;
+                var data = new PlayerData(isActive, index, null, element);
+                
+                PlayerChanged?.Invoke(data);
+            }
         }
         #endregion
 
