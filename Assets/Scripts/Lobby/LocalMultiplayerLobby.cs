@@ -1,6 +1,7 @@
 using System;
 using InputSystems;
 using MainMenu;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,8 +11,6 @@ namespace Lobby
 {
     public class LocalMultiplayerLobby : NetworkBehaviour, ILobby
     {
-        [SerializeField] private LocalMultiplayerAutoFinder _finder;
-
         private Lobby _lobby;
         private PlayerInput _input;
         private int _playerIndex;
@@ -21,21 +20,26 @@ namespace Lobby
 
         public bool IsAllPlayersActive => false;
         public NetworkTypes NetworkType => NetworkTypes.LocalMultiplayer;
+        public LocalMultiplayerConnectionData ConnectionData { get; private set; }
         
         public event Action<PlayerData> PlayerChanged;
         public event Action<int> PlayerDisconnected;
         public event Action<PlayerData[], bool> CompanyStarted;
         
-        public void OnInitializeLobby(Lobby lobby)
+        public void OnInitializeLobby(Lobby lobby, TMP_Text titleText)
         {
             _lobby = lobby;
             _playerIndex = -1;
             _companyStarted = false;
             _input = new(1);
             _input.EndInteraction += OnInteracting;
+
+            var mainMenu = FindFirstObjectByType<MainMenuPages>();
+            ConnectionData = mainMenu.LocalMultiplayerConnectionData;
+
+            titleText.text = $"Ip: {ConnectionData.Ip}";
             
-            _finder.Finished += OnJoinedLobby;
-            _finder.StartLocalMultiplayer();
+            OnJoinedLobby();
         }
 
         private void OnInteracting(PlayerInput input)
@@ -144,8 +148,6 @@ namespace Lobby
         public void OnDisposeLobby()
         {
             _input.EndInteraction -= OnInteracting;
-            _finder.Finished -= OnJoinedLobby;
-            _finder.OnDestroy();
         }
 
         #region CompanyStarted

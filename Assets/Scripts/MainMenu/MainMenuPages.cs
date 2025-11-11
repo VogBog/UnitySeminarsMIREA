@@ -11,19 +11,26 @@ namespace MainMenu
         [Header("Network")]
         [SerializeField] private Button _networkButton;
         [SerializeField] private NetworkPage _networkPage;
-        
-        [Header("Local Multiplayer")]
-        [SerializeField] private LocalMultiplayerAutoFinder _localMultiplayerAutoFinder;
+
+        [Header("Local Multiplayer")] 
+        [SerializeField] private LocalMultiplayerFinderPage _localMultiplayerFinderPage;
         
         private Lobby.Lobby _lobby;
+        
+        public LocalMultiplayerConnectionData LocalMultiplayerConnectionData { get; private set; }
 
         private void Start()
         {
             _lobby = this.FindFirstObjectByTypeOrException<Lobby.Lobby>();
             _networkPage.Initialize(_networkButton);
             _networkPage.BackClicked += () => OpenPage(0);
+
+            _localMultiplayerFinderPage.Quit += OpenMainMenu;
+            _localMultiplayerFinderPage.Started += OpenLocalMultiplayerLobby;
             
-            OpenPage(0);
+            _localMultiplayerFinderPage.Initialize();
+            
+            OpenMainMenu();
         }
 
         public void CloseAll()
@@ -32,6 +39,7 @@ namespace MainMenu
             {
                 page.SetActive(false);
             }
+            _localMultiplayerFinderPage.SetActive(false);
         }
 
         public void OpenPage(int index)
@@ -39,6 +47,8 @@ namespace MainMenu
             CloseAll();
             _pages[index].SetActive(true);
         }
+        
+        public void OpenMainMenu() => OpenPage(0);
 
         public void OpenSplitScreenLobby()
         {
@@ -53,8 +63,15 @@ namespace MainMenu
 
         public void OpenLocalMultiplayerPage()
         {
-            OpenPage(1);
+            CloseAll();
+            _localMultiplayerFinderPage.SetActive(true);
+        }
+
+        private void OpenLocalMultiplayerLobby(LocalMultiplayerConnectionData connectionData)
+        {
+            LocalMultiplayerConnectionData = connectionData;
             _lobby.InitializeLocalMultiplayerLobby();
+            OpenPage(1);
         }
 
         public void QuitFromLobby()

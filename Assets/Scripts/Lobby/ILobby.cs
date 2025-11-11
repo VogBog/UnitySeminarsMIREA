@@ -1,5 +1,6 @@
 using System;
 using MainMenu;
+using TMPro;
 
 namespace Lobby
 {
@@ -12,7 +13,7 @@ namespace Lobby
         event Action<int> PlayerDisconnected; 
         event Action<PlayerData[], bool> CompanyStarted; 
         
-        void OnInitializeLobby(Lobby lobby);
+        void OnInitializeLobby(Lobby lobby, TMP_Text titleText);
         void OnLeaveLobby();
         void OnDisposeLobby();
         void InvokeCompanyStarted(PlayerData[] players);

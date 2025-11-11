@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Data;
 using MainMenu;
+using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using PlayerInput = InputSystems.PlayerInput;
@@ -24,7 +25,7 @@ namespace Lobby
         public event Action<int> PlayerDisconnected;
         public event Action<PlayerData[], bool> CompanyStarted; 
         
-        public void OnInitializeLobby(Lobby lobby)
+        public void OnInitializeLobby(Lobby lobby, TMP_Text titleText)
         {
             _lobby = lobby;
             
@@ -38,6 +39,11 @@ namespace Lobby
             {
                 input.SomethingPressed += OnPlayerPressedSomething;
             }
+
+            titleText.text = $"Press:{Environment.NewLine}" +
+                             $"WASDE - 1st player{Environment.NewLine}" +
+                             $"Arrows or RShift - 2nd player{Environment.NewLine}" +
+                             "For more players use gamepad";
         }
 
         public void OnLeaveLobby()

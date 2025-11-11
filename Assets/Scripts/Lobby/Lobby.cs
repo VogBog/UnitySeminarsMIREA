@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Data;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Lobby
 {
@@ -13,6 +13,7 @@ namespace Lobby
         [SerializeField] private int _levelSceneIndex;
         [SerializeField] private SplitScreenLobby _splitScreenLobby;
         [SerializeField] private LocalMultiplayerLobby _localMultiplayerLobby;
+        [SerializeField] private TMP_Text _titleText;
 
         public ElementalData[] AllElements { get; private set; }
         private ILobby _lobby;
@@ -35,7 +36,7 @@ namespace Lobby
             _lobby.PlayerDisconnected += OnPlayerDisconnected;
             _lobby.CompanyStarted += StartCompanyLocal;
             
-            _lobby.OnInitializeLobby(this);
+            _lobby.OnInitializeLobby(this, _titleText);
 
             StaticParameters.NetworkType = lobby.NetworkType;
         }
