@@ -51,12 +51,17 @@ namespace Player
             var eventBus = this.FindFirstObjectByTypeOrException<EventBus>();
             
             Input.Device = data.Device;
-            Movement.Initialize(this);
+
+            if (data.IsActive)
+            {
+                Movement.Initialize(this);
+                AbilityUsage.Initialize(this, data.Data);
+                MoveByTiles.Initialize(this);
+                GameUI.Initialize(this, eventBus);
+            }
+            
             Model.Initialize(this);
-            AbilityUsage.Initialize(this, data.Data);
-            MoveByTiles.Initialize(this);
             Markers.Initialize(this);
-            GameUI.Initialize(this, eventBus);
             Health.Initialize(eventBus, this);
             _networkPolitics = ServicesInitializer.GetPlayerPolitics(Health);
 
@@ -68,6 +73,8 @@ namespace Player
             SetMaterial(Model.Renderer, data.Data.Color);
 
             eventBus.PlayerDied += OnDie;
+            
+            Camera.gameObject.SetActive(data.IsActive);
         }
 
         private void SetMaterial(MeshRenderer renderer, Color color)

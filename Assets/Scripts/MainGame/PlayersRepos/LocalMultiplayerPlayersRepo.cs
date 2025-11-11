@@ -24,12 +24,10 @@ namespace MainGame.PlayersRepos
 
         public void RegisterPlayer(Player.Player player, bool isMy)
         {
-            _repo.RegisterPlayer(player, isMy);
             if (isMy)
             {
                 _code = NetworkManager.LocalClientId;
 
-                var obj = player.GetComponent<NetworkObject>();
                 RegisterPlayerServerRpc(_code);
             }
         }

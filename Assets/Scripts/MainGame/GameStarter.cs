@@ -87,7 +87,7 @@ namespace MainGame
             yield return new WaitForFixedUpdate();
             yield return new WaitForFixedUpdate();
             
-            player.Initialize(data);
+            _gameStarter.InitializePlayer(player, data);
         }
 
         private void SetCameras(IList<Player.Player> players)

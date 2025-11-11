@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Lobby;
 using UnityEngine;
 
 namespace MainGame.GameStarters
@@ -16,6 +17,11 @@ namespace MainGame.GameStarters
             yield return null;
             
             playerCreated?.Invoke(instance);
+        }
+
+        public void InitializePlayer(Player.Player player, PlayerData data)
+        {
+            player.Initialize(data);
         }
     }
 }

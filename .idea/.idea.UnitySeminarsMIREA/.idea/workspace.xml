@@ -6,8 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="3e905ed2-0d71-4056-936f-b87fe484aaa5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Lobby/LocalMultiplayerLobby.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Lobby/LocalMultiplayerLobby.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/PerformanceTestRunInfo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/PerformanceTestRunSettings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameStarter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameStarter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameStarters/IGameStarter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameStarters/IGameStarter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameStarters/LocalMultiplayerGameStarter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameStarters/LocalMultiplayerGameStarter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameStarters/SplitScreenGameStarter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameStarters/SplitScreenGameStarter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainGame/PlayersRepos/LocalMultiplayerPlayersRepo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/PlayersRepos/LocalMultiplayerPlayersRepo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -120,7 +127,7 @@
       <workItem from="1760713612769" duration="38591000" />
       <workItem from="1761313793680" duration="21515000" />
       <workItem from="1762769787375" duration="5946000" />
-      <workItem from="1762883713388" duration="5156000" />
+      <workItem from="1762883713388" duration="7652000" />
     </task>
     <servers />
   </component>
