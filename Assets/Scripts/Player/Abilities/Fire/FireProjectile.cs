@@ -35,8 +35,11 @@ namespace Player.Abilities.Fire
             _attacker = attacker;
             _quickFireRadius = quickFireRadius;
 
-            _particles = _pool.Spawn<FireProjectileParticles>(transform.position, Quaternion.identity);
-            _particles.Connect(transform);
+            _pool.Spawn<FireProjectileParticles>(transform.position, Quaternion.identity, particles =>
+            {
+                _particles = particles;
+                _particles.Connect(transform);
+            });
         }
 
         private void Update()
@@ -55,7 +58,7 @@ namespace Player.Abilities.Fire
         {
             if (other.gameObject.TryGetComponent<IDamageable>(out var damageable))
             {
-                var data = new GetDamageData(_damage, _attacker, Elementals.Fire);
+                var data = new GetDamageData(_damage, _attacker, Elementals.Fire, false);
                 damageable.TakeDamage(ref data);
             }
             Break();

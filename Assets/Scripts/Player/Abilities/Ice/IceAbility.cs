@@ -39,23 +39,27 @@ namespace Player.Abilities.Ice
         
         public void QuickAbility()
         {
-            var projectile = _pool.Spawn<IceProjectile>(
+            _pool.Spawn<IceProjectile>(
                 _player.AbilityUsage.ProjectileOrigin.position,
-                Quaternion.LookRotation(_player.Movement.Forward));
-            
-            projectile.ThrowForward(
-                _data.QuickDamage, _data.QuickSpeed, _data.QuickDistance, _data.QuickExplosionRadius);
+                Quaternion.LookRotation(_player.Movement.Forward),
+                projectile =>
+                {
+                    projectile.ThrowForward(
+                        _data.QuickDamage, _data.QuickSpeed, _data.QuickDistance, _data.QuickExplosionRadius);
+                });
         }
 
         public void HeavyAbility()
         {
-            var wall = _pool.Spawn<IceWall>(
+            _pool.Spawn<IceWall>(
                 _player.AbilityUsage.ProjectileOrigin.position,
-                Quaternion.LookRotation(_player.Movement.Forward));
-
-            wall.transform.position += wall.transform.forward;
+                Quaternion.LookRotation(_player.Movement.Forward),
+                wall =>
+                {
+                    wall.transform.position += wall.transform.forward;
             
-            wall.SetWall(_data.WallHealth, _data.WallLifetime);
+                    wall.SetWall(_data.WallHealth, _data.WallLifetime);
+                });
         }
     }
 }

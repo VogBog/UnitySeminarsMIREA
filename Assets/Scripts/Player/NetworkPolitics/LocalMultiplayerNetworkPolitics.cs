@@ -20,7 +20,7 @@ namespace Player.NetworkPolitics
             {
                 _player.Health.TakeDamage(ref data);
             }
-            else
+            else if(data.IsInternal)
             {
                 var networkObject = data.Attacker.GetComponent<NetworkObject>();
                 ulong id = networkObject?.NetworkObjectId ?? 0;
@@ -64,7 +64,7 @@ namespace Player.NetworkPolitics
             }
 
             var element = Elementals.GetByName(elementalName);
-            var ev = new GetDamageData(damage, attacker?.gameObject, element);
+            var ev = new GetDamageData(damage, attacker?.gameObject, element, true);
             
             _player.Health.TakeDamage(ref ev);
         }

@@ -28,14 +28,18 @@ namespace Player.Abilities.Thunder
         
         public void QuickAbility()
         {
-            var projectile = _pool.Spawn<ThunderProjectile>(_player.RealTransform.position, Quaternion.identity);
-            projectile.Attack(_player, _data, _player.Movement.Forward);
+            _pool.Spawn<ThunderProjectile>(_player.RealTransform.position, Quaternion.identity, projectile =>
+            {
+                projectile.Attack(_player, _data, _player.Movement.Forward);
+            });
         }
 
         public void HeavyAbility()
         {
-            var projectile = _pool.Spawn<ThunderProjectile>(_player.RealTransform.position, Quaternion.identity);
-            projectile.HeavyAttack(_player, _data, _player.Movement.Forward);
+            _pool.Spawn<ThunderProjectile>(_player.RealTransform.position, Quaternion.identity, projectile =>
+            {
+                projectile.HeavyAttack(_player, _data, _player.Movement.Forward);
+            });
         }
     }
 }

@@ -37,10 +37,13 @@ namespace Player.Abilities.Ice
             _distance = distance;
             _explodeRadius = explodeRadius;
             _exploded = false;
-            _particles = _pool.Spawn<IceProjectileParticles>(transform.position, Quaternion.identity);
-            _particles.Connect(transform);
+            _pool.Spawn<IceProjectileParticles>(transform.position, Quaternion.identity, particles =>
+            {
+                _particles = particles;
+                _particles.Connect(transform);
 
-            _lifetimeCor = StartCoroutine(LifetimeRoutine());
+                _lifetimeCor = StartCoroutine(LifetimeRoutine());
+            });
         }
 
         private IEnumerator LifetimeRoutine()
@@ -67,7 +70,7 @@ namespace Player.Abilities.Ice
                    !collider.gameObject.TryGetComponent<IDamageable>(out var damageable))
                     continue;
 
-                var damageData = new GetDamageData(_damage, _player.gameObject, Elementals.Ice);
+                var damageData = new GetDamageData(_damage, _player.gameObject, Elementals.Ice, true);
                 damageable.TakeDamage(ref damageData);
             }
 

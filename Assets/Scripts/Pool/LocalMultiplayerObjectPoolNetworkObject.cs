@@ -12,7 +12,7 @@ namespace Pool
     {
         private IObjectPool _pool;
         private PlayersRepo _playersRepo;
-        private readonly Dictionary<Type, Dictionary<Component, int>> _livingComponents = new();
+        private readonly Dictionary<Type, Dictionary<Component, (int, int)>> _livingComponents = new();
 
         public void SetPool(IObjectPool pool)
         {
@@ -35,40 +35,25 @@ namespace Pool
             _pool.RegisterAndInstantiatePrefab(type, prefab, count);
         }
 
-        public T Spawn<T>(Vector3 position, Quaternion rotation) where T : Component
+        private void AddToLivingComponents(Type type, Component component, int playerId, int componentId)
         {
-            var result = _pool.Spawn<T>(position, rotation);
-            var type = typeof(T).FullName;
-            int index = _playersRepo.PlayerIndex;
+            if (!_livingComponents.TryGetValue(type, out var dict))
+            {
+                dict = new Dictionary<Component, (int, int)>();
+                _livingComponents.Add(type, dict);
+            }
             
-            SpawnServerRpc(type, position, rotation, index);
-
-            return result;
+            dict.Add(component, (playerId, componentId));
         }
 
-        public Component Spawn(Vector3 position, Quaternion rotation, Type type)
-        {
-            var result = _pool.Spawn(position, rotation, type);
-            var typeName = type.FullName;
-            int index = _playersRepo.PlayerIndex;
-            
-            SpawnServerRpc(typeName, position, rotation, index);
-
-            return result;
-        }
-        
-        [ServerRpc(RequireOwnership = false)]
-        private void SpawnServerRpc(string typeName, Vector3 position, Quaternion rotation, int ownerIndex)
+        private int GetFreeId(Type type, int playerId)
         {
             int componentId = 0;
-            var type = Type.GetType(typeName);
-            if (type == null)
-                return;
-
+            
             if (_livingComponents.TryGetValue(type, out var dict))
             {
                 var keys = dict.Values.OrderBy(x => x);
-                foreach (var id in keys)
+                foreach (var (_, id) in keys)
                 {
                     if (componentId != id)
                         break;
@@ -79,7 +64,42 @@ namespace Pool
             {
                 componentId = 0;
             }
+
+            return componentId;
+        }
+
+        public void Spawn<T>(Vector3 position, Quaternion rotation, Action<T> onSpawn) where T : Component
+        {
+            int index = _playersRepo.PlayerIndex;
+            int componentId = GetFreeId(typeof(T), index);
+            _pool.Spawn<T>(position, rotation, result =>
+            {
+                AddToLivingComponents(typeof(T), result, index, componentId);
+                onSpawn?.Invoke(result);
+            });
             
+            var type = typeof(T).FullName;
+            SpawnServerRpc(type, position, rotation, index, componentId);
+        }
+
+        public void Spawn(Vector3 position, Quaternion rotation, Type type, Action<Component> onSpawn)
+        {
+            int index = _playersRepo.PlayerIndex;
+            int componentId = GetFreeId(type, index);
+            
+            _pool.Spawn(position, rotation, type, result =>
+            {
+                AddToLivingComponents(type, result, index, componentId);
+                onSpawn?.Invoke(result);
+            });
+            
+            var typeName = type.FullName;
+            SpawnServerRpc(typeName, position, rotation, index, componentId);
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        private void SpawnServerRpc(string typeName, Vector3 position, Quaternion rotation, int ownerIndex, int componentId)
+        {
             SpawnClientRpc(typeName, position, rotation, ownerIndex, componentId);
         }
 
@@ -94,15 +114,10 @@ namespace Pool
             if (type == null)
                 return;
 
-            var comp = _pool.Spawn(position, rotation, type);
-
-            if (!_livingComponents.TryGetValue(type, out var dict))
+            _pool.Spawn(position, rotation, type, comp =>
             {
-                dict = new Dictionary<Component, int>();
-                _livingComponents.Add(type, dict);
-            }
-                
-            dict.Add(comp, componentId);
+                AddToLivingComponents(type, comp, ownerIndex, componentId);
+            });
         }
 
         public void Despawn<T>(T component) where T : Component
@@ -113,30 +128,32 @@ namespace Pool
         public void Despawn(Component component, Type type)
         {
             _pool.Despawn(component, type);
+            
             var typeName = type.FullName;
             if (!_livingComponents.TryGetValue(type, out var dict))
                 return;
 
-            int id = dict[component];
+            var (playerId, id) = dict[component];
             int playerIndex = _playersRepo.PlayerIndex;
             
-            DespawnServerRpc(typeName, id, playerIndex);
+            DespawnServerRpc(typeName, playerId, id, playerIndex);
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void DespawnServerRpc(string typeName, int componentId, int ownerIndex)
+        private void DespawnServerRpc(string typeName, int playerId, int componentId, int ownerIndex)
         {
-            DespawnClientRpc(typeName, ownerIndex, componentId);
+            DespawnClientRpc(typeName, playerId, componentId, ownerIndex);
         }
 
         [ClientRpc]
-        private void DespawnClientRpc(string typeName, int componentId, int ownerIndex)
+        private void DespawnClientRpc(string typeName, int playerId, int componentId, int ownerIndex)
         {
             var type = Type.GetType(typeName);
             if (type == null || !_livingComponents.TryGetValue(type, out var dict))
                 return;
             
-            var comp = dict.FirstOrDefault(x => x.Value == componentId);
+            var comp = dict.FirstOrDefault(x =>
+                x.Value == (playerId, componentId));
             if (comp.Key == null)
                 return;
             

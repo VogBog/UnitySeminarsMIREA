@@ -57,17 +57,21 @@ namespace Player.Abilities.Fire
         public void QuickAbility()
         {
             var origin = _player.AbilityUsage.ProjectileOrigin;
-            var projectile = _pool.Spawn<FireProjectile>(origin.position, Quaternion.identity);
-            projectile.transform.LookAt(projectile.transform.position + _player.Movement.Forward);
-            projectile.Throw(_data.QuickSpeed, _data.QuickDistance, _data.QuickDamage, _data.QuickFireRadius,
-                _player.gameObject);
+            _pool.Spawn<FireProjectile>(origin.position, Quaternion.identity, projectile =>
+            {
+                projectile.transform.LookAt(projectile.transform.position + _player.Movement.Forward);
+                projectile.Throw(_data.QuickSpeed, _data.QuickDistance, _data.QuickDamage, _data.QuickFireRadius,
+                    _player.gameObject);
+            });
         }
 
         public void HeavyAbility()
         {
             var pos = _player.RealTransform.position + _player.Movement.Forward * _data.HeavyDistance;
-            var projectile = _pool.Spawn<FireHeavyProjectile>(pos, Quaternion.identity);
-            projectile.Throw(_player, _data);
+            _pool.Spawn<FireHeavyProjectile>(pos, Quaternion.identity, projectile =>
+            {
+                projectile.Throw(_player, _data);
+            });
         }
     }
 }

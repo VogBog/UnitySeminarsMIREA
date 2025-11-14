@@ -26,15 +26,18 @@ namespace Player
         public float HeavyCooldownMp => _heavyCooldown / _ability.Data.HeavyAbilityCooldown;
         public float UsingTimeMp => Mathf.Clamp01(_usingTime / _ability.Data.HeavyAbilityTime);
         
-        public void Initialize(Player player, ElementalData data)
+        public void Initialize(Player player, ElementalData data, bool isOwner)
         {
             _ability = data.AbilityData.CreateAbility(player);
             _player = player;
             _maxUsingTime = _ability.Data.HeavyAbilityTime * 3f;
-            
-            player.Input.Interacted += StartAbility;
-            player.Input.EndInteraction += EndAbility;
-            player.Updated += CountCooldown;
+
+            if (isOwner)
+            {
+                player.Input.Interacted += StartAbility;
+                player.Input.EndInteraction += EndAbility;
+                player.Updated += CountCooldown;
+            }
         }
 
         public void ActivateAbility()

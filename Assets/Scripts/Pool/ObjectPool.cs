@@ -21,11 +21,11 @@ namespace Pool
         public void RegisterAndInstantiatePrefab(Type type, PooledPrefab prefab, int count)
             => _pool.RegisterAndInstantiatePrefab(type, prefab, count);
 
-        public T Spawn<T>(Vector3 position, Quaternion rotation) where T : Component
-            => _pool.Spawn<T>(position, rotation);
+        public void Spawn<T>(Vector3 position, Quaternion rotation, Action<T> onSpawn) where T : Component
+            => _pool.Spawn<T>(position, rotation, onSpawn);
 
-        public Component Spawn(Vector3 position, Quaternion rotation, Type type)
-            => _pool.Spawn(position, rotation, type);
+        public void Spawn(Vector3 position, Quaternion rotation, Type type, Action<Component> onSpawn)
+            => _pool.Spawn(position, rotation, type, onSpawn);
         
         public void Despawn<T>(T component) where T : Component => _pool.Despawn(component, typeof(T));
 

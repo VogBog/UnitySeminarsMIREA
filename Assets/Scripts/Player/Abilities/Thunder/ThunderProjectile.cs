@@ -150,7 +150,7 @@ namespace Player.Abilities.Thunder
                 && Random.Range(0, 2) == 0)
                 defaultDamage++;
 
-            var damageData = new GetDamageData(defaultDamage, player.gameObject, Elementals.Thunder);
+            var damageData = new GetDamageData(defaultDamage, player.gameObject, Elementals.Thunder, true);
             damageable.TakeDamage(ref damageData);
         }
 

@@ -48,15 +48,17 @@ namespace Pool
             CreateInstances(type, count);
         }
 
-        public T Spawn<T>(Vector3 position, Quaternion rotation) where T : Component
+        public void Spawn<T>(Vector3 position, Quaternion rotation, Action<T> onSpawn) where T : Component
         {
-            var result = Spawn(position, rotation, typeof(T));
-            if (result is not T component)
-                throw new ArgumentException($"ObjectPool::Spawn: result type is not {typeof(T).Name}");
-            return component;
+            Spawn(position, rotation, typeof(T), result =>
+            {
+                if (result is not T component)
+                    throw new ArgumentException($"ObjectPool::Spawn: result type is not {typeof(T).Name}");
+                onSpawn?.Invoke(component);
+            });
         }
 
-        public Component Spawn(Vector3 position, Quaternion rotation, Type type)
+        public void Spawn(Vector3 position, Quaternion rotation, Type type, Action<Component> onSpawn)
         {
             if(!_prefabs.TryGetValue(type, out var prefab))
                 throw new NullReferenceException($"ObjectPool::Spawn: type {type.Name} does not registered");
@@ -79,7 +81,7 @@ namespace Pool
             component.transform.SetPositionAndRotation(position, rotation);
             prefab.SpawnedCallback?.Invoke(_objectPoolRef, component);
             
-            return component;
+            onSpawn?.Invoke(component);
         }
         
         public void Despawn<T>(T component) where T : Component => Despawn(component, typeof(T));

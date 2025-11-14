@@ -62,16 +62,18 @@ namespace GridMap
                 if(type == null)
                     continue;
 
-                var obj = _pool.Spawn(new Vector3(x, 0, y), Quaternion.identity, type);
-                float scale = 1f / _gridMap.CellsPerUnit;
-                obj.transform.localScale = new Vector3(scale, 1f, scale);
-                
-                stack.Push((obj, type));
-
-                if (obj is ITile tile)
+                _pool.Spawn(new Vector3(x, 0, y), Quaternion.identity, type, obj =>
                 {
-                    tile.OnShow();
-                }
+                    float scale = 1f / _gridMap.CellsPerUnit;
+                    obj.transform.localScale = new Vector3(scale, 1f, scale);
+                
+                    stack.Push((obj, type));
+
+                    if (obj is ITile tile)
+                    {
+                        tile.OnShow();
+                    }
+                });
             }
         }
 

@@ -55,11 +55,11 @@ namespace Player
             if (data.IsActive)
             {
                 Movement.Initialize(this);
-                AbilityUsage.Initialize(this, data.Data);
                 MoveByTiles.Initialize(this);
                 GameUI.Initialize(this, eventBus);
             }
             
+            AbilityUsage.Initialize(this, data.Data, data.IsActive);
             Model.Initialize(this);
             Markers.Initialize(this);
             Health.Initialize(eventBus, this);

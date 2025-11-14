@@ -36,11 +36,14 @@ namespace Player.Abilities.Fire
             _yDistance = data.HeavyDistance;
             _distance = data.HeavyDistance;
             _radius = data.HeavyRadius;
-            _particles = _pool.Spawn<FireHeavyProjectileParticles>(transform.position, Quaternion.identity);
-            _particles.Connect(transform);
-            
-            transform.position += Vector3.up * _yDistance;
-            StartCoroutine(LifetimeRoutine());
+            _pool.Spawn<FireHeavyProjectileParticles>(transform.position, Quaternion.identity, particles =>
+            {
+                _particles = particles;
+                _particles.Connect(transform);
+                
+                transform.position += Vector3.up * _yDistance;
+                StartCoroutine(LifetimeRoutine());
+            });
         }
 
         private IEnumerator LifetimeRoutine()
@@ -56,8 +59,10 @@ namespace Player.Abilities.Fire
         {
             _particles.Stop();
             
-            var effect = _pool.Spawn<ExplosionEffect>(transform.position, Quaternion.identity);
-            effect.Explode();
+            _pool.Spawn<ExplosionEffect>(transform.position, Quaternion.identity, effect =>
+            {
+                effect.Explode();
+            });
             
             var colliders = Physics.OverlapSphere(transform.position, _radius);
             foreach (var collider in colliders)
@@ -66,7 +71,7 @@ namespace Player.Abilities.Fire
                    !collider.gameObject.TryGetComponent<IDamageable>(out var damageable))
                     continue;
 
-                var data = new GetDamageData(_damage, _player.gameObject, Elementals.Fire);
+                var data = new GetDamageData(_damage, _player.gameObject, Elementals.Fire, true);
                 damageable.TakeDamage(ref data);
             }
 
