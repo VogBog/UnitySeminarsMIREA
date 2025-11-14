@@ -59,10 +59,8 @@ namespace Game
         private IEnumerator FinishRoutine()
         {
             StaticParameters.FinishData = CreateFinishData();
-            yield return new WaitForSeconds(3f);
             
-            if(!_gameFinisher.CanFinish())
-                yield break;
+            yield return new WaitForSeconds(3f);
             
             _gameFinisher.OnBeforeLoadingScene();
             SceneManager.LoadScene(2);
