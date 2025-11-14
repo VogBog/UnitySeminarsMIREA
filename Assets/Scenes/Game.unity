@@ -4931,6 +4931,7 @@ GameObject:
   - component: {fileID: 1977659524}
   - component: {fileID: 1977659522}
   - component: {fileID: 1977659523}
+  - component: {fileID: 1977659525}
   m_Layer: 0
   m_Name: LocalMultiplayer
   m_TagString: Untagged
@@ -4991,6 +4992,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1977659525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977659521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b4de9b42fe0484eaf5acc96e773f798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!1 &1996933421
 GameObject:
   m_ObjectHideFlags: 0
