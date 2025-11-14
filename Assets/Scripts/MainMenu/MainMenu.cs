@@ -24,6 +24,11 @@ namespace MainMenu
             _leaderboard.SetActive(true);
         }
 
+        public void OpenLocalMultiplayerPage()
+        {
+            SceneManager.LoadScene(3);
+        }
+
         public void CloseLeaderboard()
         {
             _leaderboard.SetActive(false);
