@@ -25,6 +25,15 @@ namespace LocalMultiplayerPage
             _view.StartClicked += Start;
 
             NetworkManager.OnClientConnectedCallback += OnClientConnected;
+            NetworkManager.OnClientDisconnectCallback += OnClientDisconnected;
+        }
+
+        public override void OnDestroy()
+        {
+            NetworkManager.OnClientConnectedCallback -= OnClientConnected;
+            NetworkManager.OnClientDisconnectCallback -= OnClientDisconnected;
+            
+            base.OnDestroy();
         }
 
         private void OnClientConnected(ulong id)
@@ -35,11 +44,22 @@ namespace LocalMultiplayerPage
             if(!_players.Contains(id))
                 _players.Add(id);
 
-            OnClientConnectedClientRpc(_players.Count, _players.ToArray());
+            UpdateClientsClientRpc(_players.Count, _players.ToArray());
+        }
+
+        private void OnClientDisconnected(ulong id)
+        {
+            if (!IsServer)
+                return;
+
+            if (_players.Contains(id))
+                _players.Remove(id);
+            
+            UpdateClientsClientRpc(_players.Count, _players.ToArray());
         }
 
         [Rpc(SendTo.Everyone, InvokePermission = RpcInvokePermission.Everyone)]
-        private void OnClientConnectedClientRpc(int count, ulong[] ids)
+        private void UpdateClientsClientRpc(int count, ulong[] ids)
         {
             _players.Clear();
             _players.AddRange(ids);

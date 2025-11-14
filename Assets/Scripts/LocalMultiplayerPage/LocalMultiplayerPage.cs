@@ -30,7 +30,8 @@ namespace LocalMultiplayerPage
 
         private void OnConnectionEvent(NetworkManager manager, ConnectionEventData ev)
         {
-            if (ev.EventType is ConnectionEvent.ClientDisconnected or ConnectionEvent.PeerDisconnected)
+            if (ev.EventType is ConnectionEvent.ClientDisconnected or ConnectionEvent.PeerDisconnected &&
+                ev.ClientId == NetworkManager.Singleton.LocalClientId)
             {
                 _view.ShowPage();
             }
