@@ -58,6 +58,8 @@ namespace Game.LocalMultiplayer
             if (NetworkManager.Singleton.LocalClientId != ownerId)
                 return;
 
+            _isMyCar = true;
+
             StartCoroutine(InitializeCarRoutine(ownerId));
         }
 

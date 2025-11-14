@@ -35,11 +35,8 @@ namespace Game
                     if (!_spawner.AddCameraAndMovement())
                         return;
                     
-                    var camera = instance.GetComponentInChildren<Camera>();
-                    if (camera != null)
-                    {
-                        cameras.Add(camera);
-                    }
+                    var camera = instance.GetComponentInChildren<Camera>(true);
+                    cameras.Add(camera);
                 });
             }
             
@@ -48,12 +45,21 @@ namespace Game
 
         private void InitializeCar(CarMovement movement)
         {
+            if (!_spawner.AddCameraAndMovement())
+                return;
+                    
+            var camera = movement.GetComponentInChildren<Camera>(true);
+            if (camera != null)
+            {
+                camera.gameObject.SetActive(true);
+            }
+            
             var playerController = movement.GetComponent<PlayerController>();
             if (playerController != null)
             {
                 playerController.PlayerIndex = _playerIndex + 1;
                     
-                var gameUi = movement.GetComponentInChildren<GameUI>();
+                var gameUi = movement.GetComponentInChildren<GameUI>(true);
                 playerController.WaitForStart(gameUi);
             }
         }

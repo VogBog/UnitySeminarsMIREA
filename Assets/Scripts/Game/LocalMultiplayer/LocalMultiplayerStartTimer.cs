@@ -23,7 +23,7 @@ namespace Game.LocalMultiplayer
                    !networkObject.IsOwner)
                     continue;
 
-                var gameUI = player.GetComponentInChildren<GameUI>();
+                var gameUI = player.GetComponentInChildren<GameUI>(true);
                 InitializeGameUI(gameUI);
                 break;
             }

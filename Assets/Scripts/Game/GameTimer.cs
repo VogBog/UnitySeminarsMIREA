@@ -15,7 +15,7 @@ namespace Game
 
         private void Awake()
         {
-            var gameUI = GetComponentInChildren<GameUI>();
+            var gameUI = GetComponentInChildren<GameUI>(true);
             var checkPoints = FindFirstObjectByType<CheckPointsHolder>();
             var car = GetComponentInChildren<CarMapRunner>();
             
