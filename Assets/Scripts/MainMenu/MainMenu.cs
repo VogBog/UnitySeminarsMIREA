@@ -15,6 +15,7 @@ namespace MainMenu
 
         public void Play(int playersCount)
         {
+            StaticParameters.NetworkType = StaticParameters.NetworkTypes.Single;
             StaticParameters.PlayersCount = playersCount;
             SceneManager.LoadScene(1);
         }
@@ -26,6 +27,7 @@ namespace MainMenu
 
         public void OpenLocalMultiplayerPage()
         {
+            StaticParameters.NetworkType = StaticParameters.NetworkTypes.LocalMultiplayer;
             SceneManager.LoadScene(3);
         }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Global;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -57,6 +58,7 @@ namespace LocalMultiplayerPage
                 return;
             _isStarting = true;
 
+            StaticParameters.PlayersCount = _players.Count;
             NetworkManager.SceneManager.LoadScene("LMLevel", LoadSceneMode.Single);
         }
     }
