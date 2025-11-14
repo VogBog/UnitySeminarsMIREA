@@ -68,6 +68,7 @@ namespace LocalMultiplayerLobby
                 _players.AddRange(players);
             }
             
+            StaticParameters.PlayersCount = _players.Count;
             PlayersCountChanged?.Invoke(_players.Count);
             IsServerChanged?.Invoke(IsServer);
         }

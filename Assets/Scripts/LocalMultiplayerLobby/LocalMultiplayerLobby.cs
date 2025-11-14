@@ -12,6 +12,8 @@ namespace LocalMultiplayerLobby
 
         private void Start()
         {
+            StaticParameters.NetworkType = StaticParameters.NetworkTypes.LocalMultiplayer;
+            
             _firstPage.Initialize();
             _firstPage.OpenPage();
             
