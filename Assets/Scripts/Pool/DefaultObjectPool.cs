@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pool
 {
-    public class DefaultObjectPool : IObjectPool, IEditablePool
+    public class DefaultObjectPool : IEditablePool
     {
         private readonly Dictionary<Type, PooledPrefab> _prefabs = new();
         private readonly Dictionary<Type, Stack<Component>> _pool = new();
@@ -29,6 +29,7 @@ namespace Pool
         public void RegisterPrefab(Type type, PooledPrefab prefab)
         {
             _prefabs.TryAdd(type, prefab);
+            _pool.TryAdd(type, new Stack<Component>());
         }
 
         public void CreateInstances(Type type, int count)
@@ -108,6 +109,8 @@ namespace Pool
             
             component.gameObject.SetActive(false);
         }
+
+        public Dictionary<Type, PooledPrefab> GetPrefabs() => _prefabs;
 
         public Dictionary<Type, Stack<Component>> GetPoolObjects() => _pool;
 

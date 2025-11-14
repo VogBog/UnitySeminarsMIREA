@@ -292,6 +292,8 @@ GameObject:
   - component: {fileID: 58715807}
   - component: {fileID: 58715806}
   - component: {fileID: 58715805}
+  - component: {fileID: 58715812}
+  - component: {fileID: 58715813}
   m_Layer: 0
   m_Name: LocalMultiplayerComponents
   m_TagString: Untagged
@@ -443,6 +445,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+--- !u!114 &58715812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58715801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83c443672dc43b1bb8941c7a66c78da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+--- !u!114 &58715813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58715801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad5814b76a304c7ea345bf97bc10c252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &86478865
 GameObject:
   m_ObjectHideFlags: 0

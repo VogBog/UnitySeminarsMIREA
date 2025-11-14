@@ -14,6 +14,7 @@ namespace Player.Abilities.Fire
         private float _speed;
         private int _damage;
         private float _quickFireRadius;
+        private bool _broke = true;
         
         private Coroutine _lifetimeCor;
         private ObjectPool _pool;
@@ -33,6 +34,7 @@ namespace Player.Abilities.Fire
         public void Throw(float speed, float distance, int damage, float quickFireRadius, GameObject attacker)
         {
             _lifetimeCor = StartCoroutine(LifetimeRoutine(distance / speed));
+            _broke = false;
             
             _damage = damage;
             _speed = speed;
@@ -71,8 +73,9 @@ namespace Player.Abilities.Fire
 
         public void Break()
         {
-            if (!OwnerDetector.IsMy)
+            if (!OwnerDetector.IsMy || _broke)
                 return;
+            _broke = true;
             
             var rects = _gridMap.FromWorldSphereToIndexesSphere(
                 transform.position.x, transform.position.z, _quickFireRadius, GridMapValues.QuickFire);

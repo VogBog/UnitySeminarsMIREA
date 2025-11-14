@@ -17,7 +17,7 @@ namespace Player.Abilities.Ice
         private Coroutine _lifetimeCor;
         private ProjectileParticles _particles;
 
-        private bool _exploded;
+        private bool _exploded = true;
         private int _damage;
         private float _speed;
         private float _distance;

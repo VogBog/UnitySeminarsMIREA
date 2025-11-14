@@ -48,7 +48,7 @@ namespace MainGame.NetworkMessaging
             InvokePlayerHealthChangedServerRpc(playerIndex, value);
         }
 
-        [ServerRpc]
+        [ServerRpc(RequireOwnership = false)]
         private void InvokePlayerHealthChangedServerRpc(int playerIndex, int value)
         {
             InvokePlayerHealthChangedClientRpc(playerIndex, value);

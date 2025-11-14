@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using Data;
-using Extensions;
 using Lobby;
 using MainMenu;
 using Unity.Netcode;
@@ -52,6 +51,15 @@ namespace MainGame.GameStarters
                         break;
                     }
                 }
+            }
+
+            while (true)
+            {
+                int playersCount = FindObjectsByType<Player.Player>(FindObjectsSortMode.None).Length;
+                if (playersCount == StaticParameters.Players.Length)
+                    break;
+
+                yield return null;
             }
             
             playerCreated?.Invoke(player);

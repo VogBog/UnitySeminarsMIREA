@@ -5,25 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e905ed2-0d71-4056-936f-b87fe484aaa5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/SyncedOwnerDetector.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/SyncedOwnerDetector/DefaultOwnerDetector.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/SyncedOwnerDetector/DefaultOwnerDetector.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/SyncedOwnerDetector/ILocalMultiplayerOwnerDetector.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/SyncedOwnerDetector/ILocalMultiplayerOwnerDetector.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/SyncedOwnerDetector/IOwnerDetector.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/SyncedOwnerDetector/IOwnerDetector.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/SyncedOwnerDetector/IOwnerDetectorProvider.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/SyncedOwnerDetector/IOwnerDetectorProvider.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/SyncedOwnerDetector/LocalMultiplayerOwnerDetector.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/SyncedOwnerDetector/LocalMultiplayerOwnerDetector.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/SyncedOwnerDetector/SyncedOwnerDetector.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/SyncedOwnerDetector/SyncedOwnerDetector.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/LocalMultiplayerQueueSizeChanger.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SceneObjects/NetworkComponents/LocalMultiplayerQueueSizeChanger.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridMap/CellsVisuals.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/CellsVisuals.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameStarters/LocalMultiplayerGameStarter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/GameStarters/LocalMultiplayerGameStarter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainGame/NetworkMessaging/LocalMultiplayerMessages.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainGame/NetworkMessaging/LocalMultiplayerMessages.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireHeavyProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireHeavyProjectile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireProjectile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceProjectile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pool/DefaultObjectPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/DefaultObjectPool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pool/IEditablePool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/IEditablePool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pool/LocalMultiplayerObjectPoolDecorator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/LocalMultiplayerObjectPoolDecorator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pool/LocalMultiplayerObjectPoolInstantiator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/LocalMultiplayerObjectPoolInstantiator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pool/LocalMultiplayerObjectPoolNetworkObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/LocalMultiplayerObjectPoolNetworkObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

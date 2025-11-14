@@ -20,6 +20,7 @@ namespace Player.Abilities.Fire
         private float _yDistance;
         private float _distance;
         private float _radius;
+        private bool _broke = true;
 
         private bool _moveDown = false;
         
@@ -34,6 +35,7 @@ namespace Player.Abilities.Fire
 
         public void Throw(Player player, FireAbilityData data)
         {
+            _broke = false;
             _player = player;
             _damage = data.HeavyDamage;
             _speed = data.HeavySpeed;
@@ -61,8 +63,9 @@ namespace Player.Abilities.Fire
 
         public void Explode()
         {
-            if (!OwnerDetector.IsMy)
+            if (!OwnerDetector.IsMy || _broke)
                 return;
+            _broke = true;
             
             _particles.Stop();
             

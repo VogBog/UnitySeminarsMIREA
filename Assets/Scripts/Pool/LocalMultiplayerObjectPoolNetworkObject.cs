@@ -1,25 +1,35 @@
 using System;
 using System.Collections.Generic;
+using Extensions;
 using SceneObjects.NetworkComponents.SyncedOwnerDetector;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Pool
 {
-    public class LocalMultiplayerObjectPoolNetworkObject : NetworkBehaviour, IObjectPool, IEditablePool
+    public class LocalMultiplayerObjectPoolNetworkObject : NetworkBehaviour, IEditablePool
     {
-        private IObjectPool _pool;
-        private IEditablePool _editablePool;
+        private IEditablePool _pool;
         private readonly Dictionary<Component, NetworkObject> _networkObjects = new();
         private readonly List<(Type, Action<Component>)> _waitingList = new();
+        private bool _firstSeconds = true;
 
-        public void SetPool(IObjectPool pool)
+        private void Start()
+        {
+            Invoke(nameof(GodKillMe), 1f);
+        }
+
+        private void GodKillMe()
+        {
+            _firstSeconds = false;
+        }
+
+        public void SetPool(IEditablePool pool)
         {
             _pool = pool;
-            pool.SetInstantiator(new LocalMultiplayerObjectPoolInstantiator(NetworkObject));
-            
-            if(pool is IEditablePool editablePool)
-                _editablePool = editablePool;
+            var instantiator = this.FindFirstObjectByTypeOrException<LocalMultiplayerObjectPoolInstantiator>();
+            instantiator.Initialize(pool);
+            pool.SetInstantiator(instantiator);
         }
 
         public void SetInstantiator(IObjectPoolInstantiator instantiator) => _pool.SetInstantiator(instantiator);
@@ -31,12 +41,16 @@ namespace Pool
 
         public void CreateInstances(Type type, int count)
         {
+            if (_firstSeconds && !NetworkManager.IsServer)
+                return;
+            
             _pool.CreateInstances(type, count);
         }
 
         public void RegisterAndInstantiatePrefab(Type type, PooledPrefab prefab, int count)
         {
-            _pool.RegisterAndInstantiatePrefab(type, prefab, count);
+            _pool.RegisterPrefab(type, prefab);
+            CreateInstances(type, count);
         }
 
         public void Spawn<T>(Vector3 position, Quaternion rotation, Action<T> onSpawn) where T : Component
@@ -114,7 +128,7 @@ namespace Pool
                 return;
             }
             
-            if(_editablePool.GetPoolObjects().TryGetValue(type, out var stack))
+            if(_pool.GetPoolObjects().TryGetValue(type, out var stack))
             {
                 var list = new List<Component>();
                 while (stack.Count > 0)
@@ -134,7 +148,7 @@ namespace Pool
                 }
             }
 
-            if (_editablePool.GetSpawnedObjects().TryGetValue(type, out var spawnedObjects))
+            if (_pool.GetSpawnedObjects().TryGetValue(type, out var spawnedObjects))
             {
                 spawnedObjects.Add(component);
             }
@@ -208,9 +222,11 @@ namespace Pool
             _pool.Despawn(component, type);
         }
 
-        public Dictionary<Type, Stack<Component>> GetPoolObjects() => _editablePool.GetPoolObjects();
+        public Dictionary<Type, PooledPrefab> GetPrefabs() => _pool.GetPrefabs();
 
-        public Dictionary<Type, List<Component>> GetSpawnedObjects() => _editablePool.GetSpawnedObjects();
+        public Dictionary<Type, Stack<Component>> GetPoolObjects() => _pool.GetPoolObjects();
+
+        public Dictionary<Type, List<Component>> GetSpawnedObjects() => _pool.GetSpawnedObjects();
 
         private NetworkObject GetNetworkObjectFrom(Component component)
         {

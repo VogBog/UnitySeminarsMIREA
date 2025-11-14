@@ -4,19 +4,15 @@ using UnityEngine;
 
 namespace Pool
 {
-    public class LocalMultiplayerObjectPoolDecorator : IObjectPool, IEditablePool
+    public class LocalMultiplayerObjectPoolDecorator : IEditablePool
     {
-        private readonly IObjectPool _pool;
-        private readonly IEditablePool _editablePool;
+        private readonly IEditablePool _pool;
         
-        public LocalMultiplayerObjectPoolDecorator(IObjectPool pool, LocalMultiplayerObjectPoolNetworkObject lmPool)
+        public LocalMultiplayerObjectPoolDecorator(IEditablePool pool, LocalMultiplayerObjectPoolNetworkObject lmPool)
         {
             var comp = lmPool;
             _pool = comp;
             comp.SetPool(pool);
-            
-            if(pool is IEditablePool editablePool)
-                _editablePool = editablePool;
         }
 
         public void SetInstantiator(IObjectPoolInstantiator instantiator) => _pool.SetInstantiator(instantiator);
@@ -40,8 +36,10 @@ namespace Pool
         public void Despawn(Component component, Type type)
             => _pool.Despawn(component, type);
 
-        public Dictionary<Type, Stack<Component>> GetPoolObjects() => _editablePool.GetPoolObjects();
+        public Dictionary<Type, PooledPrefab> GetPrefabs() => _pool.GetPrefabs();
 
-        public Dictionary<Type, List<Component>> GetSpawnedObjects() => _editablePool.GetSpawnedObjects();
+        public Dictionary<Type, Stack<Component>> GetPoolObjects() => _pool.GetPoolObjects();
+
+        public Dictionary<Type, List<Component>> GetSpawnedObjects() => _pool.GetSpawnedObjects();
     }
 }
