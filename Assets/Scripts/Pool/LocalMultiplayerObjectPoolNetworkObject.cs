@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using SceneObjects.NetworkComponents.SyncedOwnerDetector;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -77,6 +78,7 @@ namespace Pool
             
             _pool.Spawn(position, rotation, type, component =>
             {
+                ChangeOwner(component, ownerId);
                 var networkObject = GetNetworkObjectFrom(component);
                 SpawnClientRpc(typeName, networkObject.NetworkObjectId, ownerId, position, rotation);
                 
@@ -140,6 +142,7 @@ namespace Pool
             component.transform.position = position;
             component.transform.rotation = rotation;
             component.gameObject.SetActive(true);
+            ChangeOwner(component, ownerId);
             
             if(NetworkManager.LocalClientId == ownerId)
                 CheckWaitingList(type, component);
@@ -157,6 +160,15 @@ namespace Pool
                     return;
                 }
             }
+        }
+
+        private void ChangeOwner(Component component, ulong newOwner)
+        {
+            if (component is not IOwnerDetectorProvider provider)
+                return;
+            if (provider.OwnerDetector is not ILocalMultiplayerOwnerDetector lmDetector)
+                return;
+            lmDetector.SetOwner(newOwner);
         }
 
         public void Despawn<T>(T component) where T : Component

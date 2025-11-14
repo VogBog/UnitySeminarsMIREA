@@ -4,11 +4,12 @@ using Data;
 using Extensions;
 using GridMap;
 using Pool;
+using SceneObjects.NetworkComponents.SyncedOwnerDetector;
 using UnityEngine;
 
 namespace Player.Abilities.Fire
 {
-    public class FireProjectile : MonoBehaviour
+    public class FireProjectile : MonoBehaviour, IOwnerDetectorProvider
     {
         private float _speed;
         private int _damage;
@@ -19,11 +20,14 @@ namespace Player.Abilities.Fire
         private GridMap.GridMap _gridMap;
         private GameObject _attacker;
         private FireProjectileParticles _particles;
+        
+        public IOwnerDetector OwnerDetector { get; private set; }
 
         public void SetPool(ObjectPool pool)
         {
             _pool = pool;
             _gridMap = this.FindFirstObjectByTypeOrException<GridMap.GridMap>();
+            OwnerDetector = new SyncedOwnerDetector(gameObject);
         }
         
         public void Throw(float speed, float distance, int damage, float quickFireRadius, GameObject attacker)
@@ -44,7 +48,8 @@ namespace Player.Abilities.Fire
 
         private void Update()
         {
-            transform.position += _speed * Time.deltaTime * transform.forward;
+            if(OwnerDetector.IsMy)
+                transform.position += _speed * Time.deltaTime * transform.forward;
         }
 
         private IEnumerator LifetimeRoutine(float lifetime)
@@ -66,6 +71,9 @@ namespace Player.Abilities.Fire
 
         public void Break()
         {
+            if (!OwnerDetector.IsMy)
+                return;
+            
             var rects = _gridMap.FromWorldSphereToIndexesSphere(
                 transform.position.x, transform.position.z, _quickFireRadius, GridMapValues.QuickFire);
             _gridMap.SetCellsAsync(rects);

@@ -1,15 +1,15 @@
-using System;
 using System.Collections;
 using Damage;
 using Data;
 using Extensions;
 using GridMap;
 using Pool;
+using SceneObjects.NetworkComponents.SyncedOwnerDetector;
 using UnityEngine;
 
 namespace Player.Abilities.Ice
 {
-    public class IceProjectile : MonoBehaviour
+    public class IceProjectile : MonoBehaviour, IOwnerDetectorProvider
     {
         private ObjectPool _pool;
         private Player _player;
@@ -23,10 +23,13 @@ namespace Player.Abilities.Ice
         private float _distance;
         private float _explodeRadius;
         
+        public IOwnerDetector OwnerDetector { get; private set; }
+        
         public void SetPool(ObjectPool pool, Player player)
         {
             _pool = pool;
             _player = player;
+            OwnerDetector = new SyncedOwnerDetector(gameObject);
             _gridMap = this.FindFirstObjectByTypeOrException<GridMap.GridMap>();
         }
 
@@ -57,7 +60,7 @@ namespace Player.Abilities.Ice
         {
             if(_lifetimeCor != null)
                 StopCoroutine(_lifetimeCor);
-            if (_exploded)
+            if (_exploded || !OwnerDetector.IsMy)
                 return;
             _exploded = true;
             
@@ -89,7 +92,8 @@ namespace Player.Abilities.Ice
 
         private void FixedUpdate()
         {
-            transform.position += _speed * Time.fixedDeltaTime * transform.forward;
+            if(OwnerDetector.IsMy)
+                transform.position += _speed * Time.fixedDeltaTime * transform.forward;
         }
     }
 }

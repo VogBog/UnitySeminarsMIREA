@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Extensions;
 using GridMap.Tiles;
 using Pool;
+using SceneObjects.NetworkComponents.SyncedOwnerDetector;
 using UnityEngine;
 
 namespace GridMap
@@ -16,10 +17,12 @@ namespace GridMap
         
         private readonly Dictionary<Vector2Int, Stack<(Component, Type)>> _chunks = new();
         private readonly Queue<Vector2Int> _jobs = new();
+        private IOwnerDetector _ownerDetector;
         private bool _jobsProcessing = false;
         
         private void Start()
         {
+            _ownerDetector = new SyncedOwnerDetector(gameObject);
             _gridMap = this.FindFirstObjectByTypeOrException<GridMap>();
             _pool = this.FindFirstObjectByTypeOrException<ObjectPool>();
             _mapObjects = this.FindFirstObjectByTypeOrException<MapObjects>();
@@ -28,6 +31,9 @@ namespace GridMap
 
         private void ClearChunk(Vector2Int chunk)
         {
+            if (!_ownerDetector.IsServer)
+                return;
+            
             if (!_chunks.TryGetValue(chunk, out var stack))
                 return;
 
@@ -48,6 +54,9 @@ namespace GridMap
 
         private void FillChunk(Vector2Int chunk)
         {
+            if (!_ownerDetector.IsServer)
+                return;
+            
             _chunks.TryAdd(chunk, new Stack<(Component, Type)>());
             var stack = _chunks[chunk];
             
@@ -79,6 +88,9 @@ namespace GridMap
 
         private void OnChunkChanged(Vector2Int chunk)
         {
+            if (!_ownerDetector.IsServer)
+                return;
+            
             if(!_jobs.TryPeek(out var last) || chunk != last)
                 _jobs.Enqueue(chunk);
             
@@ -107,6 +119,9 @@ namespace GridMap
 
         private void OnComponentHided(Component component, ITile tile)
         {
+            if (!_ownerDetector.IsServer)
+                return;
+            
             tile.Hided -= OnComponentHided;
             _pool.Despawn(component, component.GetType());
         }

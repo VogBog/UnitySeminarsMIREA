@@ -3,11 +3,12 @@ using Damage;
 using Data;
 using GridMap;
 using Pool;
+using SceneObjects.NetworkComponents.SyncedOwnerDetector;
 using UnityEngine;
 
 namespace Player.Abilities.Fire
 {
-    public class FireHeavyProjectile : MonoBehaviour
+    public class FireHeavyProjectile : MonoBehaviour, IOwnerDetectorProvider
     {
         private Player _player;
         private ObjectPool _pool;
@@ -21,11 +22,14 @@ namespace Player.Abilities.Fire
         private float _radius;
 
         private bool _moveDown = false;
+        
+        public IOwnerDetector OwnerDetector { get; private set; }
 
         public void SetPool(ObjectPool pool)
         {
             _pool = pool;
             _gridMap = FindFirstObjectByType<GridMap.GridMap>();
+            OwnerDetector = new SyncedOwnerDetector(gameObject);
         }
 
         public void Throw(Player player, FireAbilityData data)
@@ -57,6 +61,9 @@ namespace Player.Abilities.Fire
 
         public void Explode()
         {
+            if (!OwnerDetector.IsMy)
+                return;
+            
             _particles.Stop();
             
             _pool.Spawn<ExplosionEffect>(transform.position, Quaternion.identity, effect =>
