@@ -15,5 +15,13 @@ namespace Game
             UnityEngine.Object.Destroy(lm);
             return new SimpleCarsSpawner();
         }
+
+        public static IGameFinisher CreateGameFinisher()
+        {
+            if(StaticParameters.NetworkType is StaticParameters.NetworkTypes.LocalMultiplayer)
+                return new LocalMultiplayerGameFinisher();
+
+            return new SimpleGameFinisher();
+        }
     }
 }

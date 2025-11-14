@@ -14,12 +14,15 @@ namespace Game
         [SerializeField] private int _roundsCount = 3;
 
         private List<CheckPoint> _checkPoints;
+        private IGameFinisher _gameFinisher;
         private int _finishedCars;
 
         public event Action<CarMapRunner, int> CarFinished; 
         
         private void Awake()
         {
+            _gameFinisher = GameServices.CreateGameFinisher();
+            
             foreach (var checkPoint in _orderedCheckPoints)
             {
                 checkPoint.Collided += OnCheckPointCollided;
@@ -57,12 +60,17 @@ namespace Game
         {
             StaticParameters.FinishData = CreateFinishData();
             yield return new WaitForSeconds(3f);
+            
+            if(!_gameFinisher.CanFinish())
+                yield break;
+            
+            _gameFinisher.OnBeforeLoadingScene();
             SceneManager.LoadScene(2);
         }
 
         private StaticParameters.PlayerFinishData[] CreateFinishData()
         {
-            var cars = FindObjectsByType<CarMapRunner>(FindObjectsSortMode.InstanceID);
+            var cars = _gameFinisher.GetRunnersForRecord();
             var result = new StaticParameters.PlayerFinishData[cars.Length];
 
             for (int i = 0; i < result.Length; i++)
