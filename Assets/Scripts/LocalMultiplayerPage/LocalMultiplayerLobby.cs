@@ -63,6 +63,7 @@ namespace LocalMultiplayerPage
         {
             _players.Clear();
             _players.AddRange(ids);
+            StaticParameters.PlayersCount = count;
             PlayersCountChanged?.Invoke(count);
         }
 
