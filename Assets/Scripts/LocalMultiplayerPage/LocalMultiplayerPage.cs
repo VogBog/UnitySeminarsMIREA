@@ -23,6 +23,11 @@ namespace LocalMultiplayerPage
             NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
         }
 
+        private void OnDestroy()
+        {
+            NetworkManager.Singleton.OnConnectionEvent -= OnConnectionEvent;
+        }
+
         private void OnConnectionEvent(NetworkManager manager, ConnectionEventData ev)
         {
             if (ev.EventType is ConnectionEvent.ClientDisconnected or ConnectionEvent.PeerDisconnected)
