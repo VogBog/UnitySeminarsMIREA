@@ -26,8 +26,7 @@ namespace Game.LocalMultiplayer
                 yield break;
             }
 
-            var players = new List<ulong>(NetworkManager.Singleton.ConnectedClientsIds);
-            players.Remove(NetworkManager.Singleton.LocalClientId);
+            var players = NetworkManager.Singleton.ConnectedClientsIds;
             ulong ownerId = players[_spawnedCars];
 
             _isMyCar = NetworkManager.Singleton.LocalClientId == ownerId;

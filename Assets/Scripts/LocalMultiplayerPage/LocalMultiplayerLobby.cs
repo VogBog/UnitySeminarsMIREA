@@ -59,7 +59,7 @@ namespace LocalMultiplayerPage
             _isStarting = true;
 
             StaticParameters.PlayersCount = _players.Count;
-            NetworkManager.SceneManager.LoadScene("LMLevel", LoadSceneMode.Single);
+            NetworkManager.SceneManager.LoadScene("Game", LoadSceneMode.Single);
         }
     }
 }
