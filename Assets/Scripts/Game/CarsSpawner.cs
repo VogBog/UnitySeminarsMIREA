@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Global;
 using UnityEngine;
@@ -8,38 +9,53 @@ namespace Game
     {
         [SerializeField] private CarMovement _carPrefab;
         [SerializeField] private Transform[] _spawnPoints;
+
+        private ICarsSpawner _spawner;
+        private int _playerIndex = 0;
         
         private void Start()
         {
             int playersCount = StaticParameters.PlayersCount;
-            SpawnPlayers(playersCount);
+            _spawner = GameServices.CreateCarsSpawner();
+            _spawner.MustInitialize += InitializeCar;
+            
+            if(_spawner.CanSpawnCars())
+                StartCoroutine(SpawnPlayers(playersCount));
         }
 
-        private void SpawnPlayers(int count)
+        private IEnumerator SpawnPlayers(int count)
         {
             var cameras = new List<Camera>();
             
             for (int i = 0; i < count; i++)
             {
-                var instance = Instantiate(_carPrefab, _spawnPoints[i].position, Quaternion.identity);
-
-                var camera = instance.GetComponentInChildren<Camera>();
-                if (camera != null)
+                _playerIndex = i;
+                yield return _spawner.Instantiate(_carPrefab, _spawnPoints[i].position, Quaternion.identity, instance =>
                 {
-                    cameras.Add(camera);
-                }
-                
-                var playerController = instance.GetComponent<PlayerController>();
-                if (playerController != null)
-                {
-                    playerController.PlayerIndex = i + 1;
+                    if (!_spawner.AddCameraAndMovement())
+                        return;
                     
-                    var gameUi = instance.GetComponentInChildren<GameUI>();
-                    playerController.WaitForStart(gameUi);
-                }
+                    var camera = instance.GetComponentInChildren<Camera>();
+                    if (camera != null)
+                    {
+                        cameras.Add(camera);
+                    }
+                });
             }
             
             SetCameras(cameras);
+        }
+
+        private void InitializeCar(CarMovement movement)
+        {
+            var playerController = movement.GetComponent<PlayerController>();
+            if (playerController != null)
+            {
+                playerController.PlayerIndex = _playerIndex + 1;
+                    
+                var gameUi = movement.GetComponentInChildren<GameUI>();
+                playerController.WaitForStart(gameUi);
+            }
         }
 
         private void SetCameras(IList<Camera> cameras)

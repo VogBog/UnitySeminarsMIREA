@@ -13,8 +13,15 @@ namespace Global
                 Time = time;
             }
         }
+
+        public enum NetworkTypes
+        {
+            Single,
+            LocalMultiplayer
+        };
         
         public static int PlayersCount = 1;
         public static PlayerFinishData[] FinishData = null;
+        public static NetworkTypes NetworkType = NetworkTypes.Single;
     }
 }
