@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pool
 {
-    public class DefaultObjectPool : IObjectPool
+    public class DefaultObjectPool : IObjectPool, IEditablePool
     {
         private readonly Dictionary<Type, PooledPrefab> _prefabs = new();
         private readonly Dictionary<Type, Stack<Component>> _pool = new();
@@ -12,11 +12,18 @@ namespace Pool
         
         private readonly Transform _transform;
         private readonly ObjectPool _objectPoolRef;
+        
+        private IObjectPoolInstantiator _instantiator = new DefaultObjectPoolInstantiator();
 
         public DefaultObjectPool(Transform transform, ObjectPool objectPoolRef)
         {
             _transform = transform;
             _objectPoolRef = objectPoolRef;
+        }
+
+        public void SetInstantiator(IObjectPoolInstantiator instantiator)
+        {
+            _instantiator = instantiator;
         }
 
         public void RegisterPrefab(Type type, PooledPrefab prefab)
@@ -34,11 +41,13 @@ namespace Pool
 
             for (int i = 0; i < count; i++)
             {
-                var instance = UnityEngine.Object.Instantiate(prefab.Prefab, _transform);
-                instance.gameObject.SetActive(false);
-                prefab.InstantiatedCallback?.Invoke(_objectPoolRef, instance);
-                
-                stack.Push(instance);
+                _instantiator.InstantiateObject(type, prefab, _transform, instance =>
+                {
+                    instance.gameObject.SetActive(false);
+                    prefab.InstantiatedCallback?.Invoke(_objectPoolRef, instance);
+
+                    stack.Push(instance);
+                });
             }
         }
 
@@ -99,5 +108,9 @@ namespace Pool
             
             component.gameObject.SetActive(false);
         }
+
+        public Dictionary<Type, Stack<Component>> GetPoolObjects() => _pool;
+
+        public Dictionary<Type, List<Component>> GetSpawnedObjects() => _spawnedObjects;
     }
 }

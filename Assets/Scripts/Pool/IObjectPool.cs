@@ -5,6 +5,7 @@ namespace Pool
 {
     public interface IObjectPool
     {
+        void SetInstantiator(IObjectPoolInstantiator instantiator);
         public void RegisterPrefab(Type type, PooledPrefab prefab);
         public void CreateInstances(Type type, int count);
         public void RegisterAndInstantiatePrefab(Type type, PooledPrefab prefab, int count);

@@ -1,25 +1,28 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Extensions;
-using MainGame;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Pool
 {
-    public class LocalMultiplayerObjectPoolNetworkObject : NetworkBehaviour, IObjectPool
+    public class LocalMultiplayerObjectPoolNetworkObject : NetworkBehaviour, IObjectPool, IEditablePool
     {
         private IObjectPool _pool;
-        private PlayersRepo _playersRepo;
-        private readonly Dictionary<Type, Dictionary<Component, (int, int)>> _livingComponents = new();
+        private IEditablePool _editablePool;
+        private readonly Dictionary<Component, NetworkObject> _networkObjects = new();
+        private readonly List<(Type, Action<Component>)> _waitingList = new();
 
         public void SetPool(IObjectPool pool)
         {
             _pool = pool;
-            _playersRepo = this.FindFirstObjectByTypeOrException<PlayersRepo>();
+            pool.SetInstantiator(new LocalMultiplayerObjectPoolInstantiator(NetworkObject));
+            
+            if(pool is IEditablePool editablePool)
+                _editablePool = editablePool;
         }
-        
+
+        public void SetInstantiator(IObjectPoolInstantiator instantiator) => _pool.SetInstantiator(instantiator);
+
         public void RegisterPrefab(Type type, PooledPrefab prefab)
         {
             _pool.RegisterPrefab(type, prefab);
@@ -35,89 +38,125 @@ namespace Pool
             _pool.RegisterAndInstantiatePrefab(type, prefab, count);
         }
 
-        private void AddToLivingComponents(Type type, Component component, int playerId, int componentId)
-        {
-            if (!_livingComponents.TryGetValue(type, out var dict))
-            {
-                dict = new Dictionary<Component, (int, int)>();
-                _livingComponents.Add(type, dict);
-            }
-            
-            dict.Add(component, (playerId, componentId));
-        }
-
-        private int GetFreeId(Type type, int playerId)
-        {
-            int componentId = 0;
-            
-            if (_livingComponents.TryGetValue(type, out var dict))
-            {
-                var keys = dict.Values.OrderBy(x => x);
-                foreach (var (_, id) in keys)
-                {
-                    if (componentId != id)
-                        break;
-                    componentId++;
-                }
-            }
-            else
-            {
-                componentId = 0;
-            }
-
-            return componentId;
-        }
-
         public void Spawn<T>(Vector3 position, Quaternion rotation, Action<T> onSpawn) where T : Component
         {
-            int index = _playersRepo.PlayerIndex;
-            int componentId = GetFreeId(typeof(T), index);
-            _pool.Spawn<T>(position, rotation, result =>
+            SpawnRoutine(position, rotation, typeof(T), component =>
             {
-                AddToLivingComponents(typeof(T), result, index, componentId);
-                onSpawn?.Invoke(result);
+                if (component is T t)
+                    onSpawn?.Invoke(t);
             });
-            
-            var type = typeof(T).FullName;
-            SpawnServerRpc(type, position, rotation, index, componentId);
         }
 
         public void Spawn(Vector3 position, Quaternion rotation, Type type, Action<Component> onSpawn)
         {
-            int index = _playersRepo.PlayerIndex;
-            int componentId = GetFreeId(type, index);
-            
-            _pool.Spawn(position, rotation, type, result =>
+            SpawnRoutine(position, rotation, type, onSpawn);
+        }
+
+        private void SpawnRoutine(Vector3 position, Quaternion rotation, Type type, Action<Component> onSpawn)
+        {
+            _waitingList.Add((type, component =>
             {
-                AddToLivingComponents(type, result, index, componentId);
-                onSpawn?.Invoke(result);
-            });
-            
+                onSpawn?.Invoke(component);
+            }));
+
             var typeName = type.FullName;
-            SpawnServerRpc(typeName, position, rotation, index, componentId);
+            var creatorId = NetworkManager.LocalClientId;
+            SpawnServerRpc(typeName, creatorId, position, rotation);
         }
         
         [ServerRpc(RequireOwnership = false)]
-        private void SpawnServerRpc(string typeName, Vector3 position, Quaternion rotation, int ownerIndex, int componentId)
+        private void SpawnServerRpc(
+            string typeName, ulong ownerId,
+            Vector3 position, Quaternion rotation)
         {
-            SpawnClientRpc(typeName, position, rotation, ownerIndex, componentId);
+            var type = Type.GetType(typeName);
+            if (type == null)
+            {
+                return;
+            }
+            
+            _pool.Spawn(position, rotation, type, component =>
+            {
+                var networkObject = GetNetworkObjectFrom(component);
+                SpawnClientRpc(typeName, networkObject.NetworkObjectId, ownerId, position, rotation);
+                
+                if(NetworkManager.LocalClientId == ownerId)
+                    CheckWaitingList(type, component);
+            });
         }
 
         [ClientRpc]
-        private void SpawnClientRpc(string typeName, Vector3 position, Quaternion rotation,
-            int ownerIndex, int componentId)
+        private void SpawnClientRpc(
+            string typeName, ulong instanceId, ulong ownerId,
+            Vector3 position, Quaternion rotation)
         {
-            if (_playersRepo.PlayerIndex == ownerIndex)
+            if (IsServer)
                 return;
             
             var type = Type.GetType(typeName);
             if (type == null)
-                return;
-
-            _pool.Spawn(position, rotation, type, comp =>
             {
-                AddToLivingComponents(type, comp, ownerIndex, componentId);
-            });
+                Debug.LogError($"Internal error in ObjectPool. Cannot find type with name {typeName}");
+                return;
+            }
+
+            if (!NetworkManager.SpawnManager.SpawnedObjects.TryGetValue(instanceId, out var networkObject))
+            {
+                Debug.LogError($"Internal error in ObjectPool. Cannot find object with id {instanceId}");
+                return;
+            }
+
+            if (!networkObject.TryGetComponent(type, out var component))
+            {
+                Debug.LogError($"Internal error in ObjectPool. Cannot find component with type {typeName} on instance");
+                return;
+            }
+            
+            if(_editablePool.GetPoolObjects().TryGetValue(type, out var stack))
+            {
+                var list = new List<Component>();
+                while (stack.Count > 0)
+                {
+                    var c = stack.Pop();
+                    if (c == component)
+                    {
+                        break;
+                    }
+                    
+                    list.Add(c);
+                }
+
+                foreach (var i in list)
+                {
+                    stack.Push(i);
+                }
+            }
+
+            if (_editablePool.GetSpawnedObjects().TryGetValue(type, out var spawnedObjects))
+            {
+                spawnedObjects.Add(component);
+            }
+
+            component.transform.position = position;
+            component.transform.rotation = rotation;
+            component.gameObject.SetActive(true);
+            
+            if(NetworkManager.LocalClientId == ownerId)
+                CheckWaitingList(type, component);
+        }
+
+        private void CheckWaitingList(Type type, Component component)
+        {
+            for (int i = 0; i < _waitingList.Count; i++)
+            {
+                var (t, action) = _waitingList[i];
+                if (type.IsEquivalentTo(t))
+                {
+                    _waitingList.RemoveAt(i);
+                    action.Invoke(component);
+                    return;
+                }
+            }
         }
 
         public void Despawn<T>(T component) where T : Component
@@ -127,42 +166,52 @@ namespace Pool
 
         public void Despawn(Component component, Type type)
         {
-            _pool.Despawn(component, type);
-            
             var typeName = type.FullName;
-            if (!_livingComponents.TryGetValue(type, out var dict))
-                return;
-
-            var (playerId, id) = dict[component];
-            int playerIndex = _playersRepo.PlayerIndex;
-            
-            DespawnServerRpc(typeName, playerId, id, playerIndex);
+            var objectId = GetNetworkObjectFrom(component).NetworkObjectId;
+            DespawnRpc(typeName, objectId);
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        private void DespawnServerRpc(string typeName, int playerId, int componentId, int ownerIndex)
-        {
-            DespawnClientRpc(typeName, playerId, componentId, ownerIndex);
-        }
-
-        [ClientRpc]
-        private void DespawnClientRpc(string typeName, int playerId, int componentId, int ownerIndex)
+        [Rpc(SendTo.Everyone, RequireOwnership = false)]
+        private void DespawnRpc(string typeName, ulong objectId)
         {
             var type = Type.GetType(typeName);
-            if (type == null || !_livingComponents.TryGetValue(type, out var dict))
+            if (type == null)
+            {
+                Debug.LogError($"Internal error in ObjectPool. Cannot find type with name {typeName}");
                 return;
-            
-            var comp = dict.FirstOrDefault(x =>
-                x.Value == (playerId, componentId));
-            if (comp.Key == null)
-                return;
-            
-            dict.Remove(comp.Key);
+            }
 
-            if (_playersRepo.PlayerIndex == ownerIndex)
+            if (!NetworkManager.SpawnManager.SpawnedObjects.TryGetValue(objectId, out var networkObject))
+            {
+                Debug.LogError($"Internal error in ObjectPool. Cannot find object with id {objectId}");
                 return;
+            }
+
+            if (!networkObject.TryGetComponent(type, out var component))
+            {
+                Debug.LogError($"Internal error in ObjectPool. Cannot find component with type {typeName} on instance");
+                return;
+            }
             
-            _pool.Despawn(comp.Key, type);
+            _pool.Despawn(component, type);
+        }
+
+        public Dictionary<Type, Stack<Component>> GetPoolObjects() => _editablePool.GetPoolObjects();
+
+        public Dictionary<Type, List<Component>> GetSpawnedObjects() => _editablePool.GetSpawnedObjects();
+
+        private NetworkObject GetNetworkObjectFrom(Component component)
+        {
+            if (!_networkObjects.TryGetValue(component, out var result))
+            {
+                result = component.GetComponent<NetworkObject>();
+                _networkObjects.Add(component, result);
+            }
+            
+            if(result == null)
+                Debug.LogError("Cannot spawn object without NetworkObject component", component.gameObject);
+
+            return result;
         }
     }
 }

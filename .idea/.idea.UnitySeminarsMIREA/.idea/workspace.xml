@@ -5,26 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e905ed2-0d71-4056-936f-b87fe484aaa5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/DefaultObjectPoolInstantiator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/DefaultObjectPoolInstantiator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/IEditablePool.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/IEditablePool.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/IObjectPoolInstantiator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/IObjectPoolInstantiator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/LocalMultiplayerObjectPoolInstantiator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/LocalMultiplayerObjectPoolInstantiator.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Damage/GetDamageData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Damage/GetDamageData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridMap/CellsVisuals.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridMap/CellsVisuals.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Abilities/FireHeavyProjectile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Abilities/FireHeavyProjectile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Abilities/FireHeavyProjectileParticles.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Abilities/FireHeavyProjectileParticles.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Abilities/FireProjectile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Abilities/FireProjectile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Abilities/FireProjectileParticles.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Abilities/FireProjectileParticles.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Abilities/IceProjectile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Abilities/IceProjectile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Abilities/IceProjectileParticles.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Abilities/IceProjectileParticles.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Abilities/IceWall.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Abilities/IceWall.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Abilities/ThunderProjectile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Abilities/ThunderProjectile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cells/ElectroWaterFloor.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cells/ElectroWaterFloor.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cells/Fire.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cells/Fire.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cells/IceFloor.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cells/IceFloor.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cells/Steam.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cells/Steam.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cells/WaterFloor.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cells/WaterFloor.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Effects/ExplosionEffect.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Effects/ExplosionEffect.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireAbility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireAbility.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireHeavyProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireHeavyProjectile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Fire/FireProjectile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceAbility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceAbility.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Ice/IceProjectile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Thunder/ThunderAbility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Thunder/ThunderAbility.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Thunder/ThunderProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Abilities/Thunder/ThunderProjectile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/NetworkPolitics/LocalMultiplayerNetworkPolitics.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/NetworkPolitics/LocalMultiplayerNetworkPolitics.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerAbilityUsage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerAbilityUsage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMoveByTiles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMoveByTiles.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pool/DefaultObjectPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/DefaultObjectPool.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pool/IObjectPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/IObjectPool.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pool/LocalMultiplayerObjectPoolDecorator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/LocalMultiplayerObjectPoolDecorator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pool/LocalMultiplayerObjectPoolNetworkObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/LocalMultiplayerObjectPoolNetworkObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pool/ObjectPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pool/ObjectPool.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
