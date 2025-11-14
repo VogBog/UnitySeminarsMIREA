@@ -7,10 +7,14 @@ namespace Game.GameStarter
     public interface IGameStarter
     {
         event Action<int> TimerChanged;
+        event Action<Player.Player> Initialized; 
         
         bool IsServer();
         IEnumerator InstantiatePlayer(
-            Player.Player prefab, Vector3 position, Quaternion rotation, Action<Player.Player> onSpawn);
+            Player.Player prefab, Vector3 position, Quaternion rotation);
+
+        bool IsAllPlayersConnected();
+        void InvokePlayerConnected();
 
         void InvokeTimerChanged(int value);
     }

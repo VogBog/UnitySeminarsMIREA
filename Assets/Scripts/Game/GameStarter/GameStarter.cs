@@ -10,10 +10,11 @@ namespace Game.GameStarter
     public class GameStarter : MonoBehaviour
     {
         [SerializeField] private Player.Player _playerPrefab;
-        [SerializeField] private Transform[] _spawnPoints;
+        [SerializeField] private Transform _spawnPoints;
         [SerializeField] private TMP_Text _timerText;
 
         private IGameStarter _starter;
+        private bool _started = false;
 
         public event Action Started;
 
@@ -21,14 +22,29 @@ namespace Game.GameStarter
         {
             _starter = GameServices.CreateGameStarter();
             _starter.TimerChanged += OnTimerChanged;
+            _starter.Initialized += InitializePlayer;
+
+            StartCoroutine(InvokeConnectedRoutine());
 
             if (_starter.IsServer())
                 StartCoroutine(SpawnPlayers(StaticParameters.PlayersCount));
         }
 
+        private IEnumerator InvokeConnectedRoutine()
+        {
+            while (!_started)
+            {
+                _starter.InvokePlayerConnected();
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+
         private IEnumerator SpawnPlayers(int playersCount)
         {
-            var spawnPoints = _spawnPoints.Select(x => x.position).ToList();
+            yield return new WaitUntil(() => _starter.IsAllPlayersConnected());
+            
+            var spawnPoints = _spawnPoints.GetComponentsInChildren<Transform>()
+                .Select(x => x.position).ToList();
             
             for (int i = 0; i < playersCount; i++)
             {
@@ -39,11 +55,7 @@ namespace Game.GameStarter
                 yield return _starter.InstantiatePlayer(
                     _playerPrefab,
                     spawnPoint,
-                    Quaternion.identity,
-                    player =>
-                    {
-
-                    });
+                    Quaternion.identity);
             }
             
             _timerText.gameObject.SetActive(true);
@@ -64,8 +76,15 @@ namespace Game.GameStarter
             if (value == 0)
             {
                 _timerText.gameObject.SetActive(false);
+                _started = true;
                 Started?.Invoke();
             }
+        }
+
+        private void InitializePlayer(Player.Player player)
+        {
+            var camera = player.GetComponentInChildren<Camera>(true);
+            camera.gameObject.SetActive(true);
         }
     }
 }
