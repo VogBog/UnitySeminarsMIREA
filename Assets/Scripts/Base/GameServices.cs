@@ -1,4 +1,5 @@
 using Game.GameStarter;
+using Game.Player;
 using UnityEngine;
 
 namespace Base
@@ -12,6 +13,16 @@ namespace Base
             if(StaticParameters.NetworkType is not StaticParameters.NetworkTypes.LocalMultiplayer)
                 Object.Destroy(lm);
             
+            return lm;
+        }
+
+        public static ISnakeTail CreateSnakeTail(SnakeTail tail)
+        {
+            var lm = tail.GetComponent<LocalMultiplayerSnakeTail>();
+            
+            if(StaticParameters.NetworkType is not StaticParameters.NetworkTypes.LocalMultiplayer)
+                Object.Destroy(lm);
+
             return lm;
         }
     }

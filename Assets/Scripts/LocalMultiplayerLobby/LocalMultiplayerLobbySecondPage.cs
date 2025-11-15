@@ -41,6 +41,8 @@ namespace LocalMultiplayerLobby
 
         private void OnClientConnected(ulong id)
         {
+            _view.ShowPage();
+            
             if (!IsServer) return;
             
             if(!_players.Contains(id))

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Game.Player
@@ -7,13 +6,9 @@ namespace Game.Player
     {
         [SerializeField] private float _speed;
         
-        private bool _newDirection = false;
-        private Vector3 _oldDirectionPure = Vector3.zero;
-        
         public bool IsOwner { get; private set; } = false;
         public Vector3 MoveAxis { get; private set; }
-
-        public event Action<Vector3> NewPoint; 
+        public float Speed => _speed;
         
         public void Initialize()
         {
@@ -36,12 +31,14 @@ namespace Game.Player
             if(Input.GetKeyDown(KeyCode.D))
                 moveAxis.x += 1;
 
-            if (_oldDirectionPure != moveAxis)
-                _newDirection = true;
-            _oldDirectionPure = moveAxis;
-            
-            if(moveAxis.x != 0 || moveAxis.z != 0)
+            if (moveAxis.x == 0 && moveAxis.z == 0)
+            {
+                moveAxis = MoveAxis;
+            }
+            else
+            {
                 moveAxis.Normalize();
+            }
             
             MoveAxis = moveAxis;
         }
@@ -50,10 +47,6 @@ namespace Game.Player
         {
             if(!IsOwner)
                 return;
-            
-            if(_newDirection)
-                NewPoint?.Invoke(transform.position);
-            _newDirection = false;
             
             transform.position += _speed * Time.fixedDeltaTime * MoveAxis;
         }

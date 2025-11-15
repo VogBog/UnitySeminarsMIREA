@@ -25,6 +25,11 @@ namespace LocalMultiplayerLobby
             page.IsServerChanged += OnPlayerServerChanged;
         }
 
+        public void ShowPage()
+        {
+            _parent.gameObject.SetActive(true);
+        }
+
         private void OnPlayersCountChanged(int count)
         {
             UpdateInfo(
