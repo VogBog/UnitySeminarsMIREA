@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 6934696275763935781}
   - component: {fileID: 7629150662152125025}
   - component: {fileID: 3770772109368270588}
+  - component: {fileID: 2834622754586028384}
   m_Layer: 0
   m_Name: SnakeHead
   m_TagString: Untagged
@@ -265,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 0
+  GlobalObjectIdHash: 444921846
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -336,3 +337,16 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &2834622754586028384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7494000718884701944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f5a1a11d4184c3cba6b9339cd83630d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 6

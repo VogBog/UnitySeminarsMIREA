@@ -85,6 +85,7 @@ namespace Game.GameStarter
         {
             var camera = player.GetComponentInChildren<Camera>(true);
             camera.gameObject.SetActive(true);
+            player.Initialize(true);
         }
     }
 }
