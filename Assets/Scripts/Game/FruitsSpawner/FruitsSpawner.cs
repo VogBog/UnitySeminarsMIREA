@@ -15,23 +15,31 @@ namespace Game.FruitsSpawner
             _spawner = GameServices.CreateFruitsSpawner();
             _spawner.SetPrefab(_fruitPrefab);
             StartCoroutine(SpawnRoutine());
+            
+            for(int i = 0; i < 10; i++)
+                Spawn();
         }
 
         private IEnumerator SpawnRoutine()
         {
             while (true)
             {
-                if (_spawner.IsServer())
-                {
-                    var randX = Random.Range(-40f, 40f);
-                    var randZ = Random.Range(-40f, 40f);
-                    var pos = new Vector3(randX, 0, randZ);
-                    
-                    _spawner.Instantiate(pos);
-                }
+                Spawn();
                 
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(3f);
             }
+        }
+
+        private void Spawn()
+        {
+            if (!_spawner.IsServer())
+                return;
+            
+            var randX = Random.Range(-40f, 40f);
+            var randZ = Random.Range(-40f, 40f);
+            var pos = new Vector3(randX, 0, randZ);
+                    
+            _spawner.Instantiate(pos);
         }
 
         public void EatenBy(Fruit fruit, Player.Player player)

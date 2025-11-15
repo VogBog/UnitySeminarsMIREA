@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Base;
 using UnityEngine;
@@ -24,20 +23,14 @@ namespace Game.Player
             _tail.SetPrefab(_pointPrefab);
         }
 
-        private IEnumerator Start()
-        {
-            yield return new WaitForSeconds(6f);
-            AddLength();
-            yield return new WaitForSeconds(1f);
-            AddLength();
-            yield return new WaitForSeconds(1f);
-            AddLength();
-        }
-
-        public void Initialize(Player player)
+        public void Initialize(Player player, bool isOwner)
         {
             _player = player;
-            _tail.AddNewPoint += OnNewPointAdded;
+
+            if (isOwner)
+            {
+                _tail.AddNewPoint += OnNewPointAdded;
+            }
         }
 
         public void AddLength()

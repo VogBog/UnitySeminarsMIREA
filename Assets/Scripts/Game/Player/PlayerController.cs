@@ -10,9 +10,17 @@ namespace Game.Player
         public Vector3 MoveAxis { get; private set; }
         public float Speed => _speed;
         
-        public void Initialize()
+        public void Initialize(bool isOwner)
         {
-            IsOwner = true;
+            if (!isOwner)
+                return;
+
+            MoveAxis = Vector3.forward;
+            
+            FindFirstObjectByType<GameStarter.GameStarter>().Started += () =>
+            {
+                IsOwner = true;
+            };
         }
 
         private void Update()

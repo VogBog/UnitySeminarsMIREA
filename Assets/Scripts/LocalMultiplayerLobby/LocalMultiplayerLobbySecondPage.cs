@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Base;
 using Unity.Netcode;
@@ -61,7 +62,7 @@ namespace LocalMultiplayerLobby
             UpdatePlayersRpc(_players.ToArray());
         }
 
-        [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+        [Rpc(SendTo.Everyone, InvokePermission = RpcInvokePermission.Everyone)]
         private void UpdatePlayersRpc(ulong[] players)
         {
             if (!IsServer)
