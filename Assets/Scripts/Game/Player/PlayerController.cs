@@ -31,7 +31,8 @@ namespace Game.Player
             if(Input.GetKeyDown(KeyCode.D))
                 moveAxis.x += 1;
 
-            if (moveAxis.x == 0 && moveAxis.z == 0)
+            if (moveAxis.x == 0 && moveAxis.z == 0 ||
+                Vector3.Angle(moveAxis, MoveAxis) > 100)
             {
                 moveAxis = MoveAxis;
             }

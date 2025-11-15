@@ -20,7 +20,7 @@ namespace Game.Player
             }
         }
         
-        public void Instantiate(Vector3 position, Quaternion rotation)
+        public void Instantiate(Vector3 position, Quaternion rotation, Action<SnakePoint> onSpawn)
         {
             var obj = NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(
                 _prefab,
@@ -30,7 +30,17 @@ namespace Game.Player
                 rotation: rotation);
 
             ulong id = obj.NetworkObjectId;
+            
+            if(obj.TryGetComponent(out SnakePoint point))
+                onSpawn.Invoke(point);
+            
             InstantiateClientRpc(id);
+        }
+
+        public void Despawn(SnakePoint point)
+        {
+            var networkObject = point.GetComponent<NetworkObject>();
+            networkObject.Despawn();
         }
 
         [ClientRpc]

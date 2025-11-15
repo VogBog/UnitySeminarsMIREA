@@ -5,9 +5,10 @@ namespace Game.Player
 {
     public interface ISnakeTail
     {
-        event Action<SnakePoint> AddNewPoint; 
+        event Action<SnakePoint> AddNewPoint;
         
         void SetPrefab(SnakePoint prefab);
-        void Instantiate(Vector3 position, Quaternion rotation);
+        void Instantiate(Vector3 position, Quaternion rotation, Action<SnakePoint> onSpawn);
+        void Despawn(SnakePoint point);
     }
 }
