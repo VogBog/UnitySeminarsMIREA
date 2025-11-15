@@ -1,3 +1,4 @@
+using Game.FruitsSpawner;
 using Game.GameFinisher;
 using Game.GameStarter;
 using Game.Player;
@@ -41,6 +42,16 @@ namespace Base
         public static IGameFinisher CreateGameFinisher()
         {
             var lm = Object.FindFirstObjectByType<LocalMultiplayerGameFinisher>();
+            
+            if(StaticParameters.NetworkType is not StaticParameters.NetworkTypes.LocalMultiplayer)
+                Object.Destroy(lm);
+            
+            return lm;
+        }
+
+        public static IFruitsSpawner CreateFruitsSpawner()
+        {
+            var lm = Object.FindFirstObjectByType<LocalMultiplayerFruitsSpawner>();
             
             if(StaticParameters.NetworkType is not StaticParameters.NetworkTypes.LocalMultiplayer)
                 Object.Destroy(lm);
