@@ -21,6 +21,7 @@ namespace Game.Player
         {
             _tail = GameServices.CreateSnakeTail(this);
             _tail.SetPrefab(_pointPrefab);
+            _tail.SetSnake(this);
         }
 
         public void Initialize(Player player, bool isOwner)
@@ -38,16 +39,24 @@ namespace Game.Player
             if (_die)
                 return;
             
+            _tail.CalculateDataForAddLength(data =>
+            {
+                _tail.Instantiate(data.LastPoint, Quaternion.identity, point =>
+                {
+                    _snakePoints.Add(point);
+                });
+            });
+        }
+
+        public SnakeTailCalculationData CalculateDataForAddLength()
+        {
             var lastPoint = transform.position - _player.Controller.MoveAxis;
             if (_lastSnakePoint != null)
             {
                 lastPoint = _lastSnakePoint.transform.position - _lastSnakePoint.transform.forward;
             }
-            
-            _tail.Instantiate(lastPoint, Quaternion.identity, point =>
-            {
-                _snakePoints.Add(point);
-            });
+
+            return new(lastPoint);
         }
 
         public bool IsInDanger(Vector3 head, bool calculateHead)
@@ -90,8 +99,12 @@ namespace Game.Player
 
         private void OnNewPointAdded(SnakePoint point)
         {
+            var data = CalculateDataForAddLength();
+            point.transform.position = data.LastPoint;
+            
             point.Initialize(_player);
             point.SetNextPoint(_lastSnakePoint?.transform ?? transform);
+            
             _lastSnakePoint = point;
             
             if(!_snakePoints.Contains(point))

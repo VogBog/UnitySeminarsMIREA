@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -8,8 +9,16 @@ namespace Game.Player
     public class LocalMultiplayerSnakeTail : NetworkBehaviour, ISnakeTail
     {
         private NetworkObject _prefab;
+        private SnakeTail _tail;
+
+        private readonly List<Action<SnakeTailCalculationData>> _calculationDataWaitingList = new();
         
-        public event Action<SnakePoint> AddNewPoint; 
+        public event Action<SnakePoint> AddNewPoint;
+
+        public void SetSnake(SnakeTail tail)
+        {
+            _tail = tail;
+        }
         
         public void SetPrefab(SnakePoint prefab)
         {
@@ -41,6 +50,32 @@ namespace Game.Player
         {
             var networkObject = point.GetComponent<NetworkObject>();
             networkObject.Despawn();
+        }
+
+        public void CalculateDataForAddLength(Action<SnakeTailCalculationData> onCalculationData)
+        {
+            _calculationDataWaitingList.Add(onCalculationData);
+            CalculateDataForAddLengthClientRpc();
+        }
+
+        [Rpc(SendTo.Owner)]
+        private void CalculateDataForAddLengthClientRpc()
+        {
+            var data = _tail.CalculateDataForAddLength();
+            CalculateDataForAddLengthServerRpc(data.LastPoint);
+        }
+
+        [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Owner)]
+        private void CalculateDataForAddLengthServerRpc(Vector3 lastPoint)
+        {
+            var data = new SnakeTailCalculationData(lastPoint);
+            
+            foreach (var i in _calculationDataWaitingList)
+            {
+                i.Invoke(data);
+            }
+            
+            _calculationDataWaitingList.Clear();
         }
 
         [ClientRpc]
