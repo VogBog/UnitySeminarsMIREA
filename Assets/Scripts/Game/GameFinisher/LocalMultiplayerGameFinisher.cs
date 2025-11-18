@@ -6,6 +6,8 @@ namespace Game.GameFinisher
     public class LocalMultiplayerGameFinisher : NetworkBehaviour, IGameFinisher
     {
         public event Action Died;
+
+        bool IGameFinisher.IsServer() => NetworkManager.IsServer;
         
         public void InvokeDiedToOwner(Player.Player player)
         {

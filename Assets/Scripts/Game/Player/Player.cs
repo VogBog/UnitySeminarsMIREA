@@ -6,6 +6,8 @@ namespace Game.Player
     [RequireComponent(typeof(PlayerController), typeof(SnakeTail))]
     public class Player : MonoBehaviour
     {
+        private CamerasSwitcher _cameras;
+        
         public PlayerController Controller { get; private set; }
         public SnakeTail SnakeTail { get; private set; }
         public bool IsOwner { get; private set; } = false;
@@ -19,6 +21,9 @@ namespace Game.Player
         
         public void Initialize(bool isOwner)
         {
+            _cameras = FindFirstObjectByType<CamerasSwitcher>();
+            _cameras.SetActiveCamera(GetComponentInChildren<Camera>());
+            
             IsOwner = isOwner;
             
             Controller = GetComponent<PlayerController>();
@@ -34,8 +39,8 @@ namespace Game.Player
 
             IsDead = true;
             SnakeTail.DieAll();
+            _cameras.SwitchCamera(this);
 
-            transform.position += Vector3.down * 2f;
             Died?.Invoke(this);
         }
     }

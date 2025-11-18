@@ -17,6 +17,7 @@ namespace Game.GameFinisher
             FindFirstObjectByType<GameStarter.GameStarter>().Started += () =>
             {
                 var players = FindObjectsByType<Player.Player>(FindObjectsSortMode.None);
+                
                 foreach (var player in players)
                 {
                     player.Died += OnPlayerDied;
@@ -31,15 +32,26 @@ namespace Game.GameFinisher
 
         private void OnDied()
         {
-            StartCoroutine(DiedRoutine());
+            StartCoroutine(DiedRoutine(false));
         }
 
-        private IEnumerator DiedRoutine()
+        private IEnumerator DiedRoutine(bool allPlayersDied)
         {
             yield return new WaitForSeconds(3f);
+
+            if (_finisher.IsServer() && !allPlayersDied)
+                yield break;
             
             _finisher.QuitFromGame();
             SceneManager.LoadScene((int)Scenes.MainMenu);
+        }
+
+        public void AllPlayersDied()
+        {
+            if (!_finisher.IsServer())
+                return;
+
+            StartCoroutine(DiedRoutine(true));
         }
     }
 }

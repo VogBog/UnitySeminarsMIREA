@@ -48,6 +48,11 @@ namespace Game.PlayerKillers
                 player.Die();
                 _players.Remove(player);
             }
+
+            if (_players.Count == 0 && _buffer.Count > 0)
+            {
+                FindFirstObjectByType<GameFinisher.GameFinisher>()?.AllPlayersDied();
+            }
         }
 
         private bool IsOnDangerZone(Vector3 pos)
