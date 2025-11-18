@@ -39,6 +39,7 @@ namespace Game.Player
 
             IsDead = true;
             SnakeTail.DieAll();
+            Controller.Stop();
             _cameras.SwitchCamera(this);
 
             Died?.Invoke(this);

@@ -23,6 +23,8 @@ namespace Game.Player
             };
         }
 
+        public bool Stop() => IsOwner = false;
+
         private void Update()
         {
             if (!IsOwner)
