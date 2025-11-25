@@ -4,6 +4,7 @@ namespace Base
     {
         MainMenu,
         LocalMultiplayerLobby,
+        PhotonMultiplayerLobby,
         Game
     }
 }
