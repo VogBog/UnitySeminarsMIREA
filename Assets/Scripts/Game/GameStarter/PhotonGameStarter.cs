@@ -41,11 +41,13 @@ namespace Game.GameStarter
             
             _createdPlayers.Add(actorNumber);
             _instantiatingInProcess = true;
-            _photonView.RPC(nameof(InstantiatePlayerRpc), RpcTarget.All, actorNumber, prefab.name, position, rotation);
+            string prefabName = prefab.name + " Variant";
+            _photonView.RPC(nameof(InstantiatePlayerRpc), RpcTarget.All, actorNumber, prefabName, position, rotation);
             
             yield return new WaitWhile(() => _instantiatingInProcess);
         }
 
+        [PunRPC]
         private void InstantiatePlayerRpc(int actorNumber, string prefabName, Vector3 position, Quaternion rotation)
         {
             if (PhotonNetwork.LocalPlayer.ActorNumber != actorNumber)
@@ -58,6 +60,7 @@ namespace Game.GameStarter
             _photonView.RPC(nameof(InstantiatePlayerCallback), RpcTarget.All);
         }
 
+        [PunRPC]
         private void InstantiatePlayerCallback()
         {
             _instantiatingInProcess = false;
@@ -73,6 +76,7 @@ namespace Game.GameStarter
             _photonView.RPC(nameof(PlayerConnectedRpc), RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
         }
 
+        [PunRPC]
         private void PlayerConnectedRpc(int actorNumber)
         {
             if(!_players.Contains(actorNumber))
@@ -85,6 +89,7 @@ namespace Game.GameStarter
             _photonView.RPC(nameof(TimerChangedRpc), RpcTarget.All, value);
         }
 
+        [PunRPC]
         private void TimerChangedRpc(int value)
         {
             TimerChanged?.Invoke(value);

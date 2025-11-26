@@ -33,6 +33,7 @@ namespace Game.GameFinisher
             _photonView.RPC(nameof(InvokeDiedToOwnerRpc), RpcTarget.All, actorNumber);
         }
 
+        [PunRPC]
         private void InvokeDiedToOwnerRpc(int actorNumber)
         {
             if (PhotonNetwork.LocalPlayer.ActorNumber != actorNumber)

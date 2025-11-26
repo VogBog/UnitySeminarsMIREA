@@ -28,7 +28,10 @@ namespace Base
         public static T GetMultiNetworkService<T>() where T : INetworkTypeRequirer
         {
             var services = Object.FindObjectsByType(
-                typeof(T), FindObjectsInactive.Include, FindObjectsSortMode.None);
+                typeof(Object), FindObjectsInactive.Include, FindObjectsSortMode.None)
+                .Where(x => x is T)
+                .ToArray();
+            
             return GetMultiNetworkService<T>(services);
         }
 

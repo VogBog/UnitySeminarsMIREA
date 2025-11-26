@@ -65,6 +65,7 @@ namespace PhotonLobby
             int maxPlayers = PhotonNetwork.CurrentRoom.MaxPlayers;
             
             _view.UpdateStatus(playersCount, maxPlayers, isHost);
+            StaticParameters.PlayersCount = playersCount;
         }
     }
 }

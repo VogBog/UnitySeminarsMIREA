@@ -48,13 +48,14 @@ namespace Game.Player
             _photonView.RPC(nameof(InstantiateRpc), RpcTarget.All, id, position, rotation);
         }
 
+        [PunRPC]
         private void InstantiateRpc(int id, Vector3 position, Quaternion rotation)
         {
             if (!_photonView.IsMine)
                 return;
             
             var go = PhotonNetwork.Instantiate(
-                _pointPrefab.name,
+                _pointPrefab.name + " Variant",
                 position,
                 rotation);
             
@@ -66,6 +67,7 @@ namespace Game.Player
             _photonView.RPC(nameof(InstantiatedCallbackToServer), RpcTarget.MasterClient, id, viewId);
         }
 
+        [PunRPC]
         private void InstantiatedCallbackToServer(int id, int viewId)
         {
             StartCoroutine(InstantiatedCallbackRoutine(id, viewId));
@@ -125,6 +127,7 @@ namespace Game.Player
             _photonView.RPC(nameof(CalculateDataRpc), RpcTarget.All, id);
         }
 
+        [PunRPC]
         private void CalculateDataRpc(int id)
         {
             if (!_photonView.IsMine)
@@ -134,6 +137,7 @@ namespace Game.Player
             _photonView.RPC(nameof(CalculateDataCallback), RpcTarget.All, id, data.LastPoint);
         }
 
+        [PunRPC]
         private void CalculateDataCallback(int id, Vector3 lastPoint)
         {
             var data = new SnakeTailCalculationData(lastPoint);

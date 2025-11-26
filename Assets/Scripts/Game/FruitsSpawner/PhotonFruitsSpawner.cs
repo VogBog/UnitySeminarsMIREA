@@ -20,7 +20,7 @@ namespace Game.FruitsSpawner
                 return;
             
             PhotonNetwork.Instantiate(
-                _fruitPrefab.name,
+                _fruitPrefab.name + " Variant",
                 position,
                 Quaternion.identity);
         }
