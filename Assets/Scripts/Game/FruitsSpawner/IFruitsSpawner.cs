@@ -1,8 +1,9 @@
+using MultiNetwork;
 using UnityEngine;
 
 namespace Game.FruitsSpawner
 {
-    public interface IFruitsSpawner
+    public interface IFruitsSpawner : INetworkTypeRequirer
     {
         bool IsServer();
         void SetPrefab(Fruit fruitPrefab);

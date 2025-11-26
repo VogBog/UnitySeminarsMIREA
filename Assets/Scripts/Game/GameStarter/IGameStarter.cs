@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
+using MultiNetwork;
 using UnityEngine;
 
 namespace Game.GameStarter
 {
-    public interface IGameStarter
+    public interface IGameStarter : INetworkTypeRequirer
     {
         event Action<int> TimerChanged;
         event Action<Player.Player> Initialized; 

@@ -1,4 +1,5 @@
 using System.Collections;
+using Base;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace PhotonLobby
         
         private void Start()
         {
+            StaticParameters.NetworkType = StaticParameters.NetworkTypes.Photon;
             _loading = true;
             _view.Initialize();
 

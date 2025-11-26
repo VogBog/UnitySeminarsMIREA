@@ -1,8 +1,9 @@
 using System;
+using MultiNetwork;
 
 namespace Game.GameFinisher
 {
-    public interface IGameFinisher
+    public interface IGameFinisher : INetworkTypeRequirer
     {
         event Action Died;
 

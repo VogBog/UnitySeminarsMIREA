@@ -1,3 +1,4 @@
+using Base;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ namespace Game.FruitsSpawner
     public class LocalMultiplayerFruitsSpawner : NetworkBehaviour, IFruitsSpawner
     {
         private NetworkObject _prefab;
+        
+        public StaticParameters.NetworkTypes RequiredNetworkType => StaticParameters.NetworkTypes.LocalMultiplayer;
 
         bool IFruitsSpawner.IsServer() => NetworkManager.IsServer;
 

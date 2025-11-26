@@ -1,4 +1,5 @@
 using System;
+using Base;
 using Unity.Netcode;
 
 namespace Game.GameFinisher
@@ -6,6 +7,8 @@ namespace Game.GameFinisher
     public class LocalMultiplayerGameFinisher : NetworkBehaviour, IGameFinisher
     {
         public event Action Died;
+        
+        public StaticParameters.NetworkTypes RequiredNetworkType => StaticParameters.NetworkTypes.LocalMultiplayer;
 
         bool IGameFinisher.IsServer() => NetworkManager.IsServer;
         

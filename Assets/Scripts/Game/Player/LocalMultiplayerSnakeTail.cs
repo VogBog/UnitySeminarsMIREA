@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Base;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace Game.Player
         private SnakeTail _tail;
 
         private readonly List<Action<SnakeTailCalculationData>> _calculationDataWaitingList = new();
+        
+        public StaticParameters.NetworkTypes RequiredNetworkType => StaticParameters.NetworkTypes.LocalMultiplayer;
         
         public event Action<SnakePoint> AddNewPoint;
 

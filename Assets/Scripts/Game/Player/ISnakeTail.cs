@@ -1,9 +1,10 @@
 using System;
+using MultiNetwork;
 using UnityEngine;
 
 namespace Game.Player
 {
-    public interface ISnakeTail
+    public interface ISnakeTail : INetworkTypeRequirer
     {
         event Action<SnakePoint> AddNewPoint;
         

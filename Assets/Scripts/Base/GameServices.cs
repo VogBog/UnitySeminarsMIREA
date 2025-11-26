@@ -1,62 +1,52 @@
+using System.Linq;
 using Game.FruitsSpawner;
 using Game.GameFinisher;
 using Game.GameStarter;
 using Game.Player;
 using Game.PlayerKillers;
+using MultiNetwork;
 using UnityEngine;
 
 namespace Base
 {
     public static class GameServices
     {
-        public static IGameStarter CreateGameStarter()
-        {
-            var lm = Object.FindFirstObjectByType<LocalMultiplayerGameStarter>();
-            
-            if(StaticParameters.NetworkType is not StaticParameters.NetworkTypes.LocalMultiplayer)
-                Object.Destroy(lm);
-            
-            return lm;
-        }
+        public static IGameStarter CreateGameStarter() => GetMultiNetworkService<IGameStarter>();
 
         public static ISnakeTail CreateSnakeTail(SnakeTail tail)
         {
-            var lm = tail.GetComponent<LocalMultiplayerSnakeTail>();
-            
-            if(StaticParameters.NetworkType is not StaticParameters.NetworkTypes.LocalMultiplayer)
-                Object.Destroy(lm);
-
-            return lm;
+            var services = tail.GetComponents<ISnakeTail>().OfType<Object>().ToArray();
+            return GetMultiNetworkService<ISnakeTail>(services);
         }
 
-        public static IPlayerKiller CreatePlayerKiller()
+        public static IPlayerKiller CreatePlayerKiller() => GetMultiNetworkService<IPlayerKiller>();
+
+        public static IGameFinisher CreateGameFinisher() => GetMultiNetworkService<IGameFinisher>();
+
+        public static IFruitsSpawner CreateFruitsSpawner() => GetMultiNetworkService<IFruitsSpawner>();
+
+        public static T GetMultiNetworkService<T>() where T : INetworkTypeRequirer
         {
-            var lm = Object.FindFirstObjectByType<LocalMultiplayerPlayerKiller>();
-            
-            if(StaticParameters.NetworkType is not StaticParameters.NetworkTypes.LocalMultiplayer)
-                Object.Destroy(lm);
-            
-            return lm;
+            var services = Object.FindObjectsByType(
+                typeof(T), FindObjectsInactive.Include, FindObjectsSortMode.None);
+            return GetMultiNetworkService<T>(services);
         }
 
-        public static IGameFinisher CreateGameFinisher()
+        public static T GetMultiNetworkService<T>(Object[] services) where T : INetworkTypeRequirer
         {
-            var lm = Object.FindFirstObjectByType<LocalMultiplayerGameFinisher>();
-            
-            if(StaticParameters.NetworkType is not StaticParameters.NetworkTypes.LocalMultiplayer)
-                Object.Destroy(lm);
-            
-            return lm;
-        }
+            var networkType = StaticParameters.NetworkType;
 
-        public static IFruitsSpawner CreateFruitsSpawner()
-        {
-            var lm = Object.FindFirstObjectByType<LocalMultiplayerFruitsSpawner>();
-            
-            if(StaticParameters.NetworkType is not StaticParameters.NetworkTypes.LocalMultiplayer)
-                Object.Destroy(lm);
-            
-            return lm;
+            for (int i = 0; i < services.Length; i++)
+            {
+                if (services[i] is not INetworkTypeRequirer requirer ||
+                    requirer.RequiredNetworkType != networkType)
+                {
+                    Object.Destroy(services[i]);
+                    services[i] = null;
+                }
+            }
+
+            return services.OfType<T>().FirstOrDefault();
         }
     }
 }

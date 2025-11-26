@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Base;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace Game.GameStarter
     {
         private int _spawnedCount = 0;
         private List<ulong> _connectedPlayers = new();
+
+        public StaticParameters.NetworkTypes RequiredNetworkType => StaticParameters.NetworkTypes.LocalMultiplayer;
         
         public event Action<int> TimerChanged;
         public event Action<Player.Player> Initialized; 
