@@ -45,7 +45,7 @@ namespace Game.PlayerKillers
 
             foreach (var player in _buffer)
             {
-                player.Die();
+                _killer.InvokePlayerDied(player);
                 _players.Remove(player);
             }
 

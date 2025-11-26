@@ -25,6 +25,7 @@ namespace PhotonLobby
             _view.QuitClicked += Quit;
             
             PhotonNetwork.PhotonServerSettings.AppSettings.FixedRegion = "ru";
+            PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.ConnectUsingSettings();
         }
 
