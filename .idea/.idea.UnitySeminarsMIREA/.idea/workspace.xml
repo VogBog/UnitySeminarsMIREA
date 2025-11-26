@@ -5,22 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5c74e2d-d39a-4760-9864-dbc0e7e7c92a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/MultiNetwork/INetworkTypeRequirer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/MultiNetwork/INetworkTypeRequirer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/FruitsSpawner/PhotonFruitsSpawner.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/FruitsSpawner/PhotonFruitsSpawner.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameFinisher/PhotonGameFinisher.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameFinisher/PhotonGameFinisher.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameStarter/PhotonGameStarter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameStarter/PhotonGameStarter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PhotonSnakeTail.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PhotonSnakeTail.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/PlayerKillers/PhotonPlayerKiller.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/PlayerKillers/PhotonPlayerKiller.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/GameServices.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/GameServices.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/FruitsSpawner/IFruitsSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/FruitsSpawner/IFruitsSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/FruitsSpawner/LocalMultiplayerFruitsSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/FruitsSpawner/LocalMultiplayerFruitsSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameFinisher/IGameFinisher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameFinisher/IGameFinisher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameFinisher/LocalMultiplayerGameFinisher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameFinisher/LocalMultiplayerGameFinisher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameStarter/IGameStarter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameStarter/IGameStarter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameStarter/LocalMultiplayerGameStarter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameStarter/LocalMultiplayerGameStarter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/ISnakeTail.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/ISnakeTail.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/LocalMultiplayerSnakeTail.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/LocalMultiplayerSnakeTail.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/PlayerKillers/IPlayerKiller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/PlayerKillers/IPlayerKiller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/PlayerKillers/LocalMultiplayerPlayerKiller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/PlayerKillers/LocalMultiplayerPlayerKiller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PhotonLobby/PhotonLobbyFirstPage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PhotonLobby/PhotonLobbyFirstPage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Fruit.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Fruit.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/SnakeHead.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/SnakeHead.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/SnakePoint.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/SnakePoint.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiNetwork/SyncedObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiNetwork/SyncedObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiNetwork/SyncedTransform.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiNetwork/SyncedTransform.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +117,7 @@
       <updated>1763460887346</updated>
       <workItem from="1763460891292" duration="4213000" />
       <workItem from="1764081162693" duration="8648000" />
-      <workItem from="1764153828246" duration="2602000" />
+      <workItem from="1764153828246" duration="6036000" />
     </task>
     <servers />
   </component>
