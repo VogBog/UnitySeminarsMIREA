@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e5c74e2d-d39a-4760-9864-dbc0e7e7c92a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnitySeminarsMIREA/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/DefaultNetworkPrefabs.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultNetworkPrefabs.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Base/GameServices.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Base/GameServices.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/FruitsSpawner/PhotonFruitsSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/FruitsSpawner/PhotonFruitsSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameFinisher/PhotonGameFinisher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameFinisher/PhotonGameFinisher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameStarter/PhotonGameStarter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameStarter/PhotonGameStarter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PhotonSnakeTail.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PhotonSnakeTail.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PhotonLobby/PhotonLobbySecondPage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PhotonLobby/PhotonLobbySecondPage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/SnakeTail.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/SnakeTail.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +102,7 @@
       <updated>1763460887346</updated>
       <workItem from="1763460891292" duration="4213000" />
       <workItem from="1764081162693" duration="8648000" />
-      <workItem from="1764153828246" duration="7450000" />
+      <workItem from="1764153828246" duration="8496000" />
     </task>
     <servers />
   </component>

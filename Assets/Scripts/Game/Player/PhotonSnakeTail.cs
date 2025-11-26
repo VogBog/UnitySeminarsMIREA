@@ -61,6 +61,7 @@ namespace Game.Player
             
             var point = go.GetComponent<SnakePoint>();
             var view = go.GetComponent<PhotonView>();
+            
             AddNewPoint?.Invoke(point);
             
             int viewId = view.ViewID;

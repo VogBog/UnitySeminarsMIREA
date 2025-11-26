@@ -43,7 +43,8 @@ namespace Game.Player
             {
                 _tail.Instantiate(data.LastPoint, Quaternion.identity, point =>
                 {
-                    _snakePoints.Add(point);
+                    if(!_snakePoints.Contains(point))
+                        _snakePoints.Add(point);
                 });
             });
         }
