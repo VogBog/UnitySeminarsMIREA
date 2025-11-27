@@ -13,29 +13,37 @@ namespace LocalMultiplayerPage
         [SerializeField] private Button _startBtn;
         [SerializeField] private Button _quitBtn;
 
+        private ILobby _lobby;
+
         public event Action StartClicked;
         public event Action QuitClicked;
         
-        public void Initialize(LocalMultiplayerLobby lobby, string ip)
+        public void Initialize(ILobby lobby, string ip)
         {
             UpdateText(ip, 1);
             
             _startBtn.onClick.AddListener(OnStartClicked);
             _quitBtn.onClick.AddListener(OnQuitClicked);
-
+            
+            _lobby = lobby;
             lobby.PlayersCountChanged += OnPlayersCountChanged;
         }
 
         private void OnPlayersCountChanged(int count)
         {
             ShowPage();
-            string ip = LocalMultiplayerPage.GetUnityTransport().ConnectionData.Address;
+            string ip = _lobby.GetRoomName();
             UpdateText(ip, count);
         }
 
         public void ShowPage()
         {
             _parent.SetActive(true);
+        }
+
+        public void HidePage()
+        {
+            _parent.SetActive(false);
         }
 
         public void UpdateText(string ip, int playersCount)

@@ -31,6 +31,12 @@ namespace MainMenu
             SceneManager.LoadScene(3);
         }
 
+        public void OpenPhotonPage()
+        {
+            StaticParameters.NetworkType = StaticParameters.NetworkTypes.Photon;
+            SceneManager.LoadScene(4);
+        }
+
         public void CloseLeaderboard()
         {
             _leaderboard.SetActive(false);

@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LocalMultiplayer.unity
     guid: dc0f69bd83873b043ba6a46f2f3bf485
+  - enabled: 1
+    path: Assets/Scenes/PhotonLobby.unity
+    guid: c0bc98d16606779438c661ce4407c473
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

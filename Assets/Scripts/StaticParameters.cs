@@ -17,7 +17,8 @@ namespace Global
         public enum NetworkTypes
         {
             Single,
-            LocalMultiplayer
+            LocalMultiplayer,
+            Photon
         };
         
         public static int PlayersCount = 1;

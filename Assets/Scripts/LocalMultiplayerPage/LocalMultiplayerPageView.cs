@@ -47,5 +47,10 @@ namespace LocalMultiplayerPage
         {
             _parent.SetActive(true);
         }
+
+        public void HidePage()
+        {
+            _parent.SetActive(false);
+        }
     }
 }

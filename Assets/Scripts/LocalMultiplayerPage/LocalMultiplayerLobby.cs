@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace LocalMultiplayerPage
 {
-    public class LocalMultiplayerLobby : NetworkBehaviour
+    public class LocalMultiplayerLobby : NetworkBehaviour, ILobby
     {
         [SerializeField] private LocalMultiplayerLobbyView _view;
 
@@ -15,8 +15,8 @@ namespace LocalMultiplayerPage
         private bool _isStarting = false;
 
         public event Action Quitted;
-        public event Action<int> PlayersCountChanged; 
-        
+        public event Action<int> PlayersCountChanged;
+
         private void Awake()
         {
             _view.Initialize(this, LocalMultiplayerPage.GetUnityTransport().ConnectionData.Address);
@@ -35,6 +35,8 @@ namespace LocalMultiplayerPage
             
             base.OnDestroy();
         }
+        
+        public string GetRoomName() => LocalMultiplayerPage.GetUnityTransport().ConnectionData.Address;
 
         private void OnClientConnected(ulong id)
         {
