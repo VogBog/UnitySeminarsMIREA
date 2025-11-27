@@ -84,7 +84,7 @@ namespace PhotonMultiplayerPage
         private void CreateRoom(string roomName)
         {
             _view.HidePage();
-            PhotonNetwork.JoinOrCreateRoom(
+            PhotonNetwork.CreateRoom(
                 roomName,
                 new RoomOptions
                 {
