@@ -29,6 +29,7 @@ namespace Game.PhotonMultiplayer
         public IEnumerator Instantiate(CarMovement prefab, Vector3 position, Quaternion rotation, Action<CarMovement> onSpawn)
         {
             _spawned = false;
+            _isMyCar = false;
             
             foreach (var player in PhotonNetwork.CurrentRoom.Players.Values)
             {
@@ -36,12 +37,12 @@ namespace Game.PhotonMultiplayer
                     continue;
                 
                 _spawnedActorNumbers.Add(player.ActorNumber);
-
-                _isMyCar = player.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber;
+                
                 _spawned = false;
                 _onSpawn = car =>
                 {
                     _spawned = true;
+                    _isMyCar = player.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber;
                     onSpawn?.Invoke(car);
                 };
                 
@@ -69,6 +70,8 @@ namespace Game.PhotonMultiplayer
             if (PhotonNetwork.LocalPlayer.ActorNumber != actorNumber)
                 return;
 
+            _isMyCar = true;
+            
             var go = PhotonNetwork.Instantiate(prefabName, position, rotation);
             var photonView = go.GetComponent<PhotonView>();
             int viewId = photonView.ViewID;
@@ -77,6 +80,8 @@ namespace Game.PhotonMultiplayer
             var car = go.GetComponent<CarMovement>();
             if(car != null)
                 MustInitialize?.Invoke(car);
+
+            _isMyCar = false;
         }
 
         [PunRPC]

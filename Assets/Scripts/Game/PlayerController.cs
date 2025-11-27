@@ -9,6 +9,11 @@ namespace Game
         
         public event Action<Vector2> Move;
 
+        private void Awake()
+        {
+            enabled = false;
+        }
+
         public void WaitForStart(GameUI ui)
         {
             enabled = false;
