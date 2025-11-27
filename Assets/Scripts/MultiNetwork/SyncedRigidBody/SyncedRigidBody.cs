@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Global;
+using Photon.Pun;
 using Unity.Netcode.Components;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace MultiNetwork.SyncedRigidBody
         {
             components.Add(typeof(Rigidbody));
             components.Add(typeof(NetworkRigidbody));
+            components.Add(typeof(PhotonRigidbodyView));
         }
 
         protected override void RemoveRedundantComponents(StaticParameters.NetworkTypes type, Dictionary<Type, Component> components)
@@ -26,7 +28,13 @@ namespace MultiNetwork.SyncedRigidBody
                 Destroy(network);
             }
 
-            if (type is StaticParameters.NetworkTypes.Single &&
+            if (type is not StaticParameters.NetworkTypes.Photon &&
+                components.TryGetValue(typeof(PhotonRigidbodyView), out var photonView))
+            {
+                Destroy(photonView);
+            }
+
+            if (type is not StaticParameters.NetworkTypes.LocalMultiplayer &&
                 _setIsKinematicOnStart &&
                 components.TryGetValue(typeof(Rigidbody), out var component) &&
                 component is Rigidbody rb)
