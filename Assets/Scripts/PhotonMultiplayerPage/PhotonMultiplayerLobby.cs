@@ -1,4 +1,5 @@
 using System;
+using Global;
 using LocalMultiplayerPage;
 using Photon.Pun;
 using Photon.Realtime;
@@ -54,13 +55,20 @@ namespace PhotonMultiplayerPage
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
             base.OnPlayerEnteredRoom(newPlayer);
-            PlayersCountChanged?.Invoke(PhotonNetwork.CurrentRoom?.PlayerCount ?? 0);
+            UpdatePlayersCount();
         }
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
             base.OnPlayerLeftRoom(otherPlayer);
-            PlayersCountChanged?.Invoke(PhotonNetwork.CurrentRoom?.PlayerCount ?? 0);
+            UpdatePlayersCount();
+        }
+
+        public void UpdatePlayersCount()
+        {
+            int playersCount = PhotonNetwork.CurrentRoom?.PlayerCount ?? 0;
+            StaticParameters.PlayersCount = playersCount;
+            PlayersCountChanged?.Invoke(playersCount);
         }
     }
 }

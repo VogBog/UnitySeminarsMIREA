@@ -1,3 +1,4 @@
+using Global;
 using LocalMultiplayerPage;
 using Photon.Pun;
 using Photon.Realtime;
@@ -19,7 +20,8 @@ namespace PhotonMultiplayerPage
             _view.JoinClicked += JoinRoom;
             _view.QuitClicked += Quit;
             _lobby.Quitted += Quit;
-            
+
+            StaticParameters.NetworkType = StaticParameters.NetworkTypes.Photon;
             _view.HidePage();
 
             PhotonNetwork.AutomaticallySyncScene = true;
