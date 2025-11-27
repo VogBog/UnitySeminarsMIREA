@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Network.LocalMultiplayer;
+using Network.PhotonMultiplayer;
 using Unity.Netcode;
 
 namespace Network.General
@@ -19,11 +20,18 @@ namespace Network.General
         protected override void AddRequireComponents(List<Type> components)
         {
             components.Add(typeof(LocalMultiplayerPlayerSync));
+            components.Add(typeof(PhotonMultiplayerPlayerSync));
         }
 
         protected override void IsNotLocalMultiplayer()
         {
             var playerSync = GetComponent<LocalMultiplayerPlayerSync>();
+            Destroy(playerSync);
+        }
+
+        protected override void IsNotPhotonMultiplayer()
+        {
+            var playerSync = GetComponent<PhotonMultiplayerPlayerSync>();
             Destroy(playerSync);
         }
 

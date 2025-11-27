@@ -19,7 +19,7 @@ MonoBehaviour:
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
-    FixedRegion: 
+    FixedRegion: ru
     Server: 
     Port: 0
     ProxyServer: 
@@ -36,6 +36,12 @@ MonoBehaviour:
   RpcList:
   - ClickRpc
   - DestroyRpc
+  - InstantiateCallback
+  - InstantiateRpc
+  - InteractRpc
+  - InteractServerRpc
+  - PlayerDamagedRpc
+  - PlayerDiedRpc
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0

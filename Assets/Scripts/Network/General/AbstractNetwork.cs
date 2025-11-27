@@ -18,6 +18,9 @@ namespace Network.General
             if(StaticParameters.GameType is not GameTypes.LocalMultiplayer)
                 IsNotLocalMultiplayer();
             
+            if(StaticParameters.GameType is not GameTypes.Photon)
+                IsNotPhotonMultiplayer();
+            
             if(DestroyAfterAwake)
                 Destroy(this);
         }
@@ -44,6 +47,7 @@ namespace Network.General
         protected abstract void AddRequireComponents(List<Type> components);
 
         protected abstract void IsNotLocalMultiplayer();
+        protected abstract void IsNotPhotonMultiplayer();
 
         protected virtual void OnValidate()
         {
