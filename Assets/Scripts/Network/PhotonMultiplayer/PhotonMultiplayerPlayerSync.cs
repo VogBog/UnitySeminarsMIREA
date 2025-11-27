@@ -28,6 +28,7 @@ namespace Network.PhotonMultiplayer
             _photonView.RPC(nameof(StoppedChangedRpc), RpcTarget.All, stopped);
         }
         
+        [PunRPC]
         private void StoppedChangedRpc(bool value)
         {
             if (_photonView.IsMine)

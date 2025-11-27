@@ -2,6 +2,7 @@ using System;
 using Global;
 using MainMenu;
 using Network.LocalMultiplayer;
+using Network.PhotonMultiplayer;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,6 +21,7 @@ namespace Game
                 GameTypes.Single => this,
                 GameTypes.SplitScreen => this,
                 GameTypes.LocalMultiplayer => GetLocalMultiplayerPolitics(spawner),
+                GameTypes.Photon => GetPhotonMultiplayerPolitics(spawner),
                 _ => throw new NotImplementedException()
             };
         }
@@ -60,6 +62,15 @@ namespace Game
             if(playersSpawner == null)
                 throw new NullReferenceException("PlayersSpawner must have LocalMultiplayerPlayersSpawner");
 
+            return playersSpawner;
+        }
+
+        private IPlayerSpawnerPolitics GetPhotonMultiplayerPolitics(PlayersSpawner spawner)
+        {
+            var playersSpawner = spawner.GetComponentInChildren<PhotonMultiplayerPlayersSpawner>();
+            if(playersSpawner == null)
+                throw new NullReferenceException("PlayersSpawner must have PhotonMultiplayerPlayersSpawner");
+            
             return playersSpawner;
         }
     }

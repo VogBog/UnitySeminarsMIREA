@@ -36,6 +36,12 @@ namespace MainMenu
             SceneManager.LoadScene(4);
         }
 
+        public void OpenPhotonMultiplayerScene()
+        {
+            StaticParameters.GameType = GameTypes.Photon;
+            SceneManager.LoadScene(5);
+        }
+
         public int GetSceneIndexByPlayersCount(int playersCount) =>
             playersCount switch
             {
