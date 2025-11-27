@@ -2,6 +2,7 @@ using LocalMultiplayerPage;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace PhotonMultiplayerPage
 {
@@ -45,7 +46,7 @@ namespace PhotonMultiplayerPage
         public override void OnDisconnected(DisconnectCause cause)
         {
             base.OnDisconnected(cause);
-            Quit();
+            SceneManager.LoadScene(0);
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
