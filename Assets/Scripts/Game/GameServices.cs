@@ -1,4 +1,5 @@
 using Game.LocalMultiplayer;
+using Game.PhotonMultiplayer;
 using Global;
 
 namespace Game
@@ -8,11 +9,22 @@ namespace Game
         public static ICarsSpawner CreateCarsSpawner()
         {
             var lm = UnityEngine.Object.FindFirstObjectByType<LocalMultiplayerCarsSpawner>();
-            
-            if(StaticParameters.NetworkType is StaticParameters.NetworkTypes.LocalMultiplayer)
+            var photon = UnityEngine.Object.FindFirstObjectByType<PhotonCarsSpawner>();
+
+            if (StaticParameters.NetworkType is StaticParameters.NetworkTypes.LocalMultiplayer)
+            {
+                UnityEngine.Object.Destroy(photon);
                 return lm;
+            }
+
+            if (StaticParameters.NetworkType is StaticParameters.NetworkTypes.Photon)
+            {
+                UnityEngine.Object.Destroy(lm);
+                return photon;
+            }
             
             UnityEngine.Object.Destroy(lm);
+            UnityEngine.Object.Destroy(photon);
             return new SimpleCarsSpawner();
         }
 
@@ -20,6 +32,9 @@ namespace Game
         {
             if(StaticParameters.NetworkType is StaticParameters.NetworkTypes.LocalMultiplayer)
                 return new LocalMultiplayerGameFinisher();
+            
+            if(StaticParameters.NetworkType is StaticParameters.NetworkTypes.Photon)
+                return new PhotonGameFinisher();
 
             return new SimpleGameFinisher();
         }
