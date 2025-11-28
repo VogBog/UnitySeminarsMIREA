@@ -40,7 +40,11 @@ namespace Network.PhotonMultiplayer
 
         public void DestroyPlayer(Player player)
         {
-            PhotonNetwork.Destroy(player.gameObject);
+            if (player.TryGetComponent(out PhotonView photonView) &&
+                photonView.IsMine)
+            {
+                PhotonNetwork.Destroy(player.gameObject);
+            }
         }
 
         public void LoadScene(int sceneIndex)
