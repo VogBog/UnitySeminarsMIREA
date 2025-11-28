@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Base;
 using Unity.Netcode;
 using UnityEngine;
@@ -49,10 +50,21 @@ namespace Game.Player
             InstantiateClientRpc(id);
         }
 
-        public void Despawn(SnakePoint point)
+        public void DespawnAllPoints()
         {
-            var networkObject = point.GetComponent<NetworkObject>();
-            networkObject.Despawn();
+            DespawnAllPointsServerRpc();
+        }
+
+        [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+        private void DespawnAllPointsServerRpc()
+        {
+            var points = _tail.SnakePointsCopy
+                .Select(x => x.GetComponent<NetworkObject>());
+            
+            foreach (var networkObject in points)
+            {
+                networkObject?.Despawn();
+            }
         }
 
         public void CalculateDataForAddLength(Action<SnakeTailCalculationData> onCalculationData)

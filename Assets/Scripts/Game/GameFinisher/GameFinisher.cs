@@ -42,7 +42,11 @@ namespace Game.GameFinisher
             if (_finisher.IsServer() && !allPlayersDied)
                 yield break;
             
-            _finisher.QuitFromGame();
+            if(_finisher.IsServer())
+                _finisher.ServerQuitFromGame();
+            else
+                _finisher.QuitFromGame();
+            
             SceneManager.LoadScene((int)Scenes.MainMenu);
         }
 

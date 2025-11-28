@@ -41,6 +41,7 @@ namespace Game.Player
             SnakeTail.DieAll();
             Controller.Stop();
             _cameras.SwitchCamera(this);
+            transform.position += Vector3.down * 5f;
 
             Died?.Invoke(this);
         }

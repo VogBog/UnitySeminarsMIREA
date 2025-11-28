@@ -10,5 +10,6 @@ namespace Game.GameFinisher
         bool IsServer();
         void InvokeDiedToOwner(Player.Player player);
         void QuitFromGame();
+        void ServerQuitFromGame();
     }
 }

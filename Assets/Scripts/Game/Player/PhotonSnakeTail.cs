@@ -109,9 +109,13 @@ namespace Game.Player
             Debug.LogError($"Something went wrong. Cannot instantiate view {id}");
         }
 
-        public void Despawn(SnakePoint point)
+        public void DespawnAllPoints()
         {
-            PhotonNetwork.Destroy(point.gameObject);
+            var points = _tail.SnakePointsCopy;
+            foreach (var point in points)
+            {
+                PhotonNetwork.Destroy(point.gameObject);
+            }
         }
 
         public void CalculateDataForAddLength(Action<SnakeTailCalculationData> onCalculationData)

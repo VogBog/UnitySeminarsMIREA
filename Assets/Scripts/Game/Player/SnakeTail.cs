@@ -17,6 +17,8 @@ namespace Game.Player
 
         public const float DangerRadius = 0.7f;
 
+        public List<SnakePoint> SnakePointsCopy => new(_snakePoints);
+
         private void Awake()
         {
             _tail = GameServices.CreateSnakeTail(this);
@@ -92,10 +94,7 @@ namespace Game.Player
         public void DieAll()
         {
             _die = true;
-            foreach (var i in _snakePoints)
-            {
-                _tail.Despawn(i);
-            }
+            _tail.DespawnAllPoints();
         }
 
         private void OnNewPointAdded(SnakePoint point)

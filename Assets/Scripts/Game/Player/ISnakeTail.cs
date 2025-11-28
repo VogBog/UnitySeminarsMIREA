@@ -12,7 +12,7 @@ namespace Game.Player
         
         void SetPrefab(SnakePoint prefab);
         void Instantiate(Vector3 position, Quaternion rotation, Action<SnakePoint> onSpawn);
-        void Despawn(SnakePoint point);
+        void DespawnAllPoints();
 
         void CalculateDataForAddLength(Action<SnakeTailCalculationData> onCalculationData);
     }
