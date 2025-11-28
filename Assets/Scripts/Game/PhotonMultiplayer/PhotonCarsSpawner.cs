@@ -9,6 +9,7 @@ namespace Game.PhotonMultiplayer
     public class PhotonCarsSpawner : MonoBehaviour, ICarsSpawner
     {
         private readonly List<int> _spawnedActorNumbers = new();
+        private readonly List<int> _readyPlayers = new();
         private Action<CarMovement> _onSpawn;
         private bool _spawned = false;
         private bool _isMyCar = false;
@@ -20,6 +21,24 @@ namespace Game.PhotonMultiplayer
         private void Awake()
         {
             _photonView = GetComponent<PhotonView>();
+        }
+
+        public bool IsAllPlayersReady() => _readyPlayers.Count == PhotonNetwork.CurrentRoom.PlayerCount;
+
+        public void SendReadyMessageToServer()
+        {
+            if (_photonView == null)
+                return;
+
+            int id = PhotonNetwork.LocalPlayer.ActorNumber;
+            _photonView.RPC(nameof(SendReadyMessageServerRpc), RpcTarget.MasterClient, id);
+        }
+
+        [PunRPC]
+        private void SendReadyMessageServerRpc(int id)
+        {
+            if(!_readyPlayers.Contains(id))
+                _readyPlayers.Add(id);
         }
 
         public bool CanSpawnCars() => PhotonNetwork.IsMasterClient;

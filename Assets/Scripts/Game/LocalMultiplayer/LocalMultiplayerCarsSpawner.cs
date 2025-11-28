@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
@@ -10,9 +11,28 @@ namespace Game.LocalMultiplayer
     {
         private int _spawnedCars = 0;
         private bool _isMyCar = false;
+        private bool _isAllPlayersReady = false;
+        private readonly List<ulong> _readyPlayers = new();
         
-        public event Action<CarMovement> MustInitialize; 
-        
+        public event Action<CarMovement> MustInitialize;
+
+        public bool IsAllPlayersReady() => _isAllPlayersReady;
+
+        public void SendReadyMessageToServer()
+        {
+            SendReadyMessageServerRpc(NetworkManager.LocalClientId);
+        }
+
+        [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+        private void SendReadyMessageServerRpc(ulong id)
+        {
+            if(!_readyPlayers.Contains(id))
+                _readyPlayers.Add(id);
+
+            if (_readyPlayers.Count == NetworkManager.ConnectedClientsIds.Count)
+                _isAllPlayersReady = true;
+        }
+
         public bool CanSpawnCars() => IsServer;
 
         public bool AddCameraAndMovement() => _isMyCar;

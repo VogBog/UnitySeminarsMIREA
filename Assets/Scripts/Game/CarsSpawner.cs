@@ -12,6 +12,7 @@ namespace Game
 
         private ICarsSpawner _spawner;
         private int _playerIndex = 0;
+        private bool _carInitialized;
         
         private void Start()
         {
@@ -21,10 +22,23 @@ namespace Game
             
             if(_spawner.CanSpawnCars())
                 StartCoroutine(SpawnPlayers(playersCount));
+
+            StartCoroutine(SendReadyMessagesToServer());
+        }
+
+        private IEnumerator SendReadyMessagesToServer()
+        {
+            while (!_carInitialized)
+            {
+                _spawner.SendReadyMessageToServer();
+                yield return new WaitForSeconds(0.1f);
+            }
         }
 
         private IEnumerator SpawnPlayers(int count)
         {
+            yield return new WaitUntil(() => _spawner.IsAllPlayersReady());
+            
             var cameras = new List<Camera>();
             
             for (int i = 0; i < count; i++)
@@ -45,6 +59,8 @@ namespace Game
 
         private void InitializeCar(CarMovement movement)
         {
+            _carInitialized = true;
+            
             if (!_spawner.AddCameraAndMovement())
                 return;
                     

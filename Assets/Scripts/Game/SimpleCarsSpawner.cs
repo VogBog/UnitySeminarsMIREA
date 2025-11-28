@@ -7,7 +7,14 @@ namespace Game
     public class SimpleCarsSpawner : ICarsSpawner
     {
         public event Action<CarMovement> MustInitialize;
-        
+
+        public bool IsAllPlayersReady() => true;
+
+        public void SendReadyMessageToServer()
+        {
+            
+        }
+
         public bool CanSpawnCars() => true;
 
         public bool AddCameraAndMovement() => true;
